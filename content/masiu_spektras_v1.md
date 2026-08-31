@@ -220,7 +220,7 @@ Izotopomerai skirstomi į dvi pagrindines grupes:
 | :--- | :--- | :--- |
 | **Kas skiriasi molekulėje?** | Izotopų skaičius ir sudėtis formulėje | Izotopų padėtis (topologija) molekulėje |
 | **Molekulinė formulė** | Skiriasi (pvz., $\text{C}_3\text{H}_8$ vs $\text{C}_3\text{H}_7\text{D}$) | Identiška (abi molekulės yra $\text{C}_3\text{H}_7\text{D}$) |
-| **Tikslioji masė ($m/z$)** | **Skirtinga** ($\Delta m \approx 1,003 - 2,014\text{ Da}$) | **Identiška** ($\Delta m = 0,00000\text{ Da}$) |
+| **Tikslioji masė ($m/z$)** | **Skirtinga** ($\Delta m \approx 1,003\text{ Da}$) | **Identiška** ($\Delta m = 0,00000\text{ Da}$) |
 | **Atskyrimas MS1 spektre** | **Taip**, matomos atskiros smailės ($M, M+1, M+2\dots$) | **Ne**, sutampa toje pačioje smailėje |
 | **Reikalingas HRAM prietaisas?** | Dažnai pakanka net žemos skiriamosios gebos | Neišsprendžiama net su FT-ICR (21 Tesla) |
 | **Atskyrimo metodas** | Tiesioginė MS1 registracija | Tandeminė MS/MS (CID) arba BMR spektroskopija |
@@ -230,6 +230,8 @@ Vienos pakopos masių spektrometrijoje (MS1) jonai atskiriami griežtai pagal j�
 * **Izotopomerai**, turėdami tą patį protonų, neutronų ir elektronų skaičių, turi identišką branduolių ryšio energiją ir masės defektą. Todėl 1-deuteropropano ir 2-deuteropropano jonai analizatoriaus elektriniuose ar magnetiniuose laukuose elgiasi visiškai vienodai. 
 
 Norint nustatyti, kurioje molekulės vietoje yra sunkusis izotopas, **būtina kovalentiškai suardyti molekulę** ir nustatyti susidariusių fragmentų mases. Būtent tai atlieka tandeminė masių spektrometrija (MS/MS).
+
+
 
 
 #### X+1 bei X+2 izotopai bei su jais susijusios smailės
@@ -360,69 +362,286 @@ Esant žemesnei skiriamajai gebai arba tiriant labai didelius baltymus, stebimi 
 
 Šioje skiltyje pateikiamos teorinės užduotys, kurias turite išspręsti, kad pasitikrintumėte žinias.
 
+
 ::::exercise
-### 1 užduotis: Molekulinio jono masė
-Apskaičiuokite nominaliąją ir tiksliąją [M+H]+ jono masę vandens molekulei ($H_2O$), žinodami tiksliąsias mases: $^{1}\text{H} = 1.007825\text{ Da}$, $^{16}\text{O} = 15.994915\text{ Da}$.
+
+### 1 Užduotis: Adukto nustatymas ir $m/z$ prognozavimas
+Nesteroidinio vaisto nuo uždegimo **ibuprofeno** formulė yra $\text{C}_{13}\text{H}_{18}\text{O}_2$ (nominalioji molekulinė masė $M = 206{,}1307\text{ Da}$, tiksli monoizotopinė masė $M = 206{,}1307\text{ Da}$).
+1. ESI(+) spektre stebima intensyvi smailė ties nominalia verte $m/z = 229$. Koks tai aduktas?
+2. Kokios tiksliosios $m/z$ vertės reikėtų tikėtis ESI(−) spektre, jei susidaro deprotonizuotas jonas $[M-\text{H}]^-$? *(protono masė $m(\text{H}) = 1{,}0073\text{ Da}$)*.
+
 
 :::solution
-1. **Nominalioji masė**:
-   $$M = 2 \times 1 + 16 = 18\text{ Da}$$
-   $$[M+H]^+ = 18 + 1 = 19\text{ Da}$$
+#### Sprendimas:
+1. **Adukto nustatymas ESI(+):**
+   * Masės poslinkis: $\Delta m = (m/z)_{\text{stebimas}} - M_{\text{nominali}} = 229 - 206 = 23\text{ Da}$.
+   * Poslinkis $+23\text{ Da}$ teigiamų jonų režime būdingas natrio katijono prisijungimui ($^{23}\text{Na}^+$).
+   * **Atsakymas:** Stebimas jonas yra natrio aduktas **$[M+\text{Na}]^+$**.
 
-2. **Tikslioji masė**:
-   $$M = 2 \times 1.007825 + 15.994915 = 18.010565\text{ Da}$$
-   $$[M+H]^+ = 18.010565 + 1.007825 = 19.01839\text{ Da}$$
+2. **ESI(−) deprotonizuoto jono $m/z$ skaičiavimas:**
+   * Molekulė netenka vieno protono: $[M-\text{H}]^-$.
+   * $(m/z)_{\text{teor}} = M_{\text{tiksli}} - m(\text{H}) = 206{,}1307 - 1{,}0073 = 205{,}1234$.
+   * **Atsakymas:** Tikėtina smailė ESI(−) spektre bus ties **$m/z = 205{,}1234$**.
+:::
+::::
 
-**Atsakymas:** Nominalioji [M+H]+ masė yra 19 Da, tikslioji [M+H]+ masė yra 19.01839 Da.
+
+::::exercise
+
+### 2 Užduotis: Adukto formulavimas ESI(+) režime nežinomam metabolitui
+Tiriant kraujo plazmos mėginį ESI(+) režimu, esant tai pačiai sulaikymo trukmei chromatogramoje užregistruotos dvi susijusios smailės: $m/z = 181{,}0859$ ir $m/z = 203{,}0678$. 
+Nustatykite:
+1. Koks masės skirtumas skiria šias smailes ir kokius aduktus jos atitinka?
+2. Kokia yra neutralios molekulės tikslioji masė?
+
+:::solution
+#### Sprendimas:
+1. **Smailių skirtumas:**
+   * $\Delta(m/z) = 203{,}0678 - 181{,}0859 = 21{,}9819\text{ Da}$.
+   * Žinome, kad skirtumas tarp protonizuoto $[M+\text{H}]^+$ ir natrio adukto $[M+\text{Na}]^+$ yra:
+     $$m(\text{Na}) - m(\text{H}) = 22{,}9898 - 1{,}0073 = 21{,}9825\text{ Da}$$
+   * Vadinasi, $m/z = 181{,}0859$ atitinka **$[M+\text{H}]^+$**, o $m/z = 203{,}0678$ atitinka **$[M+\text{Na}]^+$**.
+2. **Neutralios molekulės masė:**
+   * $M = (m/z)_{[M+\text{H}]^+} - m(H^+) = 181{,}0859 - 1{,}0073 = 180{,}0786\text{ Da}$ (atitinka heksozę / gliukozę $\text{C}_6\text{H}_{12}\text{O}_6$).
+   * **Atsakymas:** Neutralios molekulės tikslioji masė yra **$180{,}0786\text{ Da}$**.
 :::
 ::::
 
 ::::exercise
-### 2 užduotis: Azoto taisyklės taikymas
-Junginio nominalioji masė yra $149\text{ Da}$. Ką galite pasakyti apie azoto atomų skaičių šiame junginyje remiantis azoto taisykle?
+### 3 Užduotis: Halogenų (Cl, Br) ir sieros atpažinimas pagal $M+2$ smailę
+EI-MS spektre stebimas molekulinis jonas $M^{\bullet+}$ su būdingu izotopiniu klasteriu:
+* $m/z = 112$ ($I = 100\,\%$)
+* $m/z = 113$ ($I = 6{,}8\,\%$)
+* $m/z = 114$ ($I = 32{,}5\,\%$)
 
+1. Koks heteroatomas lemia smailės $m/z = 114$ intensyvumą?
+2. Koks būtų santykinis $M+2$ smailės intensyvumas, jei junginyje vietoj šio elemento būtų:
+   * a) Vienas bromo atomas?
+   * b) Vienas sieros atomas?
 :::solution
-Pagal azoto taisyklę, organiniai junginiai su nelygine molekuline mase privalo turėti nelyginį azoto atomų skaičių (pvz., 1, 3, 5 ir t.t.). Kadangi $149\text{ Da}$ yra nelyginis skaičius, šis junginys turi bent vieną azoto atomą.
+#### Sprendimas:
+1. **Elemento nustatymas:**
+   * Smailė $m/z = 114$ yra $M+2$ smailė. Jos intensyvumas yra $32{,}5\,\%$ bazinės smailės $M$ (100 %) atžvilgiu.
+   * Šis santykis ($\approx 3:1$) yra unikalus **chlorui** ($^{35}\text{Cl} \approx 75{,}8\,\%$, $^{37}\text{Cl} \approx 24{,}2\,\%$, todėl $^{37}\text{Cl}/^{35}\text{Cl} \approx 32{,}5\,\%$).
+   * **Atsakymas:** Junginyje yra **vienas chloras (Cl)** (tiriamas junginys – chlorbenzenas, $\text{C}_6\text{H}_5\text{Cl}$).
 
-**Atsakymas:** Junginys turi nelyginį azoto atomų skaičių.
+2. **Palyginimas su kitais elementais:**
+   * **a) Bromas ($\text{Br}$):** $^{79}\text{Br}$ ir $^{81}\text{Br}$ paplitimas gamtoje beveik vienodas ($1:1$). Jei junginyje būtų 1 Br atomas, $M+2$ smailės intensyvumas būtų **$\approx 97 - 98\,\%$** bazinės smailės aukščio.
+   * **b) Siera ($\text{S}$):** $^{34}\text{S}$ natūralus paplitimas yra apie $4{,}4\,\%$. Jei junginyje būtų tik 1 S atomas (be kitų X+2 elementų), $M+2$ smailės intensyvumas siektų vos **$\approx 4{,}4\,\%$**.
+
 :::
 ::::
 
 ::::exercise
-### 3 užduotis: $^{13}\text{C}$ izotopo intensyvumas
-Apskaičiuokite teorinį $M+1$ smailės intensyvumą dekano molekulei ($C_{10}H_{22}$), darant prielaidą, kad tik anglies atomai prisideda prie $M+1$ signalo (natūralus $^{13}\text{C}$ paplitimas yra $1.1\%$).
-
+### 4 Užduotis: Polihalogenintų junginių klasterio prognozavimas
+Pesticido fungicido dichlorano formulėje yra du chloro atomai ($\text{Cl}_2$). 
+Apskaičiuokite teorinį izotopinį smailių $M$, $M+2$ ir $M+4$ intensyvumo santykį, atsižvelgiant į tai, kad chloro izotopų santykis $^{35}\text{Cl} : ^{37}\text{Cl} \approx 3 : 1$.
 :::solution
-M+1 smailės intensyvumas skaičiuojamas pagal formulę:
-$$I(M+1) \approx N_C \times 1.1\% \times I(M)$$
-Kur $N_C$ yra anglies atomų skaičius.
-$$I(M+1) = 10 \times 1.1\% = 11.0\%$$
-
-**Atsakymas:** Santykinis M+1 smailės intensyvumas bus apie 11.0% pagrindinės M smailės atžvilgiu.
+#### Sprendimas:
+* Taikome binominį skaidinį $(a + b)^n$, kur $n = 2$ (chloro atomų skaičius), $a = 3$ ($^{35}\text{Cl}$), $b = 1$ ($^{37}\text{Cl}$):
+  $$(3 + 1)^2 = 3^2 + 2 \cdot (3 \cdot 1) + 1^2 = 9 : 6 : 1$$
+* Čia:
+  * $M$ (abu $^{35}\text{Cl}$): dalis lygi $9$.
+  * $M+2$ (vienas $^{35}\text{Cl}$ ir vienas $^{37}\text{Cl}$): dalis lygi $6$.
+  * $M+4$ (abu $^{37}\text{Cl}$): dalis lygi $1$.
+* Normalizuojant $M = 100\,\%$:
+  * $M = 100\,\%$
+  * $M+2 = \frac{6}{9} \times 100\,\% = 66{,}7\,\%$
+  * $M+4 = \frac{1}{9} \times 100\,\% = 11{,}1\,\%$
+* **Atsakymas:** Santykis yra **$9 : 6 : 1$** (arba $100\,\% : 66{,}7\,\% : 11{,}1\,\%$).
 :::
 ::::
 
 ::::exercise
-### 4 užduotis: Kvadrupolio krūvis
-Jonas su masės ir krūvio santykiu $m/z = 400$ patenka į kvadrupolį. Jei jono krūvis $z = 2$, kokia yra tikroji šio jono masė ($m$)?
+### 5 Uždavinys: Anglies atomų skaičiaus ($n_C$) nustatymas ir pagrindinė izotopinė smailė
+1. Nežinomo organinio junginio MS spektre matoma molekulinė smailė $M$ ties $m/z = 180$ ($I = 100\,\%$) ir $M+1$ smailė ties $m/z = 181$ ($I = 12{,}3\,\%$). Nustatykite anglies atomų skaičių molekulėje $\pm 1$ atomo tikslumu.
+2. Tiriamas sintetinis polimerinis oligopeptidas, kurio formulėje yra **$n_C = 110$** anglies atomų. 
+   * Apskaičiuokite teorinį $M+1$ smailės intensyvumą lyginant su monoizotopine smaile $M$ ($I_M = 100\,\%$).
+   * Kuri smailė ($M$ ar $M+1$) spektre bus intensyvesnė?
 
 :::solution
-Iš formulės:
-$$m/z = X \implies m = X \times z$$
-Turime:
-$$m = 400 \times 2 = 800\text{ Da}$$
+#### Sprendimas:
+1. **Anglies kiekio nustatymas:**
+   * Žinoma formulė: $n_C \approx \frac{\%[M+1]}{1{,}1\,\% \cdot \%[M]} \times 100\,\%$.
+   * $n_C \approx \frac{12{,}3}{1{,}1} \approx 11{,}18 \approx 11$.
+   * **Atsakymas:** Molekulėje yra **11 anglies atomų** ($\pm 1$).
 
-**Atsakymas:** Tikroji jono masė yra 800 Da.
+2. **Didelės biomolekulės ($n_C = 110$) analizė:**
+   * Tikėtinas $M+1$ intensyvumas:
+     $$I_{M+1} \approx n_C \times 1{,}1\,\% \times I_M = 110 \times 1{,}1\,\% \times 100\,\% = 121\,\%$$
+   * **Atsakymas:** $M+1$ smailės intensyvumas sieks **$121\,\%$** monoizotopinės smailės aukščio. Tai reiškia, kad **$M+1$ smailė bus intensyvesnė už monoizotopinę smailę $M$**, todėl bazinė smailė šiame izotopiniame voke pasislenka į dešinę.
+
 :::
 ::::
 
 ::::exercise
-### 5 užduotis: McLafferty skilimas
-Nurodykite, kokia yra pagrindinė McLafferty persigrupavimo sąlyga organinės molekulės struktūroje.
+### 6 Užduotis: Masės paklaidos (ppm) skaičiavimas
+Atliekama dopingo kontrolė. Šlapimo mėginyje įtariamas stimuliatorius **amfetaminas** ($\text{C}_9\text{H}_{13}\text{N}$).
+* Teorinė protonizuoto jono $[M+\text{H}]^+$ tikslioji masė: **$136{,}1121\text{ Da}$**.
+* HRAM spektrometre užregistruota eksperimentinė smailė ties **$m/z = 136{,}1127$**.
+1. Apskaičiuokite masės matavimo paklaidą milijoninėmis dalimis (ppm).
+2. Įvertinkite, ar prietaiso matavimas tenkina griežtą didelio tikslumo (HRAM) kriterijų ($\le 5\text{ ppm}$).
+:::solution
+#### Sprendimas:
+1. **PPM skaičiavimas:**
+   $$\text{Paklaida (ppm)} = \frac{|m_{\text{eksp}} - m_{\text{teor}}|}{m_{\text{teor}}} \times 10^6$$
+   $$\text{Paklaida (ppm)} = \frac{|136{,}1127 - 136{,}1121|}{136{,}1121} \times 10^6 = \frac{0{,}0006}{136{,}1121} \times 10^6 \approx 4{,}41\text{ ppm}$$
+
+2. **Vertinimas:**
+   * Gauta paklaida yra **$4{,}41\text{ ppm}$**.
+   * Kadangi $4{,}41\text{ ppm} < 5{,}0\text{ ppm}$, matavimas tenkina standartinį HRAM identifikavimo kriterijų.
+   * **Atsakymas:** Paklaida yra **$4{,}41\text{ ppm}$**; smailė patikimai gali būti siejama su amfetamino formule.
+:::
+::::
+
+
+::::exercise
+### 7 Užduotis: Azoto taisyklė EI ir ESI spektrometrijoje
+1. Nežinomo analito EI-MS spektre molekulinis jonas $M^{\bullet+}$ registruojamas ties $m/z = 195$. Ką azoto taisyklė sako apie azoto atomų skaičių?
+2. Kitas analitas tiriamas ESI(+) režimu. Jo protonizuotas jonas $[M+\text{H}]^+$ registruojamas ties nominalia verte $m/z = 285$. Kiek azoto atomų (lyginį ar nelyginį skaičių) turi neutrali molekulė?
 
 :::solution
-McLafferty persigrupavimui būtina, kad molekulėje būtų karbonilinė grupė (arba atitinkamas dvigubasis ryšys) ir anglies grandinėje būtų $\gamma$ padėtyje esantis vandenilio atomas, kuris gali būti perneštas per šešianarį tarpinį būsenos žiedą.
+#### Sprendimas:
+1. **EI-MS atvejis ($M^{\bullet+}$):**
+   * EI sukuria radikalą-katijoną be atomų pridėties ar netekties. Jo nominalioji masė tiesiogiai lygi neutralios molekulės masei: $M = 195\text{ Da}$.
+   * Kadangi masė yra **nelyginis skaičius (195)**, pagal azoto taisyklę molekulėje privalo būti **nelyginis azoto atomų skaičius (1, 3, 5...)**.
+2. **ESI(+) atvejis ($[M+\text{H}]^+$):**
+   * ESI suformuoja suporuoto elektrono joną pridedant protoną ($\text{H}^+$, masė 1).
+   * Neutralios molekulės nominali masė: $M = [M+\text{H}]^+ - 1 = 285 - 1 = 284\text{ Da}$.
+   * Kadangi neutralios molekulės nominalioji masė yra **lyginis skaičius (284)**, molekulėje yra **0 arba lyginis azoto atomų skaičius (0, 2, 4...)**.
 
-**Atsakymas:** Karbonilinės grupės ir $\gamma$ vandenilio atomo buvimas molekulėje.
+:::
+::::
+
+::::exercise
+### 8 Uždavinys: Izobarinių vaistinių junginių identifikavimas (Nominali masė 151)
+Teismo ekspertizės laboratorija tiria nežinomus miltelius. ESI(+) HRAM spektrometrija parodė intensyvų signalą:
+* **Eksperimentinė tikslioji masė:** $m/z = 152{,}0706$
+* **Izotopinis pasiskirstymas:**
+  * $m/z = 152{,}07$ ($I = 100\,\%$)
+  * $m/z = 153{,}07$ ($I = 9{,}0\,\%$)
+  * $m/z = 154{,}07$ ($I = 0{,}6\,\%$)
+
+Duotos trys izobarinės kandidatinės formulės (visų neutralių molekulių nominali masė $M = 151\text{ Da}$, protonuoto jono nominali masė $m/z = 152$):
+* **Kandidatas A (Paracetamolis):** $\text{C}_8\text{H}_9\text{NO}_2$ (teorinė $[M+\text{H}]^+ = 152{,}0706\text{ Da}$)
+* **Kandidatas B (Izobarinis aminas):** $\text{C}_9\text{H}_{13}\text{NO}$ (teorinė $[M+\text{H}]^+ = 152{,}1070\text{ Da}$)
+* **Kandidatas C (Dinitro junginys):** $\text{C}_7\text{H}_5\text{N}_2\text{O}_2$ (arba kitas lyginiu N skaičiumi pasižymintis junginys)
+
+**Užduotis:**
+1. Pritaikykite azoto taisyklę neutraliai molekulei ir nurodykite, ar ji atmeta kurį nors kandidatą.
+2. Įvertinkite heteroatomų buvimą pagal $M+2$ smailę.
+3. Pagal $M+1$ smailės intensyvumą apskaičiuokite anglies atomų skaičių.
+4. Apskaičiuokite masės matavimo paklaidą (ppm) kandidatams A ir B. Kuris junginys yra mėginyje?
+
+:::solution
+
+#### Sprendimas:
+1. **Azoto taisyklė:**
+   * $[M+\text{H}]^+ = 152$ (lyginis) $\implies$ neutralios molekulės nominali masė $M = 151$ (nelyginis).
+   * Vadinasi, molekulėje privalo būti **nelyginis azoto atomų skaičius (1, 3...)**. Kandidatai A ir B (abu po 1 N) atitinka šią sąlygą, o dinitro junginys su 2 N atmetamas.
+2. **$M+2$ smailės analizė:**
+   * $M+2$ intensyvumas yra vos $0{,}6\,\%$.
+   * Tai vienareikšmiškai atmeta halogenų ($\text{Cl} \sim 32\,\%$, $\text{Br} \sim 100\,\%$) bei sieros ($\text{S} \sim 4{,}4\,\%$) buvimą.
+3. **Anglies kiekio nustatymas iš $M+1$:**
+   * $n_C \approx \frac{\%[M+1]}{1{,}1\,\%} = \frac{9{,}0\,\%}{1{,}1\,\%} \approx 8{,}18 \approx 8\text{ atomai}$.
+   * Paracetamolis turi **8 anglis** ($\text{C}_8$), o kandidatas B turi **9 anglis** ($\text{C}_9$, kuriam $M+1$ turėtų siekti $\approx 9{,}9 - 10\,\%$). Izotopų santykis rodo kandidatą A.
+4. **Tiksliosios masės ir ppm paklaidos skaičiavimas:**
+   * **Kandidatui A ($\text{C}_8\text{H}_{10}\text{NO}_2^+$):**
+     $$\text{ppm} = \frac{|152{,}0706 - 152{,}0706|}{152{,}0706} \times 10^6 = \mathbf{0{,}0\text{ ppm}}$$
+   * **Kandidatui B ($\text{C}_9\text{H}_{14}\text{NO}^+$):**
+     $$\text{ppm} = \frac{|152{,}0706 - 152{,}1070|}{152{,}1070} \times 10^6 = \frac{0{,}0364}{152{,}1070} \times 10^6 \approx \mathbf{239\text{ ppm}}$$
+* **Išvada:** Kandidato B paklaida yra nepriimtinai didelė ($239\text{ ppm} \gg 5\text{ ppm}$). Mėginyje vienareikšmiškai identifikuotas **Paracetamolis (Kandidatas A)**.
+
+:::
+::::
+
+
+::::exercise
+
+### 9 Užduotis: Žemės ūkio pesticidų (izobarinių junginių) atranka (Nominali masė 215)
+**Sąlyga:**
+Tiriant vandens telkinio taršą pesticidais, ESI(+) HRAM spektre gauti šie duomenys:
+* **Eksperimentinė smailė:** $m/z = 216{,}1011$
+* **Izotopinis profilis:**
+  * $m/z = 216{,}10$ ($I = 100\,\%$)
+  * $m/z = 217{,}10$ ($I = 9{,}5\,\%$)
+  * $m/z = 218{,}10$ ($I = 32{,}8\,\%$)
+
+Žinoma, kad regione naudojami pesticidai, kurių protonizuotų jonų nominali masė yra $m/z = 216$:
+1. **Atrazinas:** $\text{C}_8\text{H}_{14}\text{ClN}_5$ (teorinė $[M+\text{H}]^+ = 216{,}1010\text{ Da}$)
+2. **Junginys X :** $\text{C}_{10}\text{H}_{22}\text{N}_3\text{O}_2$ (teorinė $[M+\text{H}]^+ = 216{,}1707\text{ Da}$)
+3. **Junginys Y :** $\text{C}_5\text{H}_{14}\text{NO}_4\text{PS}$ (teorinė $[M+\text{H}]^+ = 216{,}0454\text{ Da}$)
+
+**Užduotis:**
+1. Pagal $M+2$ smailės intensyvumą nustatykite, ar junginyje yra chloras, siera, ar halogenų nėra.
+2. Apskaičiuokite azoto taisyklės reikalavimą neutraliai molekulei.
+3. Apskaičiuokite stebimo jono ppm paklaidą Atrazinui ir kitiems kandidatams.
+4. Padarykite galutinę išvadą.
+
+:::solution
+#### Sprendimas:
+1. **$M+2$ smailės interpretavimas:**
+   * $M+2$ smailės ($m/z = 218{,}10$) santykinis intensyvumas yra **$32{,}8\,\%$**.
+   * Tai klasikinis vieno **chloro atomo ($^{37}\text{Cl}$)** požymis ($M : M+2 \approx 3:1$).
+   * Tai iš karto atmeta Junginį X (be halogeno, $M+2 < 1\,\%$) ir Izobarą Y (turintį tik sierą, kurio $M+2 \approx 4{,}4\,\%$).
+2. **Azoto taisyklė:**
+   * $[M+\text{H}]^+ = 216$ (lyginis) $\implies$ neutrali molekulė $M = 215$ (nelyginis).
+   * Reikalingas **nelyginis azoto atomų skaičius**. Atrazinas turi 5 azoto atomus ($N=5$, nelyginis) – taisyklė tenkinama.
+3. **Anglies kiekio patikra ($M+1$):**
+   * $n_C \approx \frac{9{,}5\,\%}{1{,}1\,\%} \approx 8{,}6 \approx 8 - 9$ atomai. Atrazinas turi 8 anglies atomus ($\text{C}_8$).
+4. **Masės tikslumo (ppm) skaičiavimas:**
+   * **Atrazinui ($\text{C}_8\text{H}_{15}\text{ClN}_5^+$):**
+     $$\text{ppm} = \frac{|216{,}1011 - 216{,}1010|}{216{,}1010} \times 10^6 = \frac{0{,}0001}{216{,}1010} \times 10^6 \approx \mathbf{0{,}46\text{ ppm}}$$
+   * **Junginiui  X:** paklaida siektų $\frac{|216{,}1011 - 216{,}1707|}{216{,}1707} \times 10^6 \approx 322\text{ ppm}$.
+   * **Junginiui Y:** paklaida siektų $\frac{|216{,}1011 - 216{,}0454|}{216{,}0454} \times 10^6 \approx 258\text{ ppm}$.
+* **Atsakymas:** Vandens mėginyje vienareikšmiškai patvirtintas herbicidas **Atrazinas** (paklaida vos $0{,}46\text{ ppm}$, idealus chloro izotopinis profilis).
+:::
+::::
+
+::::exercise 
+### 10 Užduotis: Vaistinių preparatų izobarų atranka (Nominali masė 284)
+Klinikinės toksikologijos laboratorijoje tiriant apsinuodijusio paciento kraują, ESI(+) HRAM režimu gautas spektras su šiais parametrais:
+* **Eksperimentinė smailė:** $m/z = 285{,}0789$
+* **Izotopų santykiai:**
+  * $m/z = 285{,}08$ ($I = 100\,\%$)
+  * $m/z = 286{,}08$ ($I = 18{,}2\,\%$)
+  * $m/z = 287{,}08$ ($I = 33{,}1\,\%$)
+  * $m/z = 288{,}08$ ($I = 5{,}8\,\%$)
+
+Duotos trys galimos junginių formulės (visų neutralių molekulių nominali masė $M = 284\text{ Da}$, o $[M+\text{H}]^+$ nominali masė $m/z = 285$):
+* **Kandidatas 1 (Trankviliantas Diazepamas):** $\text{C}_{16}\text{H}_{13}\text{ClN}_2\text{O}$ (teorinė $[M+\text{H}]^+ = 285{,}0789\text{ Da}$)
+* **Kandidatas 2 (Izobarinis steroidas / lipidinis darinys):** $\text{C}_{19}\text{H}_{24}\text{O}_2$ (teorinė $[M+\text{H}]^+ = 285{,}1849\text{ Da}$)
+* **Kandidatas 3 (Vaistas su dviem sieros atomais):** $\text{C}_{12}\text{H}_{16}\text{N}_2\text{OS}_2$ (teorinė $[M+\text{H}]^+ = 285{,}0726\text{ Da}$)
+
+**Užduotis:**
+1. Įvertinkite azoto taisyklę: kiek azoto atomų turi turėti neutrali molekulė?
+2. Nustatykite heteroatomo tipą pagal $M+2$ ($m/z = 287{,}08$) smailės intensyvumą.
+3. Pagal $M+1$ smailės intensyvumą patvirtinkite anglies atomų skaičių.
+4. Apskaičiuokite eksperimentinės masės paklaidą (ppm) visiems trims kandidatams ir nurodykite, kokia medžiaga sukėlė intoksikaciją.
+
+:::solution
+#### Sprendimas:
+1. **Azoto taisyklė:**
+   * $[M+\text{H}]^+ = 285$ (nelyginis skaičius).
+   * Neutralios molekulės nominali masė $M = 284$ (lyginis skaičius).
+   * Vadinasi, molekulė turi **0 arba lyginį azoto atomų skaičių (0, 2, 4...)**.
+   * Diazepamas turi 2 N, Kandidatas 2 turi 0 N, Kandidatas 3 turi 2 N – visi trys kandidatai atitinka azoto taisyklę.
+2. **$M+2$ smailės diagnostika:**
+   * $M+2$ smailės intensyvumas siekia **$33{,}1\,\%$**.
+   * Šis intensyvumas (apie $1/3$ nuo $M$) rodo **vieną chloro atomą ($\text{Cl}$)**.
+   * Kandidatas 2 (be halogenų) turėtų $M+2 < 2\,\%$.
+   * Kandidatas 3 turi du sieros atomus ($\text{S}_2$), todėl jo $M+2$ būtų apytiksliai $2 \times 4{,}4\,\% \approx 8{,}8\,\%$, o tai visiškai neatitinka stebimų $33{,}1\,\%$.
+   * Heteroatomo profilis vienareikšmiškai rodo chloruotą junginį (Diazepamą).
+3. **Anglies kiekio patvirtinimas iš $M+1$:**
+   * $n_C \approx \frac{\%[M+1]}{1{,}1\,\%} = \frac{18{,}2\,\%}{1{,}1\,\%} \approx 16{,}5 \approx 16\text{ atomų}$.
+   * Diazepamas turi lygiai **16 anglies atomų** ($\text{C}_{16}$).
+4. **Tiksliosios masės ir ppm paklaidos:**
+   * **Diazepamui ($\text{C}_{16}\text{H}_{14}\text{ClN}_2\text{O}^+$):**
+     $$\text{ppm} = \frac{|285{,}0789 - 285{,}0789|}{285{,}0789} \times 10^6 = \mathbf{0{,}0\text{ ppm}}$$
+   * **Kandidatui 2:**
+     $$\text{ppm} = \frac{|285{,}0789 - 285{,}1849|}{285{,}1849} \times 10^6 = \frac{0{,}1060}{285{,}1849} \times 10^6 \approx \mathbf{371{,}7\text{ ppm}}$$
+   * **Kandidatui 3:**
+     $$\text{ppm} = \frac{|285{,}0789 - 285{,}0726|}{285{,}0726} \times 10^6 = \frac{0{,}0063}{285{,}0726} \times 10^6 \approx \mathbf{22{,}1\text{ ppm}}$$
+* **Galutinis atsakymas:** Paciento kraujyje identifikuotas vaistas **Diazepamas** (paklaida $0{,}0\text{ ppm}$, atitinka $\text{C}_{16}$ anglies kiekis bei būdingas chloro izotopų profilis).
 :::
 ::::
