@@ -9,8 +9,317 @@ definitions:
 
 # Įvadas
 
-# Jonų gavimas (Jonizacija)
+# Jonizacijos būdai
 
+## Elektronų jonizacija
+
+Elektronų jonizacija (angl. *Electron Ionization*, EI) – istoriškai pirmasis, plačiausiai ištirtas ir iki šiol išliekantis vienas svarbiausių organinių junginių jonizacijos metodų masių spektrometrijoje. EI yra vadinamas „kietuoju“ jonizacijos metodu, nes jo metu tiriamoms molekulėms perduodamas didelis energijos perteklius, sukeliantis intensyvią molekulinių jonų fragmentaciją. Nors intensyvus skilimas kartais apsunkina molekulinės masės nustatymą, gaunami fragmentiniai spektrai suteikia neįkainojamos informacijos apie molekulės struktūrą, funkcines grupes bei konstituciją.
+
+Didžiulis EI privalumas yra nepaprastai geras spektrų reprodukuojamumas. Kadangi jonizacijos sąlygos visame pasaulyje yra standartizuotos, gauti masių spektrai gali būti tiesiogiai lyginami su komercinėmis spektrų bibliotekomis (pavyzdžiui, NIST ar Wiley duomenų bazėmis) nežinomų medžiagų identifikavimui, o tai pavertė EI neatsiejamu dujų chromatografijos-masių spektrometrijos (DCh-MS) sistemų partneriu.
+
+
+#### Jonizacijos šaltinio sandara ir fizikiniai principai
+
+Elektronų jonizacijos šaltinis yra kruopščiai suprojektuotas elektrostatinis įrenginys, veikiantis gilaus vakuumo aplinkoje. Šaltinio veikimas remiasi termoelektronine emisija ir tiksliu susidariusių jonų pluošto fokusavimu.
+
+
+Jonizacijos šaltinį sudaro šie pagrindiniai komponentai:
+
+1.  **Kaitinimo siūlas (filamentas):** Pagamintas iš ugniai atsparaus metalo (dažniausiai volframo arba renio). Per siūlą leidžiama elektros srovė jį įkaitina iki aukštos temperatūros, sukeldama termoelektroninę emisiją – laisvųjų elektronų išlaisvinimą iš metalo paviršiaus.
+2.  **Elektronų gaudyklė (anodas, angl. *trap/collector*):** Įrengta priešingoje jonizacijos kameros pusėje nei kaitinimo siūlas. Palaikant teigiamą potencialą, elektronai yra greitinami per kamerą link gaudyklės, suformuojant pastovų ir homogenišką skersinį elektronų pluoštą.
+3.  **Stūmiklis (repeleris):** Jonizacijos kameros gale sumontuotas elektrodas, kuriame palaikomas nedidelis teigiamas potencialas (teigiamų jonų registravimo režime). Jo paskirtis – elektriniu lauku stumti naujai susidariusius teigiamus jonus link išėjimo angos.
+4.  **Fokusavimo ir greitinimo lęšiai:** Elektrodų sistema, esanti už jonizacijos kameros ribų. Šie lęšiai suformuoja siaurą, gerai sufokusuotą jonų pluoštelį, suteikia jiems reikiamą kinetinę energiją (greitina) ir nukreipia juos į masių analizatorių.
+
+
+Būtina EI šaltinio veikimo sąlyga – aukštas vakuumas, paprastai palaikomas maždaug $10^{-4}\text{ Pa}$ (apie $10^{-6}\text{ mbar}$) lygmenyje. Tai reikalinga siekiant užtikrinti, kad vidutinis laisvasis dalelių kelio ilgis viršytų jonizacijos šaltinio geometrinius matmenis. Esant tokioms sąlygoms, dujų fazė yra labai praskiesta, o tai praktiškai eliminuoja nepageidaujamus bimolekulinius susidūrimus (jonų ir neutralių molekulių reakcijas) per visą jonų gyvavimo trukmę. Visi jonizacijos ir vėlesni fragmentacijos procesai vyksta griežtai unimolekuliniame režime.
+
+
+##### Jonizacijos mechanizmas
+
+Pirminis EI procesas prasideda, kai didelės kinetinės energijos elektronas praskrieja arti dujinės neutralios molekulės ($M$). Sąveikos metu įvyksta energijos perdavimas. Jei perduodama energija viršija molekulės jonizacijos energiją (IE), iš neutralios molekulės išmušamas elektronas, sugeneruojant teigiamą radikalą-katijoną, vadinamą **molekuliniu jonu** ($M^{+\bullet}$):
+
+$$M + e^- \rightarrow M^{+\bullet} + 2e^-$$
+
+
+
+#### Krūvio lokalizacija susidarant molekuliniam jonui
+
+Susidarant molekuliniam jonui ($(M^{+\bullet}$)), krūvio lokalizacijos klausimas masių spektrometrijoje yra nagrinėjamas dviem lygmenimis: kaip **formali darbinė hipotezė**, padedanti interpretuoti spektrus, ir kaip **reali fizikinė (kvantcheminė) būsena**. 
+
+##### Formali krūvio lokalizacija (reakcijų mechanizmų aiškinimui)
+Interpretuojant masių spektrus ir aiškinant fragmentacijos mechanizmus, yra priimta laikyti, kad netekti elektrono ir įgyti teigiamą krūvį (bei tapti radikalu) labiausiai linkusios tam tikros molekulės orbitalės. Ši tikimybė tiesiogiai atsispindi junginių jonizacijos energijos (IE) vertėse ir priklauso nuo elektronų prigimties:
+
+*   **Laisvosios elektronų poros ($n$-elektronai):** Tai yra energetiškai palankiausia vieta pašalinti elektroną. Molekulėse, turinčiose heteroatomų (pavyzdžiui, $(\text{O}$), $(\text{N}$), $(\text{S}$), $(\text{Se}$)), elektronas lengviausiai išmušamas būtent iš neviriųjų orbitalių, nes šie elektronai yra silpniausiai susieti su branduoliu. Dėl šios priežasties junginių, turinčių funkcinių grupių su heteroatomais, IE yra žymiai mažesnė nei atitinkamų alkanų.
+*   **$(\pi$)-ryšiai (dvigubieji, trigubieji ryšiai, aromatinės sistemos):** Jei molekulėje nėra heteroatomų, bet yra neprisotintų ryšių, krūvis formaliai lokalizuojamas $(\pi$)-orbitalėje. $(\pi$)-elektronai yra lengviau pasiekiami nei $(\sigma$)-elektronai, todėl, pavyzdžiui, eteno IE yra mažesnė nei etano. Žemiausios jonizacijos energijos pasiekiamos tada, kai molekulėje derinami $(\pi$)-ryšiai ir heteroatomai (pavyzdžiui, konjuguotose sistemose).
+*   **$(\sigma$)-ryšiai (paprastieji ryšiai):** Alkanuose, neturinčiuose nei funkcinių grupių, nei dvigubųjų jungčių, elektronas pašalinamas iš paprastojo $(\sigma$)-ryšio. Tai yra energetiškai nepalankiausia būsena, todėl sočiųjų angliavandenilių jonizacijos energija yra didžiausia.
+
+Ši hierarchinė seka ($(\boldsymbol{n > \pi > \sigma}$)) leidžia tyrėjams sudaryti fragmentacijos schemas, darant prielaidą, kad teigiamas krūvis yra sutelktas ant konkretaus heteroatomo arba jungties (tai vadinama **krūvio lokalizacijos koncepcija**). Tai padeda logiškai paaiškinti vėlesnius skilimus, tokius kaip $(\alpha$)-skilimas ar persigrupavimai, kuriuos inicijuoja radikalinis centras.
+
+##### Reali krūvio delokalizacija (fizikinė tikrovė)
+Nors formali krūvio lokalizacija yra puikus įrankis spektrams interpretuoti, kvantinės mechanikos skaičiavimai rodo, kad **realiame molekuliniame jone krūvis niekada nebūna visiškai sutelktas vienoje orbitalėje ar ant vieno atomo**. Pašalinus elektroną, krūvis ir nesuporuotas elektronas **delokalizuojasi** per visą jono karkasą, siekiant energetiškai stabilizuoti sistemą (pavyzdžiui, per hiperkonjugaciją arba rezonansą). 
+
+Šią realią delokalizaciją iliustruoja šie literatūroje pateikiami pavyzdžiai:
+
+*   **Pirolo molekulinis jonas:** Nors azotas yra heteroatomas ir formaliai turėtų išlaikyti teigiamą krūvį, skaičiavimai rodo, kad ant azoto atomo realiai koncentruojasi **tik apie 5%** teigiamo krūvio. Tuo tarpu du gretimi anglies atomai turi po maždaug 20% krūvio, o likusi dalis beveik tolygiai (po ~10%) pasiskirsto ant penkių vandenilio atomų. Tai prieštarauja elektroneigiamumo dėsniams, teigiantiems, kad teigiamas krūvis neturėtų koncentruotis ant elektroneigiamiausio atomo.
+
+*   **Tolilo katijonas ($([C_7H_7]^+$)):** Kvantinės chemijos skaičiavimai rodo, už žiedo esančios anglies satomo, koncentruojasi **tik apie 36%** teigiamo krūvio, o likęs krūvis yra delokalizuotas per visą žiedą, kartu pakeisdamas ir jono geometrinę simetriją, palyginti su neutralia molekule.
+
+
+
+##### Fragmentacijos priklausomybė nuo elektronų energijos
+
+Elektronų jonizacijos metu perduodamos energijos kiekis tiesiogiai lemia spektrų išvaizdą, fragmentų gausą bei tyrimo jautrumą.
+
+Kad įvyktų jonizacija, pirminių elektronų energija privalo būti lygi arba didesnė už tiriamo junginio **jonizacijos energiją (IE)**. Daugumos organinių molekulių IE reikšmės svyruoja tarp $7\text{ ir }15\text{ eV}$.
+
+*   **Žemos energijos režimas (apie 10–15 eV):** Kai elektronų energija viršija IE tik labai nedaug, sugeneruoti molekuliniai jonai gauna labai mažą perteklinę virpesių energiją, kuri neviršija jokių fragmentacijos reakcijų **atsiradimo energijos (AE)**. Tokiu atveju unimolekulinis skilimas nevyksta arba yra minimalus, o spektre registruojamai  didesnės masės jonai bei  pats molekulinis jonas ($M^{+\bullet}$). Tai gali būti naudinga nustatant nežinomų medžiagų molekulinę masę, tačiau šio režimo trūkumas yra drastiškai sumažėjęs bendras jonizacijos efektyvumas (suprastėjęs jautrumas).
+*   **Energijos didinimas:** Didėjant pirminių elektronų energijai, jonizacijos tikimybė auga, o molekuliniams jonams perduodamos energijos pasiskirstymas $P(E)$ pasislenka link didesnių reikšmių. Dėl to sužadinti jonai lengvai įveikia aktyvacijos barjerus ir intensyviai skyla į mažesnės masės fragmentus.
+
+Visame pasaulyje standartu priimta registruoti EI spektrus esant būtent **$70\text{ eV}$ elektronų energijai**. Tokį pasirinkimą lemia fundamentalios fizikinės priežastys, kurias iliustruoja jonizacijos skerspjūvio kreivė:
+
+1.  Maždaug ties $70\text{ eV}$ jonizacijos efektyvaus skerspjūvio kreivė (jonizacijos efektyvumas) pasiekia savo maksimumą. Šioje srityje nedideli prietaiso elektronų energijos svyravimai (pavyzdžiui, tarp $60\text{ ir }80\text{ eV}$) neturi jokios pastebimos įtakos spektrų intensyvumui ar fragmentacijai. Tai garantuoja puikų spektrų atkuriamumą.
+2.  **Universali jonizacija:** Esant $70\text{ eV}$ sėkmingai jonizuojasi visos organinės ir neorganinės molekulės, įskaitant nešančiąsias chromatografijos dujas (helį, kurio $\text{IE} = 24.6\text{ eV}$).
+3.  **Bibliotekų suderinamumas:** Standartizacija užtikrina, kad skirtingų gamintojų ir skirtingų modelių masių spektrometrais gauti spektrai yra identiški, todėl juos galima patikimai lyginti duomenų bazėse.
+
+
+##### Pagrindiniai fragmentacijos reakcijų tipai
+
+Po pirminio elektronų smūgio sugeneruotas molekulinis radikalas-katijonas ($M^{+\bullet}$) yra izoliuotas dujų fazėje. Jis negali išsklaidyti virpesių energijos susidūrimų metu, todėl stabilizuojasi skildamas unimolekuliniu būdu. 
+
+Svarbiausias masių spektrometrijos principas teigia, kad **kiekvieno unimolekulinio skilimo žingsnio metu iš vieno pradinio jono visada susidaro viena krūvį turinti dalelė (jonas) ir viena krūvio neturinti (neutrali) dalelė**. Masių spektrometre galima užregistruoti tik krūvį turinčios daleles; neutralūs fragmentai yra pašalinami vakuumo sistemų ir lieka nepastebėti.
+
+
+Atsižvelgiant į susidariusių dalelių prigimtį, unimolekuliniai skilimai EI sąlygomis skirstomi į tris pagrindines klases:
+
+###### Homolizinis skilimas (tiesioginis ryšio nutraukimas)
+Šio skilimo metu nutrūksta viena kovalentinė jungtis. Kadangi pradinis radikalas-katijonas turi nelyginį elektronų skaičių, homolizinio skilimo metu susidaro lyginio elektronų skaičiaus katijonas ($m^+$) ir neutralus radikalas ($n^\bullet$):
+
+$$M^{+\bullet} \rightarrow m^+ + n^\bullet$$
+
+Šioms reakcijoms reikalinga palyginti didelė aktyvacijos energija, tačiau jos pasižymi dideliu greičiu, todėl vyrauja esant didelėms sužadinimo energijoms.
+
+###### Persigrupavimai
+Persigrupavimo reakcijų metu vyksta naujų jungčių susidarymas ir atomų (dažniausiai vandenilio) migracija erdvėje prieš unimolekulinį skilimą. Šio proceso metu iš radikalo-katijono susidaro naujas radikalas-katijonas ($m^{+\bullet}$) ir neutrali stabili molekulė ($n$):
+
+$$M^{+\bullet} \rightarrow m^{+\bullet} + n$$
+
+Persigrupavimo reakcijos reikalauja specifinės erdvinės konformacijos („griežtos“ pereinamosios būsenos), todėl jos vyksta lėčiau nei paprastas ryšio nutraukimas, tačiau pasižymi žema aktyvacijos energija. Dėl šios priežasties jos dominuoja esant žemesnėms vidinėms jonų energijoms.
+
+*   **Pavyzdžiai ir iššūkiai:** Klasikiniai persigrupavimo procesai leidžia paaiškinti sistemingą mažų stabilių molekulių, tokių kaip vandens ($H_2O$, neutralus praradimas $18\text{ Da}$) ar amoniako ($NH_3$, neutralus praradimas $17\text{ Da}$), atskilimą iš alkoholių ir aminų radikalų-katijonų. Šie procesai dažnai vyksta taip lengvai, kad molekulinio jono smailė visiškai išnyksta iš spektro, o tai labai apsunkina tiriamo junginio molekulinės masės nustatymą.
+
+
+###### Antrinė fragmentacija
+Pirminiai fragmentiniai jonai, jei jie vis dar turi pakankamai vidinės sužadinimo energijos, gali skiltis toliau. Remiantis **lyginio skaičiaus elektronų taisykle** (angl. *Even-Electron Rule*), lyginio elektronų skaičiaus jonai dažniausiai skyla suformuodami kitus lyginio elektronų skaičiaus jonus ir eliminuodami neutralią stabilią molekulę:
+
+$$m_1^+ \rightarrow m_2^+ + n$$
+
+Skilimas iš lyginio elektronų skaičiaus jono į nelyginio elektronų skaičiaus joną su radikalo eliminacija ($m_1^+ \rightarrow m_2^{+\bullet} + n^\bullet$) yra energetiškai nepalankus ir EI spektruose stebimas itin retai.
+
+
+### Neigiama elektronų jonizacija
+
+Nors klasikinė EI yra pritaikyta teigiamų jonų registravimui, pakeitus elektrinių laukų poliškumą galima registruoti neigiamus jonus. Tačiau įprastomis $70\text{ eV}$ EI sąlygomis neigiamų jonų susidarymas yra nepaprastai neefektyvus. Taip yra todėl, kad elektronų pagavimas yra rezonansinis procesas, o greiti $70\text{ eV}$ elektronai perneša per daug kinetinės energijos, todėl molekulės nesugeba jų sulaikyti.
+
+Siekant sukurti neigiamus jonus, į jonizacijos šaltinį įleidžiamos buferinės (arba reagentinės) dujos, pavyzdžiui, metanas ($\text{CH}_4$) arba izobutanas ($i\text{-C}_4\text{H}_{10}$). Šios dujos veikia kaip **moderatorius**. Pirminiai greiti elektronai, emituoti iš filamento, patiria daugybinius elastinius ir neelastinius susidūrimus su buferinių dujų molekulėmis ir praranda savo kinetinę energiją. Šio proceso metu elektronai sulėtinami iki vadinamųjų **terminių elektronų**, kurių energija siekia vos $0–2\text{ eV}$. Šis metodas vadinamas **elektronų pagavimo neigiamąja jonizacija** (angl. *Electron Capture Negative Ionization*, **ECNI**).
+
+
+#### Elektronų pagavimo neigiamosios jonizacijos (ECNI) mechanizmai
+
+ECNI metu termizuoti elektronai yra tiesiogiai prijungiami prie analitės molekulės. Atsižvelgiant į elektronų energiją ir molekulės savybes, išskiriami trys ECNI mechanizmai:
+
+##### Rezonansinis elektronų pagavimas (angl. *Resonance Electron Capture*)
+Vyksta esant labai žemoms elektronų energijoms ($0–2\text{ eV}$). Tiriamoji molekulė tiesiogiai sugeria elektroną, suformuodama sužadintą molekulinį radikalą-anijoną ($M^{-\bullet}$):
+
+$$M + e^- \rightarrow M^{-\bullet}$$
+
+Šiam procesui reikalingas teigiamas tiriamo junginio giminingumas elektronui (angl. *electron affinity*, EA).
+
+##### Disociatyvus elektronų pagavimas (angl. *Dissociative Electron Capture*)
+Vyksta platesniame elektronų energijų diapazone ($0–15\text{ eV}$). Pagautas elektronas sukelia momentinį ryšio suirimą (heterolizę), tiesiogiai suformuodamas lyginio elektronų skaičiaus anijoną ir neutralų radikalą:
+
+$$M + e^- \rightarrow [M - A]^- + A^\bullet$$
+
+##### Jonų porų susidarymas (angl. *Ion-pair Formation*)
+Šis procesas vyksta prie didesnių energijų (paprastai $> 10\text{ eV}$). Elektronas nėra sugaunamas, tačiau jo smūgis sukelia molekulės skilimą į teigiamą ir neigiamą jonus:
+
+$$M + e^- \rightarrow [M - B]^- + B^+ + e^-$$
+
+#### ECNI pritaikymas ir analitinė vertė
+
+ECNI pasižymi **išskirtiniu jautrumu ir selektyvumu** junginiams, turintiems stipriai elektroneigiamų atomų (ypač fluoro, chloro, bromo) arba nitro grupių, kadangi šie elementai drastiškai padidina molekulės giminingumą elektronui. Šis metodas yra plačiai taikomas aplinkosaugos ir maisto saugos tyrimuose halogenintų teršalų (pavyzdžiui, dioksinų, polichlorintų bifenilų - PCB, halogenintų pesticidų) bei sprogstamųjų medžiagų analizei pėdsakiniuose kiekiuose.
+
+## Cheminė jonizacija
+
+Cheminė jonizacija (angl. *Chemical Ionization*, CI) yra vienas iš fundamentalių „švelniosios“ jonizacijos metodų masių spektrometrijoje. Skirtingai nuo elektronų jonizacijos (EI), kurios metu neutralios molekulės patiria tiesioginį energingų pirminių elektronų smūgį, sukeliančių stiprią fragmentaciją, cheminė jonizacija remiasi bimolekulinėmis reakcijomis dujų fazėje. 
+
+Šio metodo esmė – kontroliuojamas krūvio (protono, elektronų ar kitų jonų) pernešimas tarp iš anksto sugeneruotų reagentinių jonų ir neutralių analitės molekulių. Kadangi jonizacijos proceso metu perduodamas gerokai mažesnis energijos perteklius, analitės molekulė yra išsaugoma sveika (dažniausiai gaunami lyginio elektronų skaičiaus jonai $[M+H]^+$ arba adductai). Tai leidžia lengvai ir patikimai nustatyti tiriamo junginio molekulinę masę, o tai yra kritiškai svarbu struktūros nustatymui ir mišinių analizei.
+
+
+#### Jonizacijos šaltinio sandara ir veikimo fizikiniai principai
+
+Cheminės jonizacijos šaltinio konstrukcija yra glaudžiai susijusi su EI šaltiniu, tačiau pritaikyta palaikyti iš esmės skirtingą darbinį režimą. Pagrindinis CI šaltinio bruožas yra gebėjimas palaikyti didelį reagentinių dujų slėgį pačioje jonizacijos kameroje.
+
+
+Sėkmingam bimolekulinių reakcijų vyksmui reikalingas didelis jonų ir molekulių susidūrimų dažnis. Tai pasiekiama padidinant dalinį reagentinių dujų slėgį jonizacijos šaltinio viduje iki maždaug $10^2\text{ Pa}$ (apie $1\text{ mbar}$), kas yra $10^3–10^4$ kartų daugiau nei EI sąlygomis. Esant tokiam slėgiui, neutralios analitės molekulė per savo buvimo šaltinyje laiką (kelias mikrosekundes) patiria nuo 30 iki 70 susidūrimų.
+
+Didžiulis reagentinių dujų perteklius atlieka dar vieną svarbią funkciją: jis tarytum „skydas“ apsaugo tiriamojo pavyzdžio molekules nuo tiesioginės elektronų jonizacijos, nes tikimybė, kad pirminis elektronas susidurs su analite, o ne su reagentu, tampa nykstamai maža.
+
+Siekant išlaikyti tokį aukštą slėgį neišvengiant per didelio dujų nuotėkio į masių spektrometro korpusą, naudojami šie konstrukciniai sprendimai:
+1.  **Uždara jonizacijos kamera:** Į šaltinio tūrį įmontuojamas papildomas cilindras, turintis labai mažas angas emituojamiems elektronams įskrieti ir suformuotam jonų pluoštui išeiti.
+2.  **Galinga vakuumo sistema:** Kadangi dalis dujų nuolat veržiasi pro minėtas mikroangas, prietaiso išorinio korpuso siurbimui naudojami didelio našumo turbomolekuliniai siurbliai (ne mažesnio kaip $200\text{ l/s}$ našumo), leidžiantys išlaikyti stabilų darbinį vakuumą analizatoriuje.
+3.  **Pirminių elektronų energijos padidinimas:** Kadangi didelis reagentinių dujų tankis stipriai slopina iš kaitinimo siūlo skriejančių elektronų srautą, pirminių elektronų energija paprastai padidinama iki $200–600\text{ eV}$ (palyginti su $70\text{ eV}$ standartu EI), kad jie galėtų giliau prasiskverbti į kameros vidų ir sugeneruoti pirminius reagento jonus.
+
+
+
+#### Reagentinių dujų vaidmuo ir plazmos susidarymas
+
+Jonizacijos procesas CI šaltinyje prasideda nuo pirminių reagentinių dujų molekulių elektronų jonizacijos, po kurios seka greitos grandininės bimolekulinės reakcijos, sukuriančios pastovią jonų, radikalų bei laisvųjų elektronų sistemą – vadinamąją **reagentinių dujų plazmą**. 
+
+Priklausomai nuo pasirinktų dujų prigimties, gaunami skirtingos jonizacijos galios reagentiniai jonai. Labiausiai paplitusios trys reagentinių dujų sistemos.
+
+##### Metanas ($CH_4$)
+Veikiant energingiems pirminiams elektronams, metano molekulės iš pradžių jonizuojasi EI būdu, suformuodamos įvairius teigiamus jonus bei radikalus:
+
+$$CH_4 + e^- \rightarrow CH_4^{+\bullet}, CH_3^+, CH_2^{+\bullet}, CH^+, C^{+\bullet}, H_2^{+\bullet}, H^+ + 2e^-$$
+
+Dėl didelio slėgio susidarę nestabilūs jonai akimirksniu reaguoja su neutraliomis metano molekulėmis. Svarbiausia reakcija yra susijusi su protonuoto metano jono $CH_5^+$ ir etilo katijono $C_2H_5^+$ susidarymu:
+
+$$CH_4^{+\bullet} + CH_4 \rightarrow CH_5^+ + CH_3^\bullet$$
+
+$$CH_3^+ + CH_4 \rightarrow [C_2H_7^+] \rightarrow C_2H_5^+ + H_2$$
+
+Taip pat nedideliais kiekiais susidaro alilo katijonas $C_3H_5^+$:
+
+$$C_2H_3^+ + CH_4 \rightarrow C_3H_5^+ + H_2$$
+
+Dėl šių reakcijų, pasiekus slėgio plato sritį virš $100\text{ Pa}$, metano plazmoje dominuoja trys pagrindiniai jonai: $CH_5^+$ ($m/z\ 17$), $C_2H_5^+$ ($m/z\ 29$) ir $C_3H_5^+$ ($m/z\ 41$).
+
+##### Izobutanas ($i-C_4H_{10}$)
+Izobutano jonizacijos metu pagrindinis bimolekulinių reakcijų produktas yra labai stabilus tret-butilo katijonas $t-C_4H_9^+$ ($m/z\ 57$):
+
+$$i-C_4H_{10} + e^- \rightarrow i-C_4H_{10}^{+\bullet} + 2e^-$$
+
+$$i-C_4H_{10}^{+\bullet} + i-C_4H_{10} \rightarrow t-C_4H_9^+ + C_4H_9^\bullet + H_2$$
+
+Šis jonas yra puikus ir švelnus protonų donoras daugumai organinių medžiagų.
+
+##### Amoniakas ($NH_3$)
+Amoniako plazma pasižymi dideliu poliškumu ir stipriu polinkiu sudaryti klasterinius (asociatyvinius) jonus. Pagrindiniai reagento jonai yra amonio katijonas $NH_4^+$ ($m/z\ 18$) bei jo solvatacijos produktai:
+
+$$NH_3 + e^- \rightarrow NH_3^{+\bullet} + 2e^-$$
+
+$$NH_3^{+\bullet} + NH_3 \rightarrow NH_4^+ + NH_2^\bullet$$
+
+$$NH_4^+ + nNH_3 \rightarrow [(NH_3)_n + H]^+$$
+
+Amoniako plazmoje gausiai registruojami klasteriai $[NH_4]^+$, $[NH_4 + NH_3]^+$ ($m/z\ 35$) bei $[NH_4 + 2NH_3]^+$ ($m/z\ 52$).
+
+### Teigiamų jonų cheminė jonizacija (PICI)
+
+Teigiamų jonų cheminėje jonizacijoje (angl. *Positive-Ion Chemical Ionization*, PICI) neutrali analitės molekulė ($M$) paverčiama teigiamu jonu vykstant vienam iš keturių pagrindinių reakcijos kelių.
+
+##### 1. Protonų pernešimas (Proton Transfer)
+Tai yra svarbiausias ir dažniausiai pasitaikantis PICI kelias, kurio metu reagento jonas veikia kaip Brønstedo rūgštis:
+
+$$M + [BH]^+ \rightarrow [M+H]^+ + B$$
+
+Protonavimo reakcija vyksta ekotermiškai tik tada, kai analitės protonų giminingumas (angl. *proton affinity*, $PA$) yra didesnis nei neutralios reagentinių dujų molekulės $B$ protonų giminingumas:
+
+$$PA(M) > PA(B)$$
+
+Išsiskirianti reakcijos šiluma ($\Delta H$) išsisklaido po sugeneruoto $[M+H]^+$ jono vidinius laisvės laipsnius. Šį energijos perteklių galima įvertinti:
+
+$$E_{int}([M+H]^+) \approx PA(M) - PA(B)$$
+
+Priklausomai nuo $\Delta PA$ vertės, galima valdyti jonizacijos „švelnumą“:
+*   Naudojant **metaną** ($PA = 552\text{ kJ/mol}$), skirtumas $\Delta PA$ su analitėmis yra palyginti didelis ($1–4\text{ eV}$), todėl protonavimas vyksta gana energingai, sukeldamas nedidelę fragmentaciją (pavyzdžiui, vandens ar funkcinių grupių atskilimą).
+*   Naudojant **izobutaną** ($PA = 820\text{ kJ/mol}$) arba **amoniaką** ($PA = 854\text{ kJ/mol}$), jonizacija yra itin švelni, nes perteklinė energija minimali. Spektruose stebimas beveik išskirtinai tik sveikas molekulinis jonas $[M+H]^+$.
+
+##### 2. Elektrofilinis prisijungimas (Electrophilic Addition)
+Jei analitės molekulė neturi pakankamo protonų giminingumo, kad įvyktų tiesioginis protono pernešimas, reagento jonas gali tiesiogiai prisijungti prie jos, sudarydamas aduktą:
+
+$$M + X^+ \rightarrow [M+X]^+$$
+
+Šis procesas itin būdingas amoniako reagentinėms dujoms, kur gausiai formuojasi amonio aduktai $[M+NH_4]^+$ ($[M+18]$):
+
+$$M + NH_4^+ \rightarrow [M+NH_4]^+$$
+
+Naudojant metaną, spektruose dažnai stebimos nedidelio intensyvumo etilo $[M+C_2H_5]^+$ ($[M+29]$) bei alilo $[M+C_3H_5]^+$ ($[M+41]$) aduktų smailės, kurios padeda papildomai patvirtinti molekulinę masę.
+
+##### 3. Anijonų (hidrido) atplėšimas (Anion Abstraction)
+Kai kuriais atvejais energetiškai palankiau yra ne prijungti krūvį turinčią dalelę, o atplėšti neigiamą joną iš analitės molekulės. Dažniausias pavyzdys yra hidrido ($H^-$) atplėšimas:
+
+$$M + X^+ \rightarrow [M-H]^+ + HX$$
+
+Šis procesas yra itin būdingas alifatiniams alkoholiams, karboksirūgštims bei sotiesiems angliavandeniliams. Pavyzdžiui, pirminiai alifatiniai alkoholiai PICI spektruose dažniau suformuoja ryškų $[M-H]^+$ signalą ($[M-1]$) negu $[M+H]^+$.
+
+##### 4. Krūvio pernešimas (Charge Transfer, CT)
+Krūvio (arba elektronų) pernešimo metu neutrali analitė netenka elektrono ir paverčiama radikalu-katijonu $M^{+\bullet}$ (panašiai kaip EI metu, tačiau procesas vyksta bimolekuliniu būdu):
+
+$$M + X^{+\bullet} \rightarrow M^{+\bullet} + X$$
+
+Šis kelias realizuojamas naudojant tokias reagentines dujas, kurios neturi mobilių protonų, pavyzdžiui, benzeną ($C_6H_6$), chlorobenzeną ($C_6H_5Cl$), anglies disulfidą ($CS_2$) arba inertines dujas (ksenoną, argoną). 
+
+Sąlyga šiai reakcijai įvykti – reagento jono rekombinacijos energija ($RE$) turi būti didesnė už analitės jonizacijos energiją ($IE$):
+
+$$RE(X^{+\bullet}) \ge IE(M)$$
+
+Krūvio pernešimo metodas (CTCI) leidžia reguliuoti fragmentacijos laipsnį parenkant reagentą su tinkama $RE$ verte. Kadangi gaunami $M^{+\bullet}$ jonai pasižymi žymiai siauresniu energijos pasiskirstymu nei EI metu, fragmentacija yra gerokai švelnesnė, o jautrumas dažnai viršija žemos energijos EI spektroskopiją. CTCI taip pat sėkmingai naudojama selektyviam tam tikrų klasių junginių (pavyzdžiui, aromatinių angliavandenilių mišiniuose) jonizavimui.
+
+
+### Neigiamų jonų cheminė jonizacija (NICI)
+
+Jei masių spektrometro ekstrahavimo lęšių potencialai nustatomi neigiamų jonų registravimui, iš šaltinio ištraukiami ir analizuojami neigiamieji jonai. Šis metodas vadinamas neigiamų jonų chemine jonizacija (angl. *Negative-Ion Chemical Ionization*, NICI).
+
+NICI metu net neutralios analitės molekulės paverčiamos anijonais, vykstant specifinėms reakcijoms su plazmoje esančiais neigiamais jonais.
+
+##### NICI reakcijų mechanizmai
+
+Neigiami reagento jonai (pavyzdžiui, $OH^-$, susidarantis drėgnoje metano plazmoje, arba halogenidų anijonai) gali reaguoti su analite trimis pagrindiniais keliais:
+
+###### 1. Deprotonacija (protono atplėšimas)
+Stiprios bazės (reagento anijono $B^-$) ir rūgštinių savybių turinčios analitės molekulės sąveika sukelia protono perėjimą link reagento, sugeneruojant deprotonuotą analitės anijoną $[M-H]^-$:
+
+$$M + B^- \rightarrow [M-H]^- + BH$$
+
+Ši reakcija yra labai efektyvi tiriant karboksirūgštis, fenolius, aminus bei kitus junginius su judriais vandenilio atomais.
+
+###### 2. Nukleofilinis (anijono) prisijungimas
+Reagento anijonas ($A^-$) gali prisijungti prie analitės molekulės kaip nukleofilas, sudarydamas stabilų aduktą $[M+A]^-$:
+
+$$M + A^- \rightarrow [M+A]^-$$
+
+Geras šio proceso pavyzdys yra halogenidų (pavyzdžiui, $Cl^-$) arba deguonies anijonų prisijungimas prie mažo poliškumo arba elektroneigiamų analičių.
+
+###### 3. Jonų porų susidarymas
+Vyksta sąveikoje su vidutinės energijos elektronais, kai molekulė susilaiko ir skyla į teigiamo ir neigiamo krūvio fragmentų porą:
+
+$$M + e^- \rightarrow [M-B]^- + B^+ + e^-$$
+
+Šis procesas yra energetiškai mažiau palankus ir NICI spektruose pasitaiko rečiau.
+
+
+##### Sąsaja su elektronų pagavimo neigiamąja jonizacija (ECNI)
+
+Nors literatūroje terminai NICI ir ECNI (angl. *Electron Capture Negative Ionization*) dažnai naudojami kartu arba net klaidingai tapatinami, fizikiniu požiūriu tai yra du skirtingi procesai, vykstantys tame pačiame jonizacijos šaltinyje.
+
+###### Reagentinių dujų kaip moderatoriaus vaidmuo
+
+ECNI atveju reagentinės (buferinės) dujos, tokios kaip metanas arba izobutanas, nedalyvauja cheminėse reakcijose ir neperduoda jokio krūvio analitei. Jų vienintelė funkcija yra **elektronų moderavimas (sulėtinimas)**.
+
+Greiti pirminiai elektronai, emituoti iš filamento, patiria nesuskaičiuojamą kiekį tampriųjų ir netampriųjų susidūrimų su dideliu kiekiu neutralių buferinių dujų molekulių. Šio proceso metu pirminiai elektronai praranda savo kinetinę energiją ir tampa **terminiais elektronais**, kurių energija svyruoja tarp $0\text{ ir }2\text{ eV}$. 
+
+Tuo tarpu analitės molekulės, pasižyminčios dideliu giminingumu elektronui (turinčios halogenų atomų, nitro grupių ar konjuguotų $\pi$ sistemų), lengvai „sugauna“ šiuos lėtus elektronus, suformuodamos radikalus-anijonus $M^{-\bullet}$ (rezonansinis pagavimas) arba patirdamos disociatyvų pagavimą:
+
+$$M + e^-_{terminis} \rightarrow M^{-\bullet}$$
+
+$$M + e^-_{terminis} \rightarrow [M-A]^- + A^\bullet$$
+
+###### Praktinė NICI ir ECNI sąveika
+
+Dėl identiškų aparatūros sąlygų (aukštas buferinių dujų slėgis, tas pats šaltinis, neigiamas potencialų režimas), realiame eksperimente NICI (cheminės reakcijos su reagento anijonais) ir ECNI (lėtųjų elektronų pagavimas) vyksta **kartu ir konkuruoja tarpusavyje**. 
+
+Gautų spektrų išvaizda, jautrumas bei selektyvumas stipriai priklauso nuo temperatūros, dujų prigimties, šaltinio švarumo ir pačios analitės savybių. Šių dviejų metodų integracija suteikia masių spektrometrijai neprilygstamą jautrumą (siekiantį net femtogramų ribas) nustatant halogenintus aplinkos teršalus (dioksinus, chlorintus bifenilus) bei vaistinius metabolitus biologinėse terpėse.
 
 # Analizatoriai
 
