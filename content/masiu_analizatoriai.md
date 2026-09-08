@@ -15,7 +15,7 @@ definitions:
 
 Elektronų jonizacija (angl. *Electron Ionization*, EI) – istoriškai pirmasis, plačiausiai ištirtas ir iki šiol išliekantis vienas svarbiausių organinių junginių jonizacijos metodų masių spektrometrijoje. EI yra vadinamas „kietuoju“ jonizacijos metodu, nes jo metu tiriamoms molekulėms perduodamas didelis energijos perteklius, sukeliantis intensyvią molekulinių jonų fragmentaciją. Nors intensyvus skilimas kartais apsunkina molekulinės masės nustatymą, gaunami fragmentiniai spektrai suteikia neįkainojamos informacijos apie molekulės struktūrą, funkcines grupes bei konstituciją.
 
-Didžiulis EI privalumas yra nepaprastai geras spektrų reprodukuojamumas. Kadangi jonizacijos sąlygos visame pasaulyje yra standartizuotos, gauti masių spektrai gali būti tiesiogiai lyginami su komercinėmis spektrų bibliotekomis (pavyzdžiui, NIST ar Wiley duomenų bazėmis) nežinomų medžiagų identifikavimui, o tai pavertė EI neatsiejamu dujų chromatografijos-masių spektrometrijos (DCh-MS) sistemų partneriu.
+Didžiulis EI privalumas yra nepaprastai geras spektrų atkuriamumas. Kadangi jonizacijos sąlygos visame pasaulyje yra standartizuotos, gauti masių spektrai gali būti tiesiogiai lyginami su komercinėmis spektrų bibliotekomis (pavyzdžiui, NIST ar Wiley duomenų bazėmis) nežinomų medžiagų identifikavimui, o tai pavertė EI neatsiejamu dujų chromatografijos-masių spektrometrijos (DCh-MS) sistemų partneriu.
 
 
 #### Jonizacijos šaltinio sandara ir fizikiniai principai
@@ -320,6 +320,367 @@ $$M + e^-_{terminis} \rightarrow [M-A]^- + A^\bullet$$
 Dėl identiškų aparatūros sąlygų (aukštas buferinių dujų slėgis, tas pats šaltinis, neigiamas potencialų režimas), realiame eksperimente NICI (cheminės reakcijos su reagento anijonais) ir ECNI (lėtųjų elektronų pagavimas) vyksta **kartu ir konkuruoja tarpusavyje**. 
 
 Gautų spektrų išvaizda, jautrumas bei selektyvumas stipriai priklauso nuo temperatūros, dujų prigimties, šaltinio švarumo ir pačios analitės savybių. Šių dviejų metodų integracija suteikia masių spektrometrijai neprilygstamą jautrumą (siekiantį net femtogramų ribas) nustatant halogenintus aplinkos teršalus (dioksinus, chlorintus bifenilus) bei vaistinius metabolitus biologinėse terpėse.
+
+
+## Elektroišpurškimo jonizacija
+
+
+Elektroišpurškimo jonizacija (angl. *Electrospray Ionization*, ESI) – vienas revoliucingiausių „švelniosios“ jonizacijos metodų, leisdamas pervesti dideles, nelakias ir termolabilias (karščiui jautrias) polines molekules iš skystosios fazės į dujinę fazę jonų pavidalu. Už šio metodo sukūrimą ir pritaikymą makromolekulių analizei Johnas Fennas 2002 m. buvo įvertintas Nobelio chemijos premija. 
+
+Skirtingai nuo kietosios elektronų jonizacijos (EI), ESI metu tiriamoms medžiagoms perduodamas minimalus vidinės energijos kiekis, todėl praktiškai nevyksta kovalentinių ryšių fragmentacija, o masių spektruose dominuoja sveiki, nesuskilę molekuliniai jonai (aduktai). Be to, šis metodas pasižymi unikalia savybe suformuoti daugiavalenčius (daugiaužtaisius) jonus, kas iš esmės pakeitė masių spektrometrijos galimybes tiriant stambias biologines makromolekules.
+
+
+
+### ESI šaltinio konstrukciniai principai
+
+Elektroišpurškimo jonizacijos šaltinis yra elektrostatiniu ir hidrodinaminiu principu veikiantis įrenginys, atliekantis skysto pavyzdžio srauto purškimą, desolvataciją (tirpiklio pašalinimą) ir susidariusių jonų nukreipimą į aukšto vakuumo masės analizatoriaus sritį.
+
+
+
+1.  **Purškimo kapiliaras:** Siauras metalinis (arba metalizuotas kvarcinis) kapiliaras, į kurį pastoviu srautu (dažniausiai 1–20 $\mu\text{l/min}$ grynos ESI atveju) tiekiamas analitės tirpalas. Kapiliarui suteikiamas aukštas elektrinis potencialas (paprastai 3–5 kV teigiamų jonų režime) priešingoje pusėje esančio priešpriešinio elektrodo (pavyzdžiui, įėjimo angos plokštelės) atžvilgiu.
+2.  **Teiloro kūgis (angl. *Taylor cone*) ir srautas:** Dėl itin stipraus elektrinio lauko (siekančio maždaug $10^6\text{ V/m}$) kapiliaro gale vyksta elektrolito krūvių atsiskyrimas. Skysčio meniskas deformuojasi į smailią kūginę formą – Teiloro kūgį. Pasiekus elektrinio lauko stiprio ribą, iš Teiloro kūgio viršūnės iššaunama plona skysčio srovė, kuri netrukus suyra į mikrometrinio dydžio, teigiamai įkrautus lašelius.
+3.  **Pneumatinis asistavimas (angl. *pneumatically-assisted ESI* arba *ion spray*):** Kadangi grynas ESI purškimas yra jautrus tirpiklio paviršiaus įtempimui ir tinka tik mažiems srautams, moderniuose šaltiniuose aplink purškimo kapiliarą koncentriškai leidžiamas didelio greičio inertinių dujų (dažniausiai azoto, $N_2$) srautas – vadinamosios **nebulizatoriaus dujos (angl. *sheath gas*)**. Tai leidžia efektyviai purkšti skysčius esant didesniems srautams (10–200 $\mu\text{l/min}$ ir daugiau), o tai yra būtina tiesioginiam skysčių chromatografijos (LC-MS) sistemų prijungimui.
+4.  **Tirpiklio garinimas (desolvatacija):** Susidarę lašeliai keliauja per atmosferinio slėgio kamerą link analizatoriaus įėjimo. Tirpiklio garavimą skatina šildomas priešpriešinis dujų srautas (angl. *drying/curtain gas*, azotas) arba šildomas pernešimo kapiliaras (paprastai įkaitintas iki 150–350 °C). Garuojant tirpikliui, lašelių matmenys drastiškai mažėja, o krūvio tankis jų paviršiuje proporcingai auga.
+
+#### Vakuumo sąsaja ir nukreipimo strategijos
+
+Didžiausias iššūkis ESI sistemose yra efektyvus jonų pernešimas iš atmosferinio slėgio srities ($10^5\text{ Pa}$) į gilaus vakuumo analizatoriaus sritį ($10^{-4}$ iki $10^{-7}\text{ Pa}$). Tai atliekama naudojant daugiapakopę diferencinio siurbimo sistemą (3–4 vakuumo pakopos) ir nozzle-skimmer (purkštuko-skimerio) sistemą arba modernius **radijo dažnio jonų piltuvėlius (angl. *ion funnels*)**, kurie radialiniu elektriniu lauku efektyviai sufokusuoja ir suspaudžia jonų debesį, pašalindami neutralias tirpiklio molekules.
+
+Siekant išvengti prietaiso dalių užteršimo nelakiomis priemaišomis (pavyzdžiui, druskomis ar nešvarumais iš biologinių skysčių), šiuolaikiniai šaltiniai projektuojami **ortogonaliai** – purškimo kapiliaras nukreipiamas 90° kampu analizatoriaus įėjimo angos atžvilgiu (pavyzdžiui, *Z-spray* technologija). Stiprus elektrinis laukas į analizatorių įtraukia tik mažus, lengvus ir labai įkrautus lašelius bei jonus, o stambūs neutralūs lašeliai ir priemaišos lekia tiesiai ir yra pašalinami pro drenažą.
+
+#### Nanoelektroišpurškimo jonizacija (nanoESI)
+
+Tai miniaturizuotas ESI variantas, naudojantis borosilikatinio stiklo kapiliarus su itin smailu antgaliu (1–4 $\mu\text{m}$ skersmens). Šis metodas naudoja mikrolitrinius pavyzdžio tūrius esant itin mažam srautui (20–50 $\text{nl/min}$). NanoESI privalumai:
+
+
+**Nanoelektroišpurškimo jonizacija (nanoESI)** pasižymi esminiais analitiniais ir fizikiniais privalumais, lyginant su įprasta **elektroišpurškimo jonizacija (ESI)**. Nors abu metodai veikia tuo pačiu krūvių atsiskyrimo atmosferos slėgyje principu, miniaturizacija iš esmės keičia lašelių formavimosi fiziką bei analitės perėjimo į dujų fazę efektyvumą.
+
+Pagrindiniai nanoESI privalumai masių spektrometrijoje:
+
+*   **Daug mažesnis pradinis lašelių dydis:**
+    Tradicinio ESI metu sukuriami mikrometrinio skersmens (~50–100 µm) lašeliai, o nanoESI sugeneruoja mažesnius nei 200 nm (0,5–10 µm) pradinius lašelius. NanoESI lašelių tūris yra maždaug **100–1000 kartų mažesnis** nei įprasto ESI. Dėl to nanoESI lašeliams reikia kur kas mažiau tirpiklio garavimo ir Reilio skilimo (fisinio) ciklų, kad analitės jonas būtų visiškai desolvatuotas.
+
+*   **Švelnesnės desolvatacijos sąlygos:**
+    Kadangi pradiniai lašeliai yra itin maži, tirpikliui pašalinti nereikia naudoti agresyvių jonų šaltinio sąlygų – labai aukštos temperatūros ar stipraus desolvatacijos dujų srauto. Tai leidžia išlaikyti itin trapias nekovalentines sąveikas masių spektrometru, todėl nanoESI yra tapęs ašiniu metodu natyviojoje masių spektrometrijoje tiriant intact baltymų ir ligandų sąveikas bei jų ketvirtinę struktūrą.
+
+*   **Nespecifinių agregatų prevencija tirpiklio garavimo metu:**
+    Dideliuose įprasto ESI lašeliuose garavimo proceso metu lokaliai padidėja analitės koncentracija, o tai skatina nespecifinių agregatų (pvz., dirbtinių dimerų ar multimerų) susidarymą. Maži nanoESI lašeliai eliminuoja šį efektą. Pavyzdžiui, tiriant stambų *GroEL* baltymų kompleksą, standartinėmis ESI sąlygomis spektre dėl nespecifinės agregacijos stebimas bimodalus pasiskirstymas ir neaiškios stechiometrijos smailės, tuo tarpu nanoESI spektre registruojama vienintelė tikroji 14-mero struktūra su aukšta masių skiriamąja geba.
+
+*   **Itin mažos mėginio sąnaudos ir didesnis jautrumas:**
+    Įprastame ESI naudojamas skysčio srautas siekia kelis ar keliasdešimt mikrolitrų per minutę (µL/min), o nanoESI pakanka **nanolitrinio srauto** (paprastai 20–50 nL/min). Tai leidžia atlikti ilgalaikius masių spektrometrijos tyrimus (įskaitant sudėtingus MS/MS eksperimentus) sunaudojant vos kelis mikrolitrus ar net pikomolius brangaus biologinio pavyzdžio. Kartu su geresniu jonų nukreipimo efektyvumu į analizatorių, tai užtikrina žymiai geresnį analitinį jautrumą.
+
+
+### Aduktų susidarymas
+
+Kadangi elektroišpurškimo jonizacija aktyviai nekuria naujų cheminių ryšių ar radikalų, ESI veikimas remiasi jau tirpale egzistuojančių arba tirpimo metu susidarančių jonų pernešimu į dujų fazę. Šis krūvio įgijimas vyksta per **aduktų** – analitės molekulės sąveikų su tirpale esančiais katijonais arba anijonais – susidarymą.
+
+#### Teigiamųjų jonų režimas (Positive-ion mode)
+
+Šiame režime registruojami teigiamą krūvį įgiję aduktai. Pagrindiniai susidarymo keliai:
+
+1.  **Protonacija:** Labiausiai paplitęs kelias poliniams junginiams, turintiems bazinių funkcinių grupių (pvz., aminų, peptidų, baltymų). Susidaro protonuotas molekulinis jonas $[M + H]^+$. Procesas vyksta itin lengvai, jei analitės afinitetas protonui yra didesnis nei tirpiklio molekulių. Siekiant skatinti šį procesą, į judriąją fazę dažnai pridedama lakios rūgšties (pvz., skruzdžių arba trifluoroacto rūgšties):
+    $$M + H^+ \rightarrow [M + H]^+$$
+2.  **Šarminių metalų aduktai:** Jei tirpale yra natrio ar kalio druskų pėdsakų (kurie dažnai išplaunami iš laboratorinių indų stiklo ar patenka su reagentais), analitės, turinčios deguonies atomų (pvz., polieteriai, angliavandeniai, peptidai), lengvai sudaro itin stabilius aduktus:
+    $$M + Na^+ \rightarrow [M + Na]^+ \quad (\text{masės pokytis } +22.99\text{ u})$$
+    $$M + K^+ \rightarrow [M + K]^+ \quad (\text{masės pokytis } +38.96\text{ u})$$
+    Taip pat gali būti tikslingai naudojamos ličio ($Li^+$) druskos specifiniams aduktams $[M + Li]^+$ suformuoti.
+3.  **Amonio aduktai:** Naudojant lakius buferius (pvz., amonio acetatą arba amonio formatą), lengvai susidaro amonio aduktai $[M + NH_4]^+$. Tai ypač aktualu neutralioms molekulėms, kurios sunkiai protonuojasi, bet lengvai koordinuoja amonio joną:
+    $$M + NH_4^+ \rightarrow [M + NH_4]^+ \quad (\text{masės pokytis } +18.03\text{ u})$$
+
+#### Neigiamųjų jonų režimas (Negative-ion mode)
+
+Šiame režime registruojami neigiamo krūvio aduktai, būdingi rūgštinėms molekulėms (pvz., karboksirūgštims, nukleorūgštims, fenoliams):
+
+1.  **Deprotonacija:** Vandenilio protono netekimas, suformuojant anijoną $[M - H]^-$. Procesą skatina šarminis tirpalo pH (pvz., pridedant amoniako vandens):
+    $$M - H^+ \rightarrow [M - H]^-$$
+2.  **Anijonų prisijungimas:** Analitė koordinuoja tirpale esantį elektroneigiamą halogenido ar rūgšties liekanos anijoną, suformuodama stabilius aduktus, tokius kaip $[M + Cl]^-$, $[M + FCH_2COO]^-$, $[M + HCO_2]^-$, $[M + I]^-$:
+    $$M + X^- \rightarrow [M + X]^-$$
+
+
+### Jonizacijos mechanizmai dujų fazėje
+
+Kaip tiksliai solvatuotas jonas mažame lašelyje praranda paskutines tirpiklio molekules ir tampa visiškai sausu dujų fazės (gas-pahase) jonu, vis dar išlieka viena labiausiai diskutuojamų temų. Šiuo metu yra eksperimentiškai ir kompiuteriniu modeliavimu (molekuline dinamika) įrodyti trys pagrindiniai nepriklausomi mechanizmai, kurie galioja skirtingo dydžio ir konformacijos molekulėms.
+
+#### Jonų garavimo modelis (Ion Evaporation Model, IEM)
+
+Šis modelis geriausiai aprašo **mažų, preformuotų neorganinių ar organinių jonų** (pavyzdžiui, $Na^+$, $Cl^-$, mažų metabolitų) išlaisvinimą.
+*   **Eiga:** Garuojant tirpikliui, lašelis pasiekia itin mažus matmenis (skersmuo $< 10\text{ nm}$). Tokio dydžio lašelio paviršiuje susidaro nepaprastai stiprus lokalus elektrinis laukas (viršijantis $10^9\text{ V/m}$).
+*   **Fizikinis principas:** Šis gigantiškas elektrostatinis laukas suteikia pakankamai energijos, kad būtų nugalėtas jono solvatacijos barjeras (vadinamoji solvatacijos energija). Jonas yra tiesiogiai desorbuojamas (išgarinamas) iš lašelio paviršiaus į dujų fazę kartu su nedidele tirpstančia tirpiklio danga, kuri vėliau akimirksniu išgaruoja.
+
+#### Krūvio liekanos modelis (Charged Residue Model, CRM)
+
+Šis modelis galioja stambioms, **kompaktiškoms ir sferinės (globulinės) struktūros makromolekulėms**, tokioms kaip sulankstyti baltymai ar nekovalentiniai baltymų kompleksai (atliekant vadinamąją natyviąją masių spektrometriją).
+*   **Eiga:** Garuojant tirpikliui, lašeliai nuolat mažėja, kol pasiekia **Reilio ribą (angl. *Rayleigh limit*)** – būseną, kai paviršiaus įtempimo jėgą (siekiančią išlaikyti lašelį sferiniu) nugalinti Kulono stūmos jėga tarp paviršinių krūvių sukelia lašelio skilimą (fisinį Taylor cone purškimą) į mažesnius dukterinius lašelius.
+*   **Fizikinis principas:** Ši seka kartojasi tol, kol paskutiniame nanolašelyje lieka tik viena vienintelė makromolekulė. Lašeliui išgaravus iki pat galo (iki sausumo), visi jame likę tirpalo krūvio nešėjai (protonai ar druskų jonai) nusėda ant makromolekulės paviršiaus, suformuodami sausą joną. Kadangi vyksta pilnas išgaravimas iki sausumo, CRM produktams yra būdingas intensyvus nespecifinis tirpalo priemaišų (pvz., druskų) aduktų kaupimasis ant analitės jono.
+
+#### Grandinės išmetimo modelis (Chain Ejection Model, CEM)
+
+Šis modelis buvo sukurtas paaiškinti **išsilanksčiusių, denatūruotų ar netvarkių polimerų grandinių** (pavyzdžiui, unfolded baltymų rūgštinėje terpėje) elgseną.
+*   **Eiga:** Denatūruotas baltymas yra netvarkingos, ištįsusios grandinės formos. Dėl hidrofobinių ir elektrostatinių jėgų sąveikos tokia grandinė linkusi migruoti į nanolašelio skysčio ir garų fazių ribą.
+*   **Fizikinis principas:** Vienas iš ištįsusios grandinės galų (N- arba C-terminalas) išstumiamas pro lašelio paviršių į dujų fazę. Baltymo grandinė laipsniškai „išmetama“ iš lašelio, procesą palaikant pastoviam krūvių persiskirstymui (krūvio pusiausvyrai) tarp išmetamos grandinės dalies ir likusio lašelio. Kadangi išmetimas vyksta tiesiogiai iš lašelio paviršiaus, kur krūvio tankis yra didžiausias, šis mechanizmas lemia itin aukštų krūvio būsenų suformavimą.
+
+
+#### Baltymų konformacijos įtaka masės spektrams
+
+Vienas įspūdingiausių ESI bruožų yra tas, kad gauti masių spektrai (tiksliau – susidariusių krūvių pasiskirstymas, angl. *Charge State Distribution*, CSD) tiesiogiai atspindi trimatę baltymo konformaciją tirpale prieš jonizaciją. Tai leidžia naudoti ESI-MS kaip biofizinį įrankį baltymų susilankstymo ir denatūracijos tyrimams.
+
+##### Natyviųjų baltymų spektrai
+
+Kai baltymai purškiami iš ne-denatūruojančių fiziologinių tirpalų (pavyzdžiui, 100 mM amonio acetato, esant neutraliam pH apie 7), jie išlaiko savo kompaktišką, biologiškai aktyvią trimatę struktūrą.
+*   **Spektro savybės:** Spektre stebimas **labai siauras krūvių pasiskirstymas** (angl. *narrow CSD*), apimantis vos kelias smailas krūvio būsenas (pavyzdžiui, CRP pentamerui stebimos tik $[M + 23]^+ \rightarrow [M + 26]^+$ būsenos). Vidutinis jono krūvis yra palyginti žemas, todėl signalai registruojami didelių $m/z$ verčių srityje (dažniausiai $m/z > 3000\text{ ir net iki }8000$).
+*   **Priežastys:**
+    1.  **Neprieinamumas:** Kompaktiškai susilanksčiusios globulės viduje yra paslėpta didžioji dalis bazinių amino rūgščių liekanų (tokių kaip lizinas, argininas, histidinas). Jos fiziškai negali susitikti su protonais ir būti protonuojamos, todėl teigiamą krūvį gali įgyti tik nedidelė dalis išorėje esančių funkcinių grupių.
+    2.  **Kulono stūma:** Kompaktiškoje sferinėje dalelėje protonai yra arti vienas kito. Vystantis dideliam lokaliam krūviui, tarpusavio elektrostatinė stūma tampa tokia stipri, kad energetiškai neleidžia prisijungti papildomiems protonams (jono krūvį riboja De La Mora nustatyta sferinio objekto Reilio krūvio riba $Z_R$).
+
+##### Denatūruotųjų baltymų spektrai
+
+Kai baltymai purškiami iš denatūruojančių tirpiklių (pavyzdžiui, acetonitrilo, metanolio mišinių su vandeniu, pridedant rūgščių, pavyzdžiui, 0.1% skruzdžių rūgšties), suardomos baltymo trečiąją bei ketvirtąją struktūrą laikančios nekovalentinės sąveikos (vandeniliniai ryšiai, hidrofobinės sąveikos, druskų tilteliai), todėl baltymas visiškai išsivynioja.
+*   **Spektro savybės:** Spektre stebimas **labai platus krūvių pasiskirstymas** (angl. *broad CSD*) bei **žymiai didesnis vidutinis krūvis (daugiavalentiškumas)**. Signalai pasislenka į mažesnių $m/z$ verčių sritį (paprastai $m/z\ 500–2000$). Multimeriniai kompleksai visiškai subyra į didelio krūvio monomerus.
+*   **Priežastys:**
+    1.  **Atsivėrimas:** Baltymui išsivyniojus į ištįsusią atvirą grandinę, visos anksčiau viduje paslėptos bazinės grupės tampa visiškai laisvai prieinamos tirpiklio protonams, todėl protonacijos efektyvumas drastiškai išauga.
+    2.  **Krūvio išsklaidymas:** Ištįsusioje grandinėje protonai yra išsidėstę didesniais atstumais vienas nuo kito. Sumažėjusi tarpusavio Kulono stūma leidžia molekulei stabiliai išlaikyti kur kas didesnį bendrą krūvį nei kompaktiškos globulės atveju. Jonizacija vyksta pagal grandinės išmetimo mechanizmą (CEM).
+
+
+### ESI taikomumo sritis
+
+Dėl savo išskirtinio švelnumo ir suderinamumo su skystąja faze, elektroišpurškimo jonizacija tapo ašiniu metodu daugelyje mokslo ir pramonės sričių.
+
+### Analitės cheminės savybės
+
+ESI idealiai tinka junginiams, kurie tirpaluose jau egzistuoja jonizuotoje formoje arba turi funkcinių grupių, linkusių į protonaciją ar deprotonaciją (poliniai junginiai). Metodo taikymas nepoliniams junginiams (pavyzdžiui, gryniesiems angliavandeniliams ar lipidams be polinių galvučių) yra ribotas arba reikalauja specifinės cheminės derivatizacijos bei specialių pereinamųjų metalų druskų priedų aduktams formuoti.
+
+### Masės diapazonas ir daugiavalentiškumas
+
+ESI neturi griežtos viršutinės masių analizavimo ribos. Kadangi stambios makromolekulės įgyja labai didelį krūvį ($z$), jų masės ir krūvio santykis ($m/z$) išlieka nedidelis:
+$$m/z = \frac{M + z \cdot 1.0073}{z}$$
+Tai leidžia analizuoti netgi MDa dydžio nekovalentinius kompleksus (pvz., virusų kapsides, ribosomas, chromatiną) naudojant standartinius masių analizatorius (pvz., kvadrupolis ar Orbitrap analizatorius), kurių fizinė detekcijos riba paprastai neviršija $m/z\ 4000$.
+
+### Pagrindinės taikymo kryptys
+
+1.  **Proteomika ir peptidomika:** Baltymų identifikavimas, aminorūgščių sekos nustatymas (angl. *de novo sequencing*) naudojant skysčių chromatografiją-masių spektrometriją (LC-ESI-MS/MS), peptidų žemėlapių sudarymas bei potransliacinių modifikacijų (fosforilinimo, glikozilinimo) charakterizavimas.
+2.  **Natyvioji masių spektrometrija (Native MS):** Baltymų tretinės ir ketvirtosios struktūros tyrimas dujų fazėje. Ne-denatūruojančiomis sąlygomis galima nustatyti multimerinių baltymų kompleksų stechiometriją, stebėti baltymų ir ligandų (vaistų molekulių), baltymų ir kofaktorių bei baltymų ir nukleorūgščių kofunkcionalius kompleksus.
+3.  **Klinikinė chemija ir farmacija:** Vaistų metabolitų profiliavimas organizme, farmakokinetikos tyrimai, dopingo kontrolė bei naujagimių metabolinių ligų (pavyzdžiui, fenilketonurijos) skriningas iš sauso kraujo lašo.
+4.  **Metabolomika:** Mažų polinių metabolitų, aminorūgščių, organinių rūgščių bei lipidų kokybinė ir kiekybinė analizė sudėtingose biologinėse matricose.
+
+
+## Atmosferos slėgio cheminė jonizacija
+
+Atmosferinio slėgio cheminė jonizacija (angl. *Atmospheric Pressure Chemical Ionization*, APCI) – švelniosios jonizacijos metodas, veikiantis atmosferos slėgyje, sukurtas siekiant efektyviai sujungti skysčių chromatografiją su masių spektrometrija (LC-MS). APCI yra vakuuminių cheminės jonizacijos (CI) metodų analogas, perkeltas į atmosferos slėgio aplinką. Šis metodas užpildo spragą tarp elektronų jonizacijos (EI) ir elektroišpurškimo jonizacijos (ESI), nes leidžia efektyviai analizuoti mažesnio poliškumo, vidutinio lakumo ir termiškai stabilius organinius junginius, kurių ESI metodu nepavyksta sėkmingai jonizuoti.
+
+
+### Jonizacijos šaltinio konstrukciniai principai
+
+APCI šaltinio konstrukcija yra glaudžiai susijusi su elektroišpurškimo jonizacijos (ESI) sąsaja, todėl šiuolaikiniuose masių spektrometruose abu šaltiniai yra lengvai sukeičiami, naudojant tą pačią atmosferos slėgio ir vakuumo perėjimo sąsają (angl. *atmospheric pressure-to-vacuum interface*).
+
+
+APCI šaltinį sudaro šie pagrindiniai elementai:
+
+1.  **Pneumatinis purkštukas (nebulizatorius):** Per jį analitės tirpalas iš skysčių chromatografo tiekiamas į šaltinį. Aplink skysčio kapiliarą koncentriškai leidžiamas didelio greičio inertinių dujų (dažniausiai azoto, $N_2$) srautas, kuris mechaniškai išpurškia skystį ir suformuoja smulkių lašelių aerosolą.
+2.  **Kaitinamasis garintuvas (angl. *heater cartridge* / *vaporizer*):** Tai šildoma kvarcinė arba metalinė vamzdelio formos kamera, kurios temperatūra palaikoma labai aukšta – paprastai tarp 350 °C ir 500 °C. Keliaudamas per šį garintuvą, purškiamas aerosolis akimirksniu išgarinamas, virsdamas dujiniu tirpiklio garų ir neutralių tiriamo pavyzdžio molekulių mišiniu.
+3.  **Vainikinio išlydžio adata (angl. *corona needle*):** Tai plona adata su itin smailu antgaliu, įrengta tiesiai priešais masių spektrometro įėjimo angą (už garintuvo išėjimo). Adatoje palaikomas aukštas potencialas (dažniausiai nuo 4 kV iki 6 kV), sukuriantis stabilią elektros išlydžio sritį – vainikinį išlydį (angl. *corona discharge*), kurios tipinė srovė siekia apie 10 µA.
+4.  **Masių spektrometro įėjimo anga ir diferencinė siurbimo sistema:** Elektrostatinių lęšių bei kelių vakuumo pakopų sistema (pernešimo kapiliaras, skimeris arba jonų piltuvėliai), kuri ištraukia atmosferos slėgyje susidariusius jonus ir nukreipia juos į masių analizatorių, o neutralios dujos bei tirpiklio garai pašalinami pro drenažo sistemą.
+
+
+#### Jonizacijos mechanizmas dujų fazėje
+
+Skirtingai nuo ESI, kuris yra tirpalo fazės procesas, APCI yra klasikinė **dujų fazės cheminė jonizacija**. Jonizacijos procesą atmosferos slėgyje sudaro kelios nuoseklios greitos bimolekulinės ir termolekulinės reakcijos, kurios vyksta dėl nepaprastai didelio dalelių susidūrimo dažnio (apie $10^9\text{ s}^{-1}$) padidinto slėgio aplinkoje.
+
+#### Teigiamųjų jonų susidarymas 
+
+1.  **Pirminė azoto jonizacija:** Vainikinis išlydis ties adatos antgaliu pirmiausia jonizuoja gausiausias aplinkos dujas – nešančiąsias azoto dujas ($N_2$), sugeneruodamas pirminius azoto radikalus-katijonus:
+    $$N_2 + e^- \rightarrow N_2^{+\bullet} + 2e^-$$
+2.  **Azoto klasterizacija:** Susidarę azoto jonai greitai reaguoja su neutraliomis azoto molekulėmis, dalyvaujant neutraliam susidūrimo partneriui (trečiajam kūnui), kuris absorbuoja ir pašalina reakcijos energijos perteklių:
+    $$N_2^{+\bullet} + 2N_2 \rightarrow N_4^{+\bullet} + N_2$$
+3.  **Tirpiklio reagentinių jonų formavimasis:** Azoto jonų klasteriai reaguoja su gausiai aplinkoje esančiomis tirpiklio (vandens) molekulėmis, suformuodami stabilius vandens radikalus-katijonus, kurie toliau reaguoja su kitomis vandens molekulėmis ir sudaro hidroniumo jonus:
+
+    $$N_4^{+\bullet} + H_2O \rightarrow H_2O^{+\bullet} + 2N_2$$
+    
+    $$H_2O^{+\bullet} + H_2O \rightarrow H_3O^+ + OH^\bullet$$
+    
+4.  **Tirpiklio klasterių susidarymas:** Laisvos vandens (arba kito chromatografinio tirpiklio, pavyzdžiui, metanolio ar acetonitrilio) molekulės supa hidroniumo joną, suformuodamos stabilius protonuotus tirpiklio klasterius:
+    $$H_3O^+ + n H_2O \rightarrow [(H_2O)_n + H]^+$$
+5.  **Analitės protonavimas:** Jei analitės molekulės ($M$) afinitetas protonui yra didesnis nei vandens (arba kito naudojamo tirpiklio), įvyksta protonų pernašos reakcija. Jos metu sugeneruojamas protonuotas analitės jonas $[M + H]^+$, o neutralios tirpiklio molekulės pašalinamos:
+    $$[(H_2O)_n + H]^+ + M \rightarrow [M + H]^+ + n H_2O$$
+
+Jei judriojoje fazėje yra papildomų druskų priedų (pavyzdžiui, amonio acetato), analogiškas procesas sukelia amonio aduktų $[M + NH_4]^+$ susidarymą.
+
+#### Neigiamųjų jonų susidarymas
+
+Neigiamųjų jonų APCI režime reagentiniai anijonai (pavyzdžiui, deguonies anijonai-radikalai $O_2^{-\bullet}$ arba tirpiklio anijonai, tokie kaip $OH^-$, $Cl^-$) susidaro elektronų pagavimo bei vėlesnių reakcijų metu. Šie reagentiniai anijonai reaguoja su analitės molekulėmis:
+
+1.  **Deprotonacija (protono atplėšimas):** Būdinga rūgštinių savybių turintiems junginiams, kai bazinis reagentinis jonas (pavyzdžiui, $OH^-$) atplėšia protoną nuo analitės:
+    $$M + OH^- \rightarrow [M - H]^- + H_2O$$
+2.  **Anijoninė adicija:** Reagentinis anijonas (pavyzdžiui, chloridas $Cl^-$) koordinuojasi prie analitės molekulės, suformuodamas stabilų aduktą $[M + Cl]^-$:
+    $$M + Cl^- \rightarrow [M + Cl]^-$$
+
+
+
+### Skirtumai tarp APCI ir ESI
+
+Nors abi technologijos veikia atmosferos slėgyje ir yra pritaikytos skysčių chromatografijai, jų veikimo principai bei gauti rezultatai skiriasi iš esmės:
+
+| Charakteristika | Elektroišpurškimo jonizacija (ESI) | Atmosferinio slėgio cheminė jonizacija (APCI) |
+| :--- | :--- | :--- |
+| **Jonizacijos aplinka** | **Tirpalo fazės procesas.** Jonai susidaro tirpale ir yra mechaniškai perkeliami į dujų fazę desolvatacijos būdu. | **Dujų fazės procesas.** Tirpalas visiškai išgarinamas iki neutralių garų prieš pradedant jonizacijos reakcijas. |
+| **Jonizacijos iniciatorius** | Stiprus elektrostatinis laukas (3–5 kV) tarp purškimo kapiliaro ir priešpriešinio elektrodo. | Vainikinis elektros išlydis (corona discharge) iš adatos (4–6 kV) neutralių dujų ir garų sraute. |
+| **Analitės poliškumas** | Idealiai tinka labai poliniams, joniniams, termolabiliams bei didelės masės makromolekulėms. | Tinka mažai ir vidutiniškai poliniams, vidutinio lakumo ir termiškai stabiliems junginiams. |
+| **Krūvio būsenos** | Dažnai suformuoja daugiavalenčius jonus ($[M+zH]^{z+}$), ypač baltymams ir peptidams. | Generuoja išskirtinai tik vienvalenčius jonus ($[M+H]^+$ arba $[M-H]^-$). |
+| **Srauto tolerancija** | Geriausiai veikia esant mažesniems skysčio srautams (ypač nanoESI). | Geriausiai veikia esant dideliems srautams (0.2–2.0 mL/min) |
+| **Tolerancija druskoms** | Labai jautri nevolatilioms druskoms (gali sukelti stiprų signalo slopinimą). | Labiau tolerantiška druskoms ir kitiems priedams, nes jonizacija vyksta dujų fazėje. |
+
+---
+
+### Taikymo sritis
+
+Dėl savo unikalių savybių APCI užpildo svarbią nišą ten, kur ESI efektyvumas sumažėja:
+
+1.  **Mažo ir vidutinio poliškumo junginiai:** APCI yra pagrindinis pasirinkimas tiriant junginius be stipriai polinių funkcinių grupių, kurie sunkiai jonizuojasi tirpalo fazėje. Tai apima riebaluose tirpius vitaminus (A, D, E, K), karotinoidus, steroidinius hormonus, sintetinį kurą, pesticidus bei plastifikatorius.
+2.  **Lipidomika:** Trigliceridų, digliceridų, cholesterolio esterių ir laisvųjų riebalų rūgščių analizė. Kadangi šios molekulės yra stipriai hidrofobinės, ESI šaltinyje jos jonizuojasi labai prastai, tuo tarpu APCI dujų fazėje jas lengvai protonuoja arba deprotonuoja.
+3.  **Suderinamumas su LC-MS:** Kadangi APCI reikalauja pilno tirpiklio išgaravimo, ji puikiai tinka normalių fazių (angl. *normal-phase LC*) chromatografijai, kurioje naudojami nepoliniai tirpikliai (pavyzdžiui, heksanas ar heptanas), visiškai netinkami ESI purškimui.
+
+**Apribojimai:** APCI nėra tinkamas metodas stambioms biologinėms makromolekulėms (baltymams, nukleorūgštims) tirti. Aukšta garintuvo temperatūra sukelia terminį mėginio skilimą (pirolizę), o nesugebėjimas sukurti daugiavalenčių jonų neleistų užregistruoti šių stambių molekulių masių spektrometro masių diapazone.
+
+## Matricos padedama lazerinė desorbsija/jonizacija
+
+Matricos padedama lazerinė desorpsija/jonizacija (angl. *Matrix-Assisted Laser Desorption/Ionization*, MALDI) – tai vienas iš svarbiausių „švelniosios“ jonizacijos metodų šiuolaikinėje masių spektrometrijoje, skirtas nelakių, polinių ir didelės molekulinės masės junginių analizei. Kartu su elektroišpurškimo jonizacija (ESI), šis metodas iš esmės pakeitė biologinių makromolekulių tyrimus. Už ESI ir MALDI metodų išvystymą biologinėms makromolekulėms tirti Johnas Fennas ir Koichi Tanaka 2002 m. buvo įvertinti Nobelio chemijos premija.
+
+Esminis MALDI bruožas yra tas, kad analitė iš anksto sumaišoma su dideliu kiekiu šviesą sugeriančios medžiagos – matricos, kuri kristalizuodamasi suformuoja kietą kovalentinių ryšių matricą. Veikiant trumpam lazerio impulsui, matrica sugeria lazerio energiją, sugeria smūgį ir apsaugo trapias analitės molekules nuo termolizės (terminio skilimo), kartu perkeldama jas į dujų fazę ir jas jonizuodama. 
+
+Skirtingai nuo elektroišpurškimo jonizacijos (ESI), kurioje formuojasi daugiavalenčiai (daugiakrūviai) jonai, tradicinė MALDI jonizacija pasižymi išskirtine savybe kurti **beveik vien tik vienvalenčius (vienkrūvius) jonus** (dažniausiai $[M + H]^+$ teigiamųjų jonų režime). Tai labai supaprastina gautus masių spektrus, ypač analizuojant sudėtingus mišinius, nes kiekvienas komponentas spektre yra atstovaujamas vienintele pagrindine smailė, o ne plačiu krūvių pasiskirstymu.
+
+
+### Jonizacijos šaltinio konstrukcija ir veikimo principai
+
+MALDI jonizacijos šaltinio techninis išpildymas apima pavyzdžio paruošimo platformą, optinę lazerio nukreipimo sistemą ir masių analizatoriaus sąsają.
+
+#### Pavyzdžio paruošimas ir taikinio plokštelė
+
+Tiriamoji medžiaga analizei ruošiama ant specialių metalinių (paprastai nerūdijančio plieno ar aliuminio) plokštelių – taikinių (angl. *targets*), kuriose gali būti suformuoti dešimtys ar šimtai individualių pavyzdžio taškų (pavyzdžiui, 96 arba 384 vietų matricos). 
+
+Pasiruošimo metu labai praskiestas analitės tirpalas (paprastai 0,01–1,0 mg/ml) sumaišomas su dideliu matricos tirpalo pertekliumi (apie 10 mg/ml). Rekomenduojamas analitės ir matricos molinis santykis svyruoja nuo **1:1000 iki 1:10 000**. Nedidelis šio mišinio tūris (apie 1 µl) užlašinamas ant taikinio plokštelės ir leidžiamas tirpikliui išgaruoti. Garavimo metu analitės molekulės įsiterpia į augančias matricos mikrokristalų gardeles, suformuodamos kietąjį tirpalą (kokristalizuotą mišinį). Nuo susidariusio kristalinio sluoksnio homogeniškumo tiesiogiai priklauso masių spektro skiriamoji geba, masių tikslumas bei signalo reprodukuojamumas.
+
+#### Lazerinės sistemos parametrai
+
+MALDI šaltinio veikimas yra periodinis (pulsinis) procesas, nes jonizaciją inicijuoja trumpalaikiai lazerio impulsai. Naudojami du pagrindiniai lazerių tipai:
+
+1.  **Ultravioletiniai (UV) lazeriai:** Tai labiausiai paplitę ir universaliausi šviesos šaltiniai MALDI sistemose. Tarp jų dominuoja:
+    *   *Azoto lazeriai (nitrogen lasers):* skleidžiantys 337 nm bangos ilgio šviesą (fotono energija apie 3,7 eV).
+    *   *Trigubos dažnio harmonikos Nd:YAG lazeriai:* skleidžiantys 355 nm bangos ilgio šviesą (fotono energija apie 3,5 eV) arba keturgubos harmonikos Nd:YAG lazeriai (266 nm, fotono energija 4,7 eV).
+2.  **Infraraudonieji (IR) lazeriai:** Retesni, naudojami specifinėse srityse (pavyzdžiui, tiesioginiam pavyzdžių išgarinimui iš skystų terpių, elektroforezės gelių ar chromatografinių plokštelių). Čia dažniausiai taikomi *Er:YAG lazeriai* (2,94 µm, kur energiją sugeria O-H ir N-H virpesiai) arba *CO₂ lazeriai* (10,6 µm).
+
+Svarbiausi lazerio parametrai yra šie:
+*   **Impulso trukmė:** Labai trumpa, paprastai **3–10 ns** UV lazeriams (IR lazeriams gali siekti 6–200 ns). Toks trumpas laiko tarpas užtikrina momentinį pavyzdžio viršutinio sluoksnio nuplėšimą (abliaciją) nespėjus įvykti tiriamosios medžiagos termolizei.
+*   **Šviesos srauto tankis (angl. *fluence*):** Energijos kiekis, tenkantis ploto vienetui. MALDI eksperimentuose šviesos srauto tankis paprastai siekia **10–100 mJ/cm²**.
+*   **Apšvitos galia (angl. *irradiance*):** šviesos srauto tankis, padalintas iš impulso trukmės, paprastai siekiantis **\(10^6–10^7	ext{ W/cm}^2\)**. Didžiausias spektrų jautrumas ir minimalus jonų skilimas pasiekiamas, kai lazerio galia nustatoma vos šiek tiek virš jonų susidarymo slenksčio.
+*   **Lazerio spindulio fokusavimas:** Spindulys fokusuojamas į nedidelį tašką, kurio skersmuo plokštelėje yra apie **50–200 µm**. Tai leidžia vienu metu apšvitinti daug smulkių mikrokristalų, taip suvidutininant kristalų orientacijos įtaką signalui.
+
+#### Vakuuminiai ir atmosferinio slėgio (AP-MALDI) šaltiniai
+
+Istoriškai ir praktiškai masių spektrometrijoje dažniausiai naudojami vakuuminiai MALDI šaltiniai, įrengti tiesiogiai prie masių analizatoriaus (paprastai skrydžio trukmės, TOF) vakuuminės kameros. Lazerio impulsas sukelia tiesioginį jonų išmetimą į vakuumą, kur jie iškart greitinami elektriniu lauku.
+
+Tačiau buvo sukurta ir kita konfigūracija – **atmosferinio slėgio cheminė-lazerinė desorpsija (AP-MALDI)**, kurioje pavyzdys apšvitinamas azoto dujų aplinkoje esant normaliam slėgiui. Susidarę jonai į masių analizatoriaus vakuumo sistemą įtraukiami per šildomą kapiliarą (analogiškai kaip ESI sistemose). AP-MALDI privalumai:
+*   **Kolizinis vėsinimas (collisional cooling):** Atmosferos dujų molekulės greitai susiduria su sužadintais jonais, efektyviai išsklaidydamos jų vidinį energijos perteklių. Tai drastiškai sumažina nepageidaujamą jonų fragmentaciją.
+*   **Universalumas:** Šaltinį galima lengvai sumontuoti ant bet kurio prietaiso, turinčio atmosferinio slėgio sąsają (ESI ar APCI), nekeičiant masių spektrometro giluminio vakuumo konstrukcijos.
+*   *Trūkumai:* AP-MALDI pasižymi maždaug 5–10 kartų prastesne detekcijos riba (LOD) nei vakuuminė MALDI, nes didelė dalis atmosferoje susidariusių jonų nepakliūva į siaurą kapiliaro įėjimą.
+
+---
+
+### Jonizacijos mechanizmas dujų fazėje
+
+MALDI jonizacijos mechanizmas yra sudėtingas, daugiapakopis fizikinės chemijos procesas, apimantis kietojo kūno fazių virsmus ir intensyvias jonų-molekulių reakcijas sparčiai besiplečiančiame dujų debesyje.
+
+#### Lazerinė abliacija ir virsmo debesis (pliumas)
+
+Lazerio impulsui smogus į kokristalizuotą pavyzdį, matricos molekulės kooperatyviai sugeria šviesos energiją. Įvyksta staigus kietosios fazės virsmas į dujinę – **lazerinė abliacija**. Nuplėštas medžiagos sluoksnis suformuoja tankų, karštą ir virpamiškai sužadintą garų bei jonų debesį, vadinamą **pliumu (angl. *plume*)**. Šis debesis plečiasi viršgarsiniu greičiu (vyksta adiabatinis plėtimasis), kurio metu sistema sparčiai vėsta. Pliumo viduje analitės molekulės yra apsuptos tūkstančių matricos molekulių, o tai užtikrina „švelniąją“ desorpsiją be tiesioginio kovalentinių ryšių suirimo.
+
+#### Pirminė ir antrinė jonizacija
+
+Pliumo viduje jonų formavimasis vyksta dviem nuosekliais etapais:
+
+1.  **Pirminė jonizacija (vyksta abliacijos metu):** Matricos molekulės tiesiogiai sąveikauja su lazerio fotonais. Sugerdamos energiją, jos patiria fotojonizaciją arba daugiafotonę jonizaciją, suformuodamos radikalus-katijonus:
+    $$T + h \nu \rightarrow T^{+\bullet} + e^-$$
+    Taip pat sužadintos matricos molekulės gali reaguoti tarpusavyje, sukeldamos protono pernešimą ir suformuodamos pirminius matricos jonus:
+    $$T^* + T^* \rightarrow [T + H]^+ + [T - H]^-$$
+2.  **Antrinė jonizacija (vyksta besiplečiančiame debesyje):** Tai termodinamiškai kontroliuojamos reakcijos, primenančios cheminę jonizaciją (CI) dujų fazėje. Pirminiai įkrauti matricos jonai aktyviai susiduria su neutraliomis analitės molekulėmis ($M$). Jei analitės protonų afinitetas (PA) yra didesnis už matricos, įvyksta efektyvus protono pernešimas:
+
+    $$[T + H]^+ + M \rightarrow [M + H]^+ + T$$
+    
+    Jei aplinkoje yra šarminių metalų priemaišų, vyksta aduktų susidarymas cationizacijos būdu:
+    
+    $$[T + Na]^+ + M \rightarrow [M + Na]^+ + T$$
+
+#### Laimingojo išlikusiojo modelis (Lucky Survivor Model)
+
+Vienas didžiausių MALDI masių spektrometrijos klausimų: kodėl, nepaisant didelio krūvio tankio pradiniame debesyje, masių spektruose registruojami beveik išskirtinai tik vienvalenčiai (vienkrūviai) jonai? Šį fenomeną išsamiai paaiškina **M. Karaso pasiūlytas „laimingojo išlikusiojo“ modelis** (angl. *Lucky Survivor Model*).
+
+Modelis remiasi prielaida, kad pradiniame lazerio išmuštame debesyje analitės makromolekulės (ypač stambūs baltymai) iš tiesų išskrieja turėdamos po kelis krūvius (teigiamus ar neigiamus), nes jos jau tirpale egzistavo kaip polijonai. Tačiau pliumo viduje vyksta itin intensyvi priešingų krūvių rekombinacija (neutralizacija) tarp analitės jonų, matricos jonų ir laisvųjų elektronų. 
+*   **Elektrostatinė stūma ir trauka:** Rekombinacijos (neutralizacijos) greičio konstanta yra proporcinga jono krūviui – kuo didesnis jono krūvis, tuo stipriau jis pritraukia priešingo krūvio daleles ir greičiau praranda savo krūvį.
+*   **Vienvalenčių jonų stabilumas:** Jono krūviui sumažėjus iki vieno teigiamo ar neigiamo krūvio (pavyzdžiui, iki $[M + H]^+$ arba $[M - H]^-$), neutralizacijos tikimybė drastiškai sumažėja, nes Kulono trauka tampa silpna. Tokie jonai sėkmingai išvengia neutralizacijos debesyje ir pasiekia detektorių. Jie yra vaizdžiai vadinami **„laimingaisiais rekombinacijos konflikto išlikusiaisiais“**.
+*   **Teigiamųjų jonų dominavimas:** Kadangi lengvi ir greiti laisvieji elektronai pirmieji išsisklaido iš pliumo pakraščių į aplinką, debesyje natūraliai susidaro nedidelis teigiamo krūvio perteklius. Tai paaiškina, kodėl teigiamųjų jonų režimas MALDI spektruose paprastai yra jautresnis ir intensyvesnis nei neigiamųjų jonų.
+
+### Aduktų formavimasis
+
+Priklausomai nuo pavyzdžio savybių, masių spektruose registruojami šie pagrindiniai vienkrūviai jonai:
+
+*   **Teigiamųjų jonų režime:**
+    *   *Protonuoti jonai:* $[M + H]^+$. Būdingi peptidams, baltymams, baziniams azoto turintiems junginiams.
+    *   *Šarminių metalų aduktai:* $[M + Na]^+$ (masės pokytis +22,99 u) ir $[M + K]^+$ (masės pokytis +38,96 u). Kadangi natrio ir kalio jonai yra visur paplitę laboratorinėje aplinkoje (stikle, reagentuose, dulkėse), šie aduktai yra itin dažni poliarinių deguoninių junginių (pvz., oligosacharidų, sintetinių polieterių) spektruose.
+    *   *Pereinamųjų metalų aduktai:* $[M + Ag]^+$ arba $[M + Cu]^+$. Šie aduktai tikslingai naudojami nepolinių angliavandenilių ir sintetinių polimerų (pvz., polistireno) jonizacijai, nes šie junginiai neturi rūgštinių/bazinių grupių protonacijai, bet lengvai koordinuoja \(Ag^+\) jonus per dvigubuosius ryšius ar aromatinį žiedą.
+*   **Neigiamųjų jonų režime:**
+    *   *Deprotonuoti jonai:* $[M - H]^-$. Būdingi rūgštiniams junginiams: karboksirūgštims, fenoliams, nukleorūgštims bei fosforilintiems peptidams.
+    *   *Anijonų aduktai:* $[M + Cl]^-$, $[M + HCO_2]^-$, $[M + CF_3COO]^-$, susidarantys analitei koordinuojant buferinių tirpalų ar rūgščių priedų anijonus.
+
+
+### Pagrindinės MALDI matricos
+
+Teisingas matricos parinkimas yra kritinis sėkmingos analizės faktorius. Kiekviena matrica privalo atitikti šiuos reikalavimus:
+1.  Turėti stipriai konjuguotą aromatinę sistemą, užtikrinančią didelį molinį sugerties koeficientą lazerio skleidžiamo bangos ilgio srityje (pavyzdžiui, ties 337 arba 355 nm).
+2.  Būti pakankamai stabili aukštame vakuume (pasižymėti žemu garų slėgiu), kad neišgaruotų iš šaltinio prieš analizę.
+3.  Gerai kokristalizuotis su analite, izoliuojant jos molekules vieną nuo kitos.
+4.  Pasižymėti reikiamu rūgštingumu (arba baziškumu) efektyviam protonų pernešimui dujų fazėje užtikrinti.
+
+#### Standartinės UV-MALDI matricos
+
+| Pavadinimas ir akronimas | Cheminė formulė / Struktūra | Tipinė taikymo sritis |
+| :--- | :--- | :--- |
+| **$\alpha$-ciano-4-hidroksicinamono rūgštis (HCCA / CHCA) ** | $C_{10}H_7NO_3$ | Peptidams, mažiems baltymams (iki 6000 u), lipidams. Labai efektyvi matrica, tačiau dėl mažų masių triukšmo netinka analizuoti medžiagoms, kurių \(m/z < 500\). |
+| **2,5-dihidroksibenzoinė rūgštis (DHB)** | $C_7H_6O_4$ | Peptidams, vidutinio dydžio baltymams, oligosacharidams (angliavandeniams), glikoproteinams. Pasižymi puikiu toleravimu nedidelėms druskų priemaišoms. |
+| **Sinapino rūgštis (SA)** (3,5-dimetoksi-4-hidroksicinamono rūgštis) | $C_{11}H_{12}O_5$ | Stambiems baltymams (> 10 000 u), glikobaltymams ir antikūnams. Dėl mažesnio jautrumo neleidžia intensyviai fragmentuotis dideliems jonams. |
+| **3-hidroksipikolino rūgštis (3-HPA / HPA)** | $C_6H_5NO_3$ | Oligonukleotidams, trumpoms DNR ir RNR sekoms. Švelni matrica, apsauganti trapias fosfodiesterines jungtis nuo skilimo. |
+| **Ditranolis (Dithranol / 1,8,9-antracenetriolis)** | $C_{14}H_{10}O_3$ | Sintetiniams nepoliniams polimerams (pvz., polistirenui, polimetilmetakrilatui PMMA). Naudojama kartu su šarminių ar pereinamųjų metalų druskomis. |
+| **DCTB** (2-[(2E)-3-(4-t-butilfenil)-2-metilprop-2-eniliden]malononitrilas) | $C_{17}H_{16}N_2$ | Sintetiniams polimerams, dendrimerams, nepoliniams organiniams junginiams, koordinaciniams kompleksams. Tai aprotoninė (neprotonuojanti) matrica, skatinanti $M^{+\bullet}$ radikalų formavimąsi. |
+
+---
+
+### Taikymo sritys
+
+Masių spektrometrijoje MALDI metodas yra naudojamas kaip nepakeičiamas įrankis struktūrinėje biologijoje, klinikinėje mikrobiologijoje, polimerų chemijoje bei vaizdinimo technologijose.
+
+#### Baltymų charakterizavimas ir proteomika
+
+1.  **Peptidų masių žemėlapis (Peptide Mass Fingerprinting, PMF):** Tai greitas ir pigus baltymų identifikavimo būdas. Grynasis nežinomas baltymas suskaldomas specifiniu fermentu (dažniausiai tripsinu), o gautas peptidų mišinys analizuojamas MALDI-TOF masių spektrometru. Gautas smailų masių sąrašas (pirštų atspaudas) kompiuterių algoritmais lyginamas su teoriniais baltymų duomenų bazių skilimais, taip identifikuojant nežinomą baltymą.
+2.  **Sveikų baltymų ir jų kompleksų analizė:** Kadangi MALDI išlaiko makromolekules sveikas ir kuria vienvalenčius jonus, juo galima tiksliai išmatuoti netgi šimtų kilodaltonų (kDa) dydžio baltymų, glikobaltymų ar multimero kompleksų masę, nenaudojant sudėtingos spektrų dekonvoliucijos.
+
+#### Klinikinis mikroorganizmų identifikavimas (MALDI Biotyping)
+
+Šiuo metu tai yra viena plačiausiai naudojamų ir revoliucingiausių MALDI taikymo sričių medicinoje. Greitas patogeninių bakterijų ar grybelių identifikavimas iš paciento pasėlių atliekamas tiesiogiai taikinio plokštelėje:
+*   Nedidelis bakterijų kolonijos kiekis užtepamas tiesiai ant plokštelės, padengiamas matrica (pvz., HCCA) ir analizuojamas.
+*   Lazerio impulsas suardo ląsteles ir sugeneruoja labai stabilų ir charakteringą **ribosominių baltymų profilį** (spektrą masių diapazone nuo 2000 iki 20 000 u).
+*   Gautas spektrinis „pirštų atspaudas“ per kelias sekundes palyginamas su žinomų etaloninių mikroorganizmų spektrų duomenų baze. Šis metodas leidžia identifikuoti bakterijos rūšį per kelias minutes (vietoj kelių dienų, reikalingų tradiciniams biocheminiams testams), o tai kritiškai pagreitina tinkamo gydymo parinkimą sepsio ar kitų infekcijų atvejais.
+
+#### Sintetinių polimerų ir dendrimerų analizė
+
+MALDI yra pirmenybinis metodas polimerų chemijoje, nes jame nesusidaro daugiavalenčiai jonai, galintys visiškai sujaukti polidispersinių polimerų spektrus. Polimero masių spektre stebima tvarkinga smailų seka, kur atstumas tarp smailų tiksliai atitinka pasikartojančio monomerinio vieneto masę. Metodas leidžia:
+*   Išmatuoti vidutinę skaitinę molekulinę masę (\(M_n\)) bei vidutinę svorinę molekulinę masę (\(M_w\)).
+*   Apskaičiuoti polimero polidispersiškumo indeksą (\(PD = M_w / M_n\)).
+*   Identifikuoti polimero galinių funkcinių grupių (angl. *end-groups*) prigimtį ir masę, analizuojant masių spektro poslinkį.
+
+#### Masių spektrometrinis vaizdinimas (MALDI Mass Spectral Imaging, MALDI-MSI)
+
+Tai unikali technologija, jungianti vizualinę mikroskopiją su kiekybine ir kokybine chemine analize tiesiogiai biologiniuose audiniuose.
+*   **Metodika:** Plonas biologinio audinio (pavyzdžiui, pelės smegenų ar organo pjaustinio, augalo lapo) sluoksnis užšaldomas, supjaustomas mikrotomu, perkeliamas ant specialaus stiklelio ir tolygiai, plonu, homogenišku sluoksniu padengiamas matrica (pvz., naudojant pneumatinius purkštuvus).
+*   **Skenavimas:** Lazeris nukreipiamas į audinį ir skenuoja jo paviršių taškas po taško (pavyzdžiui, suformuojant \(256 	imes 256\) taškų tinklelį), kiekviename taške (pikselyje) užregistruojant pilną masių spektrą.
+*   **Vaizdo rekonstravimas:** Kompiuterine įranga pasirenkamas konkretus dominančios medžiagos (pvz., vaisto metabolito, specifinio lipido ar biomarkerinio baltymo) \(m/z\) signalas, o jo intensyvumas pavaizduojamas spalvomis visose koordinatėse. Tai leidžia vizualiai pamatyti tikslų pasirinktos medžiagos pasiskirstymą ir skvarbą audinyje (pavyzdžiui, vaisto pasiskirstymą naviko srityje), kas yra itin vertinga ikiklinikiniuose farmaciniuose tyrimuose, vėžio diagnostikoje bei teismo ekspertizėje (pavyzdžiui, latentinių pirštų atspaudų cheminiam profiliavimui, nustatant pėdsakinius narkotinių medžiagų ar sprogmenų kiekius).
 
 # Analizatoriai
 
