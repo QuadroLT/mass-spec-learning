@@ -424,6 +424,93 @@ Prie pagrindinių $b$ ir $y$ jonų MS/MS spektruose dažnai stebimi satelitiniai
     
 
 
+## Nežinomo MS/MS spektro lyginimas su spektrų bibliotekomis ir atitikimo vertinimas
+
+Kai turimas nežinomo junginio ESI-MS/MS spektras, vienas greičiausių ir patikimiausių jo identifikavimo būdų organinėje analizėje, metabolomikoje bei toksikologijoje yra **paieška spektrų bibliotekose** (angl. *spectral library search*). 
+
+Įprastas lyginimo ir identifikavimo procesas susideda iš kelių nuoseklių etapų, pavaizduotų žemiau pateiktoje diagramoje:
+
+```mermaid
+flowchart TD
+    A[Nežinomas ESI-MS/MS spektras] --> B["1. Prekursoriaus m/z filtravimas (± ppm / mDa)"]
+    B --> C["2. Spektrų sulyginimas ir smailių svorių suteikimas (Peak Weighting)"]
+    C --> D["3. Atitikimo balo skaičiavimas (Dot Product / Cosine / Reverse Score)"]
+    D --> E{Atitikimo balų reitingavimas}
+    E -->|Aukštas balas > 0.85| F[Identiškas junginys etaloninėje bibliotekoje]
+    E -->|Vidutinis balas / Hibridinė paieška| G[Struktūrinis analogas / Priklausomybė klasei]
+    E -->|Nėra atitikmenų| H["In silico fragmentacija (SIRIUS, MetFrag, CFM-ID)"]
+```
+
+### Prekursoriaus jono filtravimas (angl. *Precursor Ion Filtering*)
+
+Paieška bibliotekoje pradedama apribojant etaloninių spektrų kandidatų sąrašą pagal prekursoriaus jono $m/z$ vertę:
+
+* **Masės tolerancija (angl. *Mass Tolerance*):** Naudojamas tiksliosios masės langas (pvz., $\pm 5\text{–}10\text{ ppm}$ arba $\pm 2\text{–}5\text{ mDa}$ didelės raiškos Q-TOF ar Orbitrap prietaisams).
+* **Aduktų suderinamumas:** Tikrinama, ar prekursoriaus jonizacijos forma teigiamoje ($[M+\text{H}]^+$, $[M+\text{Na}]^+$, $[M+\text{NH}_4]^+$) arba neigiamoje ($[M-\text{H}]^-$, $[M+\text{HCOO}]^-$) jonizacijoje atitinka bibliotekoje įregistruotą aduktą.
+
+Šis atrankos žingsnis sumažina paieškos erdvę nuo šimtų tūkstančių spektrų iki keliasdešimties ar kelių šimtų potencialių kandidatų, drastiškai pagreitindamas skaičiavimus.
+
+
+###  Spektrų sulyginimas ir smailių svorių suteikimas (angl. *Peak Weighting*)
+
+MS/MS spektre kiekviena smailė charakterizuojama dviem parametrais: masės ir krūvio santykiu ($m/z$) bei santykiniu intensyvumu ($I$). 
+
+Lyginant du spektrus (nežinomąjį $A$ ir etaloninį $B$), smailių intensyvumams suteikiami **mateminiai svorio koeficientai $W_i$**. Tai daroma todėl, kad mažos masės triukšmo arba dažnai pasikartojančios neutralios netektys (pvz., $-18\text{ Da}$ $H_2O$) suteikia mažiau unikalios struktūrinės informacijos nei aukštesnės masės, specifiniai karkaso fragmentai.
+
+Svorio koeficientas skaičiuojamas pagal formulę:
+
+$$W_i = [I_i]^m \times [(m/z)_i]^n$$
+
+* **Stein & Scott empiriniai svoriai ESI-MS/MS duomenims:** 
+  * Intensyvumo laipsnis $m = 0{,}5\text{–}0{,}6$ (sumažina itin intensyvių smailių dominavimo įtaką).
+  * Masės laipsnis $n = 1\text{–}3$ (padidina didesnės masės diagnostinių fragmentų svorį).
+  * Taikant šiuos koeficientus, aukštesnių masių smailėms suteikiama žymiai didesnė įtaka galutiniam vertinimui.
+
+
+### Atitikimo balų skaičiavimo algoritmai (angl. *Scoring Algorithms*)
+
+Užregistruotas spektras ir bibliotekos spektras paverčiami $N$-matės erdvės vektoriais $\mathbf{A}$ ir $\mathbf{B}$, kur kintamieji atitinka sulygintus $m/z$ kanalus, o reikšmės – svorinius intensyvumus.
+
+```mermaid
+flowchart LR
+    subgraph Vektorių Erdvė ["Vektorinis Spektrų Vaizdavimas"]
+        VA["Vektorius A (Nežinomas spektras)"]
+        VB["Vektorius B (Etaloninis spektras)"]
+    end
+
+    VA & VB --> CS["Kosinuso kampas: cos(θ) = (A · B) / (||A|| ||B||)"]
+    CS --> Score["Atitikimo balas: 0.0 (Jokio atitikimo) ... 1.0 (Visiškas identiškumas)"]
+```
+
+#### Skaliarinė daugyba / Kosinuso kampas (angl. *Dot Product / Cosine Similarity*)
+Šis algoritmas matuoja kampą $\theta$ tarp dviejų spektrinių vektorių:
+
+$$\text{Score} = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|} = \frac{\sum A_i B_i}{\sqrt{\sum A_i^2 \sum B_i^2}}$$
+
+* **Interpretacija:** Reikšmė **1.0 (arba 1000 balų NIST skalėje)** rodo visišką spektrų identiškumą, o **0** – jokio atitikimo. Reikšmė $> 0{,}85$ dažniausiai laikoma patikimu identiškumo patvirtinimu.
+
+#### Atvirkštinis atitikimo balas (angl. *Reverse Match Score / Reverse Dot Product*)
+Apskaičiuojant reversinį balą, **nepaisoma nežinomame spektre esančių papildomų smailių**, kurių nėra etaloniniame spektre:
+* Šis algoritmas vertina tik tas smailės, kurios yra etaloninėje bibliotekoje.
+* **Analizinė vertė:** Leidžia sėkmingai identifikuoti junginį net tada, kai mėginys yra chemiškai užterštas ar fone matomi kartu eliuuojančių pašalinių medžiagų fragmentai.
+
+#### Neutralių netekčių ir hibridinė paieška (angl. *Hybrid / Neutral Loss Search*)
+Jei ieškomo junginio pačioje bibliotekoje nėra, hibridinė paieška lygina ne tik tiesiogines fragmentų $m/z$ reikšmes, bet ir **neutralių netekčių profilius** ($\Delta m/z = (m/z)_{\text{prekursorius}} - (m/z)_{\text{fragmentas}}$):
+* Tai leidžia identifikuoti **struktūrinius analogus** (pvz., metabolitą su papildoma metilo ar hidroksilo grupe), atpažįstant bendrą fragmentacijos šerdį.
+
+
+#### Pagrindiniai iššūkiai ir sprendimai MS/MS bibliotekų paieškoje
+
+1. **Prietaisų ir fragmentavimo energijos (CE) įtaka:**
+   * Skirtingai nei GC-MS EI spektrai (kurie yra griežtai standartizuoti ties $70\text{ eV}$ energija), LC-MS/MS spektrai stipriai priklauso nuo prietaiso tipo (QqQ, Q-TOF, Orbitrap) bei taikytos fragmantavimo energijos ($CE$).
+   * **Sprendimas:** Šiuolaikinės bibliotekos (*NIST*, *METLIN*, *MassBank*, *MoNA*) saugo spektrus, užregistruotus esant skirtingoms fragmantavimo energijoms (pvz., $10\text{ eV}, 20\text{ eV}, 40\text{ eV}$) arba naudoja **jungtinius spektrus (angl. *merged spectra*)**, kur kelios energijos apjungiamos į vieną etaloną.
+
+2. **In silico fragmentacijos įrankiai (kai nėra etaloninio spektro):**
+   * Kai junginio nėra spektrų bibliotekose, taikomi kompiuterinio modeliavimo įrankiai:
+     * **SIRIUS / CSI:FingerID:** Naudoja mašininį mokymąsi ir fragmentacijos medžius elementinei formulei bei struktūriniam piršto atspaudui nustatyti.
+     * **MetFrag / CFM-ID:** Generuoja teorinius fragmentus iš cheminių struktūrų duomenų bazių (*PubChem*, *ChemSpider*) pakaitomis skeliant kovalentinius ryšius ir lygina juos su eksperimentiniu spektru.
+
+
 ## Pratimai ir užduotys
 
 Šioje skiltyje pateikiamos teorinės užduotys, kurias turite išspręsti, kad pasitikrintumėte žinias.
@@ -503,4 +590,32 @@ Teigiamoje jonizacijoje stebimas protonuotas jonas $[M+\text{H}]^+$ ties $m/z = 
 :::
 ::::
 
-```
+::::exercise
+### 4 Užduotis: Neurotransmiteris – Dopaminas (Dopamine)
+Neurotransmiterio dopamino formulė yra $\text{C}_8\text{H}_{11}\text{NO}_2$ (tikslioji monoizotopinė masė $M = 153{,}0790\text{ Da}$). Teigiamoje jonizacijoje stebimas protonuotas prekursorius $[M+\text{H}]^+$ ties $m/z = 154{,}0863$ (lyginis $m/z$).
+
+
+![Dopamino MS/MS spektras](/content/img/lecture3/dopamine.png)
+
+
+- Apskaičiuoti masės skirtumą tarp prekursoriaus ($m/z = 154$) ir pagrindinio fragmento ($m/z = 137$). Kokia tai neutrali molekulė?
+
+- Taikant Azoto taisyklę paaiškinti pariteto pokytį iš lyginio $m/z = 154$ į nelyginį $m/z = 137$.
+
+- Identifikuoti diagnostinį joną $m/z = 91{,}0542$.
+
+:::solution
+
+1. Neutralios netekties nustatymas:
+- Masės pokytis: $\Delta m/z = 154{,}0863 - 137{,}0597 = 17{,}0266\text{ Da}$.
+- Tai amoniako ($\text{NH}_3$) eliminavimas iš alifatinės amino grupės.
+
+2. Azoto taisyklės ir pariteto pokytis:
+- Prekursorius $m/z = 154$ (lyginis) turi 1 azoto atomą.
+- Pasišalinanti amoniako molekulė ($\text{NH}_3$, $17\text{ Da}$) turi 1 azoto atomą (nelyginė netektis).Kadangi azoto atomas išėjo kartu su neutralia molekule, produkto jone azoto nebeliko (0 N), todėl jo paritetas apsivertė iš lyginio į nelyginį $m/z = 137$.
+
+3. Tai benzilo / tropilijaus katijonas ($[\text{C}_7\text{H}_7]^+$), susidaręs skeliant alilinį/benzilinį ryšį po tolimesnės karkaso fragmentacijos. 
+
+:::
+
+::::
