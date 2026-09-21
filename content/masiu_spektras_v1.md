@@ -56,7 +56,6 @@ Pasiekę detektorių, atskirti jonai registruojami:
 - **Indukcinės srovės detekcija (FT-ICR, Orbitrap):** Jonai fiziškai nesunaikinami – registruojama jų sukeliama atvaizdo srovė detektoriaus elektroduose.
 Išmatuotas elektrinis signalas (srovė arba įtampa) yra tiesiogiai proporcingas užregistruotų jonų skaičiui.
 
----
 
 
 ## Masių spektras
