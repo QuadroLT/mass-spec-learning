@@ -617,5 +617,442 @@ Jonų chromatografija apima itin platų analičių spektrą — nuo smulkių neo
 * **Fosforilinti metabolitai:** Nukleozidų trifosfatų (ATP, ADP, AMP), cukrų fosfatų ir organinių rūgščių, pasižyminčių stipriu neigiamu krūviu, atskyrimas, kurio neįmanoma atlikti RPLC režime.
 
 #### Aplinkotyra ir Maisto Saugos Tyrimai
-* **Neorganiniai anijonai ir kationai:** Vandens kokybės kontrolė (anijonai: $\text{F}^-$, $\text{Cl}^-$, $	ext{NO}_2^-$, $\text{NO}_3^-$, $\text{SO}_4^{2-}$; kationai: $\text{Na}^+$, $\text{K}^+$, $\text{Ca}^{2+}$, $	\text{Mg}^{2+}$).
+* **Neorganiniai anijonai ir kationai:** Vandens kokybės kontrolė (anijonai: $\text{F}^-$, $\text{Cl}^-$, $	\text{NO}_2^-$, $\text{NO}_3^-$, $\text{SO}_4^{2-}$; kationai: $\text{Na}^+$, $\text{K}^+$, $\text{Ca}^{2+}$, $	\text{Mg}^{2+}$).
 * **Toksiški oksianijonai:** Bromato ($	\text{BrO}_3^-$), chlorato, perchlorato bei organinių rūgščių likučiai maisto produktuose bei geriamajame vandenyje.
+
+
+## Jonų porų chromatografija
+
+Jonų porų atvirkščių fazių chromatografija (angl. *Ion-Pair Reversed-Phase Chromatography*, IP-RPLC arba IPC) yra specializuotas skysčių chromatografijos būdas, skirtas stipriai poliniams, vandenyje tirpiems ir jonizuotiems junginiams sulaikyti bei atskirti naudojant standartines nepolines stacionariąsias fazes (pvz., $C_{18}$ arba $C_8$).
+
+Tradicinėje atvirkščių fazių chromatografijoje (RPLC) stipriai jonizuotos analitės (pvz., karboksilatai, sulfonatai, fosfatai, nukleorūgštys, protonizuoti aminai) pasižymi itin mažu afiniškumu nepolinėms alkilinėms uodegoms, todėl eliuojasi kartu su laisvuoju kolonėlės tūriu ($t_0$). Jonų porų chromatografija išsprendžia šią problemą į eluentą įmaišant **jonų poravimo reagentą** (*ion-pairing reagent*, IPR) — amfifilinį junginį, turintį joninį galvutės krūvį (priešingo ženklo nei analitė) ir nepolinę lipofilišką uodegą.
+
+---
+
+### Atskyrimo mechanizmas
+
+Jonų porų chromatografijoje sulaikymas grindžiamas dviejų konkuruojančių fizikinių-cheminių modelių pusiausvyra:
+
+```mermaid
+graph TD
+    classDef mainFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef process fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100;
+    classDef state fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+
+    A([1. Jonų poravimo reagentas IPR eluentuose]) --> B{{1 modelis: Dinaminiai jonų mainai}}
+    A --> C{{2 modelis: Jonų poros susidarymas tūryje}}
+
+    B --> D([IPR nepolinė uodega adsorbuojasi ant C18 sorbento])
+    D --> E([Sorbentas įgyja dinaminį paviršinį krūvį])
+    E <--> |Elektrostatinė trauka / mainai| F([Įkrauta analitė sulaikoma ant paviršiaus])
+
+    C --> G([Įkrauta analitė ir IPR sudaro elektrai neutralią porą eluente])
+    G <--> |3D paskirstymas / van der Waals| F
+
+    class A,F state;
+    class B,C,D,E,G process;
+```
+
+#### Dinaminių jonų mainų modelis (*Dynamic Ion-Exchange Model*)
+Šis modelis geriausiai paaiškina daugumą praktinių IP-RPLC reiškinio stebėjimų:
+1. Amfifilinio jonų poravimo reagento nepolinė hidrofobinė uodega (pvz., alkilo grandinė) stipriai adsorbuojasi ant stacionariosios fazės ($C_{18}$) paviršiaus dėl van der Waals sąveikų.
+2. IPR joninė galvutė lieka atsukta į vandeninį eluentą, sudarydama įkrautą dvigubąjį sluoksnį ant sorbento paviršiaus.
+3. Stacionarioji fazė *dinamiškai paverčiama* jonitininku. Priešingo krūvio analitė sulaikoma per **elektrostatinius jonų mainus** su imobilizuotomis IPR galvutėmis.
+
+#### Jonų poros susidarymo eluentų tūryje modelis (*Partitioning Model*)
+1. Įkrauta analitė ir priešingo krūvio IPR jonas reaguoja eluentų tūryje, sudarydami elektrai neutralų, lipofilišką **jonų porų kompleksą**:
+   $$\text{Analitė}^\pm + \text{IPR}^\mp \rightleftharpoons [\text{Analitė}\cdot\text{IPR}]^0$$
+2. Susidaręs neutralus kompleksas pasižymi žymiai didesniu lipofiliškumu ($\log P$) ir lengvai įsiskverbia (pasiskirsto) į nepolinę $C_{18}$ stacionariąją fazę van der Waals jėgomis.
+
+
+### Suderinamumas su masių spektrometrija
+
+Tradiciniai IP-RPLC reagentai (pvz., natrio dodecilsulfatas SDS, alkilsulfonatai, tetrabutilamonio bromidas TBABr) yra nelakūs ir sukelia itin stiprų elektropurškimo (ESI) signalo slopinimą bei užteršia MS įvado optiką. Todėl LC-MS sistemoms taikomi tik **lakūs jonų poravimo reagentai**:
+
+####  Anijoninėms analitėms (rūgštims, oligonukleotidams, poliniams dažams)
+* **Trietilamonio acetatas (TEAA):** Klasikinis lakus reagentas, plačiai taikomas trumpų peptidų ir polinių rūgščių IP-RPLC-MS analizėje.
+* **Trietilaminas su heksafluorizopropanoliu (TEA / HFIP):** Auksinis terapeutinių **oligonukleotidų (ARN, DNR, siRNA, sgRNA)** IP-RP-MS analizės standartas. HFIP veikia kaip buferinis pH agentas ir skatina reagento garavimą ESI mikrolašeliuose, sumažindamas jonų slopinimą.
+* **Alkilaminai (DIPA, DBA, TPA):** Diizopropilaminas, dibutilaminas ir tripropilaminas naudojami optimizuojant oligonukleotidų ir polinių metabolitų sulaikymo laikus bei smailių simetriją.
+
+#### Kationinėms analitėms (bazinėms medžiagoms, aminams, peptidams)
+* **Perfluorintos karboksilato rūgštys:**
+  * *Trifluoracto rūgštis (TFA, $\text{CF}_3\text{COOH}$):* Labai populiarus proteomikoje. Suteikia puikią smailių formą, tačiau pasižymi tam tikru ESI signalo slopinimu.
+  * *Heptafluorsviesto rūgštis (HFBA, $\text{C}_3\text{F}_7\text{COOH}$):* Ilgesnės perfluorintos grandinės reagentas, užtikrinantis stipresnį kationų sulaikymą esant mažesnei koncentracijai.
+* **Dalinai fluorintos karboksilato rūgštys (TFTFPA, DFA):** Naujos kartos reagentai, suteikiantys stiprų jonų poravimo efektą ir mažesnį ESI signalo slopinimą nei TFA.
+
+
+### Taikymo sritys
+
+1. **Oligonukleotidų ir genų terapijos vaistų analizė (IP-RP LC-MS):**
+   * Terapeutinių oligonukleotidų (antisense, siRNA, mRNA), jų sintezės priemaišų ($n-1$, $n+1$), deaminintų ir oksiduotų degradacijos produktų profiliavimas.
+2. **Klinikinė chemija ir neurochemija:**
+   * Biogeninių monoamininių neuromediatorių (dopamino, serotonino, noradrenalino, L-DOPA) bei jų metabolitų tyrimai kraujuje bei audiniuose.
+3. **Polinių metabolitų ir vaistinių medžiagų analizė:**
+   * Nukleotidų (ATP, ADP, AMP), trumpos grandinės organinių rūgščių, melamino, aminorūgščių bei polinių dažų skyrimas.
+
+
+### IP-RPLC lyginant su kitomis chromatografijos technikomis
+
+| Parametras / Režimas | RPLC | NPLC | HILIC | IC / IEC | **IP-RPLC (Jonų porų)** |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Sulaikymo mechanizmas** | van der Waals (3D/2D) | Adsorbcija ant polinio paviršiaus | 3D Paskirstymas vandeniniame sluoksnyje | Elektrostatitiniai jonų mainai | **Dinaminiai jonų mainai / Jonų poros pasiskirstymas** |
+| **Stacionarioji fazė** | Nepolinė ($C_{18}$) | Polinė (Silikagelis) | Polinė (Diolis, Zviterjonas) | Įkrauta (SAX, WAX, SCX, WCX) | **Nepolinė ($C_{18}$, $C_8$)** |
+| **Mobiliosios fazė** | $\text{H}_2\text{O}$ + ACN/MeOH | Heksanas + organinis modifikatorius | 70–95% ACN + buferis | Vandeniniai druskų/pH gradientai | **$\text{H}_2\text{O}$ + ACN/MeOH + IPR reagentas** |
+| **Polinių jonų sulaikymas** | Labai silpnas ($t_0$) | Stiprus (bet netirpsta biologiniuose skysčiuose) | Puikus ($\log P < -1.5$) | Puikus (stipriai įkrautiems jonams) | **Puikus ir tiksliai valdomas IPR koncentracija** |
+| **MS suderinamumas** | Puikus | Prastas (nepoliniai tirpikliai) | Labai aukštas (aukštas ACN kiekis) | Reikalauja slopintuvų (*Suppressors*) | **Vidutinis (reikalauja lakučių IPR, galimas ESI slopinimas)** |
+
+#### Privalumai
+* **Suderinamumas su standartinėmis $C_{18}$ kolonėlėmis:** Nereikia pirkti brangių specializuotų jonitininkų ar HILIC kolonėlių.
+* **Mobiliosios fazės gradientų naudojimas:** Skirtingai nei NPLC, naudojami RPLC įprasti vandeniniai-organiniai eluentų gradientai.
+* **Didelis selektyvumo valdymas:** Sulaikymą galima tiksliai reguliuoti keičiant IPR tipą, grandinės ilgį, pH ir IPR koncentraciją.
+* **Didelė skirtiamoji geba oligonukleotidams:** Žymiai pranašesnis atskyrimas polimeriniams nukleorūgščių homologams nei RPLC ar HILIC.
+
+#### Trūkumai
+* **ESI signalo slopinimas (*Ion Suppression*):** Laisvi IPR jonai lašelių garavimo metu konkuruoja su analite dėl krūvio ESI šaltinyje.
+* **Ilgas kolonėlės pusiausvyros nusistovėjimas ir „atminties“ efektas:** IPR stipriai adsorbuojasi ant $C_{18}$ sorbento. Nuplauti IPR iš kolonėlės yra itin sunku, todėl IP-RPLC metodikoms dažniausiai skiriama atskira, dedikuota kolonėlė.
+* **Optimizavimo sudėtingumas:** Reikia tiksliai suderinti elueto pH, IPR koncentraciją, organinio modifikatoriaus dalį ir temperatūrą.
+
+## Dydžių išskyrimo chromatografija
+
+Dydžių išskyrimo chromatografija (angl. *Size-Exclusion Chromatography*, SEC), vandeninėje terpėje dar vadinama gelio filtracine chromatografija (GFC), o organiniuose tirpikliuose — gelio skvarbos chromatografija (GPC), yra skysčių chromatografijos režimas, grindžiamas grynai **fizikiniu makromolekulių atskyrimu pagal jų hidrodinaminį tūrį ir erdvinius matmenis**.
+
+Skirtingai nei prieš tai nagrinėti chromatografiniai režimai (RPLC, NPLC, HILIC, IC, IP-RPLC), kuriuose sulaikymo varomoji jėga yra cheminės arba elektrostatinės analitės ir stacionariosios fazės sąveikos (adsorbcija, paskirstymas, joniniai mainai):
+* **Idealioje SEC sistemoje cheminės sąveikos netaikomos ir yra nepageidaujamos.**
+* Sulaikymas vyksta dėl **sterinio slopinimo (erdvinės atskirties)**, kai analitės molekulės, judėdamos pro porėto sorbento karkasą, priklausomai nuo savo dydžio gali arba negali patekti į stacionariosios fazės porų vidų.
+
+Šis metodas yra esminis įrankis **biologinių makromolekulių** — baltymų, nukleorūgščių (DNR, mRNA), monokloninių antikūnų (mAbs), baltymų-baltymų ir baltymų-ligandų kompleksų bei virusinių vektorių (AAV) tyrimuose.
+
+---
+
+### Atskyrimo mechanizmas ir porėtumo fizika
+
+SEC atskyrimas grindžiamas analitės hidrodinaminio tūrio ($V_h$) arba Stokso spindulio ($r_s$) ir stacionariosios fazės porų skersmens santykiu.
+
+```mermaid
+graph TD
+    classDef mainFlow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef process fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100;
+    classDef state fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+
+    A([Mėginio įšvirkštimas į SEC kolonėlę]) --> B{{Išorinis srautas tarp sorbento dalelių}}
+    
+    B -->|Didelės molekulės: r_s > r_poros| C([Visiška atskirtis nuo porų K_sec = 0])
+    B -->|Vidutinės molekulės: r_s ~ r_poros| D([Dalinis patekimas į poras 0 < K_sec < 1])
+    B -->|Mažos molekulės: r_s << r_poros| E([Visiškas patekimas į visas poras K_sec = 1])
+
+    C --> F([Greičiausias išplovimas: Eliuoja ties V_0])
+    D --> G([Atskyrimas pagal dydį: Eliuoja V_0 < V_e < V_t])
+    E --> H([Lėčiausias išplovimas: Eliuoja ties V_t])
+
+    class A,C,D,E state;
+    class B process;
+    class F,G,H mainFlow;
+```
+
+####  Kolonėlės tūrių balansas ir pasiskirstymo koeficientas ($K_{sec}$)
+Bendrasis SEC kolonėlės tūris ($V_t$) susideda iš trijų dalių:
+
+$$V_t = V_0 + V_p + V_{	\text{karkasas}}$$
+
+* **Laisvasis tarpdalelinis tūris ($V_0$, *void volume*):** Mobiliosios fazės tūris tarp porėtų sorbento dalelių.
+* **Vidinis porų tūris ($V_p$, *pore volume*):** Porėtų dalelių viduje esančio skysčio tūris.
+* **Sorbento karkaso tūris ($V_{\text{karkasas}}$):** Kietosios sorbento medžiagos užimamas tūris.
+
+Analitės eliuavimo tūris ($V_e$) aprašomas SEC pasiskirstymo koeficientu $K_{sec}$ (arba $K_d$):
+
+$$V_e = V_0 + K_{sec} \cdot V_p \quad \Rightarrow \quad K_{sec} = \frac{V_e - V_0}{V_p}$$
+
+1. **Visiška atskirtis ($K_{sec} = 0$, $V_e = V_0$):** Molekulės yra didesnės už didžiausias sorbento poras. Jos juda tik tarpdaleliniu tūriu ir išeliuoja pačios pirmosios chromatogramoje (ties laisvuoju tūriu $V_0$).
+2. **SEC atskyrimo langas ($0 < K_{sec} < 1$, $V_0 < V_e < V_t$):** Molekulių matmenys leidžia joms iš dalies patekti į poras. Kuo molekulė mažesnė, tuo giliau ir į didesnę porų dalį ji gali įdifunduoti, todėl jos kelias kolonėlėje prailgėja ir ji išeliuoja vėliau.
+3. **Visiškas skvarbumas ($K_{sec} = 1$, $V_e = V_0 + V_p = V_t$):** Labai mažos molekulės (pvz., druskos, tirpikliai) laisvai patenka į visas poras ir išeliuoja paskutinės ties bendruoju skysčio tūriu $V_t$.
+4. **Šalutinės cheminės sąveikos ($K_{sec} > 1$):** Jei analitė eliuuoja po $V_t$, tai rodo neidealų SEC elgesį — analitė adsorbuojasi ant sorbento paviršiaus dėl nepolinių (hidrofobinių) arba elektrostatinių sąveikų.
+
+#### Kalibravimo kreivė ir hidrodinaminis tūris
+SEC sulaikymas priklauso nuo molekulės erdvinių matmenų tirpale ($V_h$), o ne tiesiogiai nuo jos molekulinės masės ($MW$). Linijiniame atskyrimo diapazone galioja santykis:
+
+$$\log(MW) \quad 	ext{arba} \quad \log(r_s) = A - B \cdot V_e$$
+
+Jei baltymai pasižymi skirtinga forma (pvz., kompaktiškas globulinis baltymas vs. ištemptas / atlenktas baltymas arba nukleorūgštis), vienodos molekulinės masės molekulės turės skirtingą $r_s$ ir išeliuos skirtingu laiku.
+
+#### Neidealių antrinių sąveikų slopinimas
+Silikagelio pagrindo SEC sorbentai turi silanolio grupių ($	\text{SiO}^-$), kurios esant neutraliam pH gali elektrostatiškai traukti teigiamai įkrautus kationinius baltymus arba stumti anijonines nukleorūgštis. Be to, polimeriniai ar hidrofobiniai karkasai gali sukelti van der Waals sąveikas.
+* **Sprendimas:** Į vandeninę mobiliają fazę pridedama mažiausiai 100–300 mM druskos (pvz., $\text{NaCl}$ arba amonio acetato), kuri ekranuoja krūvius ir slopina elektrostatines bei hidrofobines sąveikas.
+
+
+### Suderinamumas su masių spektrometrija (SEC-MS) ir gimtoji (Native) SEC-MS
+
+Tradicinėje biologinių baltymų SEC analizėje naudojami vandeniniai buferiniai tirpalai su dideliu neorganinių druskų kiekiu (pvz., 150 mM $	ext{NaCl}$ ar PBS buferis priklausomai nuo biologinio pH). Tačiau neorganinės druskos yra nesuderinamos su elektropurškimo masių spektrometrija (ESI-MS), nes jos užkemša MS įvado kapiliarus ir sukelia drastišką jautrumo slopinimą.
+
+#### Natyvios formos masių spektrometrija (Native SEC-MS)
+Native ESI-MS sąlygomis baltymas išlaiko savo sulankstytą būseną ir nekovalentinius ryšius. Kadangi Native būsenos baltymas turi mažesnį prieinamą paviršiaus plotą nei išlankstytas baltymas, jis perima žymiai mažesnį krūvį (mažesnis $z$, didesnis $m/z$ santykis, pvz., $m/z > 4000-8000$). Dėl to native SEC-MS yra bene pagrindinis įrankia struktūrinėje biologijoje.  Šiam tikslui neorganinės druskos pakeičiamos **lakiaisiais vandeniniais buferiais**:
+* **Amonio acetatas ($ \text{NH}_4	\text{OAc}$, 20–150 mM):** Užtikrina reikiamą joninį stiprumą elektrostatiniam ekranavimui, palaiko fiziologinį pH (6.8–7.4) ir išlaiko trimatę baltymo bei jo kompleksų terpių struktūrą (*native conformation*).
+* **Amonio formiatas / Amonio bikarbonatas:** Naudojami tam tikruose pH rėžiuose.
+
+#### Greitas druskų šalinimas (*SEC Desalting*)
+Trumpos, didelio porų tūrio SEC kolonėlės (*desalting columns*) naudojamos kaip itin greitas on-line arba off-line mėginio paruošimo būdas. Didelės baltymų molekulės eliuuoja ties $V_0$ visiškai išvalytos nuo mažamolekulių neorganinių druskų, kurios sulaikomos ir eliuuoja ties $V_t$.
+
+### Taikomumas struktūrinėje biologijoje ir biofarmacijoje
+
+Dydžių išskyrimo chromatografija užima išskirtinę vietą biologinių makromolekulių charakterizavime, nes ji leidžia tirti mėginius **švelniomis, nedenatūruojančiomis sąlygomis**.
+
+#### Oligomerinių būsenų ir agregatų analizė
+* **Monokloniniai antikūnai (mAbs):** SEC yra pagrindinis farmacinės kokybės kontrolės metodas terapeutinių antikūnų monomerų, dimerų, multimerynių agregatų bei degradacijos fragmentų kiekybiniam įvertinimui.
+* **SEC-MALS (Multi-Angle Light Scattering):** SEC jungimas su daugiakampės šviesos sklaidos detektoriumi leidžia tiksliai išmatuoti kiekvienos išeliuojančios chromatografinės zonos absoliučią molinę masę nepriklausomai nuo kalibracinių standartų.
+
+#### Nekovalentiniai biologiniai kompleksai
+* **Baltymo-baltymo ir baltymo-nukleorūgšties sąveikos:** Švelnios SEC sąlygos leidžia išskirti ir analizuoti stabilius supramolekulinius kompleksus (pvz., ribosomas, proteasomas, transkripcijos kompleksus), nustatant jų stechiometriją.
+* **AAV virusiniai vektoriai:** Adeno-asocijuotų virusų (AAV) tuščių (*empty*) ir pakuotų (*full*) kapsidžių bei agregatų diferencijavimas.
+* **Lipidinės nanodalelės (LNP) ir mRNA:** Vykdomas mRNA preparatų dydžio pasiskirstymo ir enkapsuliacijos efektyvumo vertinimas.
+
+#### Mėginio paruošimas krio-EM ir Rentgeno kristalografijai
+Prieš atliekant brangius krio-elektroninės mikroskopijos (Cryo-EM) arba X-ray struktūrinius tyrimus, SEC kolonėle patikrinamas mėginio **monodispersiškumas**. Išskiriama gryna, vienalytė baltymo forma, pašalinant nenumatytus agregatus ar išlankstytas molekules.
+
+
+## Skysčių chromatografijos režimų lyginamoji analizė
+
+| Parametras / Režimas | NPLC | RPLC | HILIC | IC / IEC | IP-RPLC | SEC / GFC |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Sulaikymo mechanizmas** | Polinė 2D adsorbcija | Nepolinė 3D van der Waals | Vandeninio sluoksnio paskirstymas (3D) | Elektrostatiniai jonų mainai | Dinaminiai jonų mainai / jonų poros | Sterinis slopinimas (dydžio atskirtis) |
+| **Stacionarioji fazė** | Polinė (Silikagelis) | Nepolinė ($C_{18}$) | Polinė (Silikagelis, Diolis, ZIC) | Jonitininkas (SAX, SCX, WAX, WCX) | Nepolinė ($C_{18}$) | Porėtas inertinis karkasas (Dextran, Silica) |
+| **Mobiliosios fazė** | Nepolinis organinis tirpiklis | Vanduo + ACN / MeOH | 70–95% ACN + buferis | Vandeninis druskos / pH eluentas | Vanduo + ACN + IPR | Vandeninis buferis (fiziologinis pH) |
+| **Atskyrimo parametras** | Poliškesni eliuuoja vėliau | Lipofiliškesni eliuuoja vėliau | Poliškesni eliuuoja vėliau | Pagal krūvio ženklą ir tankį | Pagal įkrautų grupių skaičių | Pagal hidrodinaminį tūrį ($r_s$) |
+| **Eliuavimo eiga** | Nepoliniai $\rightarrow$ Poliniai | Poliniai $\rightarrow$ Nepoliniai | Nepoliniai $\rightarrow$ Poliniai | Mažo krūvio $\rightarrow$ Didelio krūvio | Mažo krūvio $\rightarrow$ Didelio krūvio | Dideli ($V_0$) $\rightarrow$ Maži ($V_t$) |
+| **Suderinamumas su MS** | Reikalauja APCI/APPI arba Sheath liquid | Aukštas (aukštasis ESI standartas) | Ypatingai aukštas (10-100x ESI jautrumas) | Reikalauja slopintuvo arba lakių buferių | Reikalauja amfindinių lakių IPR (TEA/HFIP) | Reikalauja amonio acetato (Native MS) |
+
+
+## Pratimai ir užduotys
+
+
+::::exercise
+
+### 1 Užduotis: NPLC – Aromatinio angliavandenilio, alkoholio ir rūgšties skskyrimas
+NPLC sistemoje (polinė stacionarioji fazė – grynas silikagelis su silanolio grupėmis $\text{Si-OH}$, nepolinė mobilioji fazė – heksanas su izopropanolio priedu) skiriamas trijų junginių mišinys:
+1. **Toluenas** (nepolinis aromatinis angliavandenilis)
+2. **Benzilo alkoholis** (turintis polinę $-\text{OH}$ grupę)
+3. **Benzoatų rūgštis** (turinti stipriai polinę $-\text{COOH}$ grupę)
+
+Nustatykite šių junginių eliuavimo tvarką ir paaiškinkite priežastį.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Toluenas $\rightarrow$ Benzilo alkoholis $\rightarrow$ Benzoatų rūgštis.
+2. **Mechanizmo paaiškinimas:**
+   * **Toluenas** yra nepolinis junginys, todėl beveik nesąveikauja su poliniu silikageliu ir labai gerai tirpsta nepolinėje mobiliojoje fazėje (išeliuoja pirmasis).
+   * **Benzilo alkoholis** turi polininį hidroksilą ($-\text{OH}$), kuris sudaro vandenilinius ryšius su silanolio grupėmis, todėl yra sulaikomas ilgiau.
+   * **Benzoatų rūgštis** turi karboksilo grupę ($-\text{COOH}$), kuri pasižymi dideliu poliškumu ir stipriai adsorbuojasi ant sorbento paviršiaus, todėl ši chromatografinė zona išeliuoja paskutinė.
+:::
+::::
+
+::::exercise
+
+### 2 Užduotis: NPLC – Alkano ir alifatinių bei aromatinių alkoholių sulaikymas
+Normalių fazių chromatografinėje kolonėlėje analizuojamos trys molekulės:
+1. **Heksanas** (nepolinis alifatinis alkanas)
+2. **1-Heksanolis** (polinis alifatinis alkoholis)
+3. **Fenolis** (aromatinis alkoholis)
+
+Kokia tvarka išeliuoja šie junginiai NPLC sistemoje?
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Heksanas $\rightarrow$ 1-Heksanolis $\rightarrow$ Fenolis.
+2. **Mechanizmo paaiškinimas:**
+   * **Heksanas** neturi polinių funkcinių grupių, juda kartu su eluentu ir išeliuoja ties laisvuoju kolonėlės tūriu.
+   * **1-Heksanolis** yra sulaikomas dėl alifatinės $-\text{OH}$ grupės vandenilinio ryšio su silanoliais.
+   * **Fenolis** yra poliškesnis už alifatinį alkoholį, nes jo $-\text{OH}$ grupė yra rūgštingesnė (stipresnis vandenilinių ryšių donoras), o aromatinis žiedas papildomai sąveikauja su silikagelio paviršiumi, todėl sulaikomas stipriausiai.
+:::
+::::
+
+::::exercise
+
+### 3 Užduotis: RPLC – Neutralių junginių eliuavimo tvarka pagal $\log P$
+Atvirkščių fazių chromatografinėje sistemoje ($C_{18}$ stacionarioji fazė, vandens ir acetonitrilo eluentas, $\text{pH} = 7.0$) analizuojami trys neutralūs junginiai:
+1. **Uracilas** ($\log P \approx -1.1$, stipriai polinis)
+2. **Toluenas** ($\log P \approx 2.7$, nepolinis)
+3. **Naftalenas** ($\log P \approx 3.3$, stipriai nepolinis)
+
+Nustatykite eliuavimo tvarką $C_{18}$ kolonėlėje ir pagrįskite remdamiesi analičių lipofiliškumu ($\log P$).
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Uracilas $\rightarrow$ Toluenas $\rightarrow$ Naftalenas.
+2. **Mechanizmo paaiškinimas:**
+   * **Uracilas** pasižymi neigiamu $\log P$, yra stipriai polinis, nesudaro van der Waals kontaktų su $C_{18}$ uodegomis ir išeliuoja pirmasis.
+   * **Toluenas** ir **Naftalenas** yra nepoliniai junginiai. Naftalenas pasižymi didesniu $\log P$ ir didesniu hidrofobinio kontakto plotu nei toluenas, todėl van der Waals sąveika su $C_{18}$ sorbentu yra stipresnė — naftalenas išeliuoja paskutinis.
+:::
+::::
+
+::::exercise
+
+### 4 Užduotis: RPLC – Mobiliosios fazės pH įtaka jonizuojamai rūgščiai
+$C_{18}$ kolonėlėje analizuojamas mišinys, kurį sudaro:
+1. **Benzoinė rūgštis** ($\text{p}K_a \approx 4.2$)
+2. **Benzenas** (nejonizuojamas nepolinis junginys)
+
+Kaip pasikeis benzoinės rūgšties ir benzeno eliuavimo tvarka bei sulaikymas, kai mobilioios fazės pH pakeičiamas nuo $\text{pH} = 2.0$ iki $\text{pH} = 7.0$?
+
+:::solution
+#### Sprendimas:
+1. **Esant $\text{pH} = 2.0$ ($\text{pH} < \text{p}K_a - 2$):** Benzoinė rūgštis yra visiškai protonizuota ir neutrali ($\text{HA}$ forma). Ji pasižymi pakankamu lipofiliškumu, todėl yra sulaikoma. Eliuavimo seka: **Benzoinė rūgštis $\rightarrow$ Benzenas**.
+2. **Esant $\text{pH} = 7.0$ ($\text{pH} > \text{p}K_a + 2$):** Benzoinė rūgštis yra visiškai deprotonizuota iki anijono ($\text{A}^-$). Jonizuota forma pasižymi stipria hidratacija ir drastiškai mažesniu lipofiliškumu ($\log D \ll \log P$), todėl išeliuoja labai greitai (arti $t_0$). Benzeno sulaikymas nekinta. Eliuavimo seka išlieka **Benzoinė rūgštis $\rightarrow$ Benzenas**, tačiau atstumas tarp jų chromatografinių smailių stipriai padidėja.
+:::
+::::
+
+::::exercise
+
+### 5 Užduotis: HILIC – Polinių metabolitų sulaikymas Amidinėje fazėje
+HILIC Amidinėje kolonėlėje (85% acetonitrilas, 15% vandeninis buferis) skiriami trys metabolitai:
+1. **Tolueno rūgštis** ($\log P \approx 2.3$, nepoliškesnė)
+2. **Adenozinas** ($\log P \approx -1.1$, vidutiniškai polinis)
+3. **Gliukozė** ($\log P \approx -3.2$, stipriai polinė)
+
+Kokia bus šių junginių eliuavimo seka HILIC sistemoje?
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Tolueno rūgštis $\rightarrow$ Adenozinas $\rightarrow$ Gliukozė.
+2. **Mechanizmo paaiškinimas:**
+   * HILIC sistemoje sulaikymą lemia analitės tūrinis paskirstymas į imobilizuotą vandenį turtingą sluoksnį ant sorbento paviršiaus.
+   * **Tolueno rūgštis** pasižymi teigiamu $\log P$, neįsiterpia į vandeninį sluoksnį ir išeliuoja pirma.
+   * **Gliukozė** turi daug poliškų $-\text{OH}$ grupių ir mažiausią neigiamą $\log P$, todėl stipriausiai ištirpsta stacionariame vandeniniame sluoksnyje ir išeliuoja paskutinė.
+:::
+::::
+
+::::exercise
+
+### 6 Užduotis: HILIC – Aminorūgščių sulaikymas Zviterjoninėje fazėje
+Skiriamos trys aminorūgštys ZIC-HILIC kolonėlėje (80% ACN, $\text{pH} = 3.5$):
+1. **L-Fenilalaninas** (turi nepolinį aromatinį žiedą)
+2. **L-Alaninas** (turi mažą alifatinę metilo grupę)
+3. **L-Glutamo rūgštis** (turi papildomą karboksilo grupę, stipriai polinė)
+
+Nustatykite aminorūgščių eliuavimo tvarką.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** L-Fenilalaninas $\rightarrow$ L-Alaninas $\rightarrow$ L-Glutamo rūgštis.
+2. **Mechanizmo paaiškinimas:**
+   * **L-Fenilalaninas** yra mažiausiai polinis iš šių trijų aminorūgščių (dėl hidrofobinio fenilo žiedo), todėl eliuuoja greičiausiai.
+   * **L-Glutamo rūgštis** turi dvi karboksilo grupes, yra poliškesnė už alaniną, sudaro stipresnes vandenilines bei elektrostatines sąveikas vandeniniame sluoksnyje ir yra sulaikoma ilgiausiai.
+:::
+::::
+
+::::exercise
+
+### 7 Užduotis: IC – Neorganinių anijonų skskyrimas SAX sorbente
+Stipriajame anijonų mainininke (SAX, kvartetinis amonis $-\text{NR}_3^+$, turintis teigiamą krūvį visame pH diapazone) skiriami trys anijonai:
+1. **Fluoridas ($\text{F}^-$)** (vienakrūvis, stipriai hidratuotas)
+2. **Chloridas ($\text{Cl}^-$)** (vienakrūvis, mažiau hidratuotas)
+3. **Sulfatas ($\text{SO}_4^{2-}$)** (dvikrūvis anijonas)
+
+Kokia bus anijonų eliuavimo tvarka taikant KOH gradientą?
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** $\text{F}^- \rightarrow \text{Cl}^- \rightarrow \text{SO}_4^{2-}$.
+2. **Mechanizmo paaiškinimas:**
+   * **Fluoridas** turi didelį hidratacijos apvalkalą, todėl jo elektrostatinė trauka teigiamam sorbentui yra mažiausia (išeliuoja pirmasis).
+   * **Chloridas** yra mažiau hidratuotas ir sulaikomas stipriau.
+   * **Sulfatas** yra dvikrūvis anijonas ($\text{SO}_4^{2-}$), sudaro dvigubai stipresnį elektrostatinį ryšį su sorbento kvartetinio amonio grupėmis, todėl išeliuoja paskutinis.
+:::
+::::
+
+::::exercise
+
+### 8 Užduotis: IEC – Peptidų ir neutralios molekulės sulaikymas WCX sorbente
+Silpnajame kationų mainininke (WCX, karboksilinis sorbentas $-\text{COO}^-$, esant $\text{pH} = 6.0$) skiriami trys objektai:
+1. **Peptidas A** (izoelektrinis taškas $\text{pI} = 9.5$; esant $\text{pH} = 6.0$ yra protonizuotas ir turi $+2$ krūvį)
+2. **Peptidas B** (izoelektrinis taškas $\text{pI} = 4.0$; esant $\text{pH} = 6.0$ yra deprotonizuotas ir turi $-2$ krūvį)
+3. **Gliukozė** (neutrali molekulė)
+
+Paaiškinkite, kaip šie junginiai išeliuos WCX kolonėlėje esant $\text{pH} = 6.0$.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Peptidas B / Gliukozė $\rightarrow$ Peptidas A.
+2. **Mechanizmo paaiškinimas:**
+   * **Gliukozė** yra neutrali ir patiria nulinius elektrostatinius mainus (išeliuoja ties $t_0$).
+   * **Peptidas B** esant $\text{pH} = 6.0$ turi neigiamą krūvį (dėl $\text{pH} > \text{pI}$), todėl patiria elektrostatinį stūmimą nuo neigiamo WCX sorbento ir taip pat išeliuoja nesulaikytas.
+   * **Peptidas A** esant $\text{pH} = 6.0$ yra protonizuotas (dėl $\text{pH} < \text{pI}$) ir turi teigiamą krūvį ($+2$), todėl stipriai traukiamas neigiamų sorbento grupių ir išeliuoja paskutinis.
+:::
+::::
+
+::::exercise
+
+### 9 Užduotis: IP-RPLC – Oligonukleotidų grandinės ilgio įtaka sulaikymui
+Terapeutinių oligonukleotidų analizei naudojama $C_{18}$ kolonėlė su trietilamino ir heksafluorizopropanolio (TEA / HFIP) eluentų sistema. Mėginyje yra trys RNR grandinės:
+1. **5-mer** (5 nukleotidų grandinė, turinti 4 fosfatinius anijonus)
+2. **10-mer** (10 nukleotidų grandinė, turinti 9 fosfatinius anijonus)
+3. **20-mer** (20 nukleotidų grandinė, turinti 19 fosfatinių anijonų)
+
+Kokia tvarka išeliuos šie oligonukleotidai didėjant acetonitrilo gradientui?
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** 5-mer $\rightarrow$ 10-mer $\rightarrow$ 20-mer.
+2. **Mechanizmo paaiškinimas:**
+   * Kationinis jonų poravimo reagentas (protonizuotas trietilaminas $\text{TEA}^+$) jungiasi prie neigiamų fosfatų grupių.
+   * Ilgesnė grandinė (**20-mer**) turi daugiau fosfatinių grupių, todėl prijungia daugiau $\text{TEA}^+$ molekulių. Susidaręs kompleksas pasižymi žymiai didesniu bendru lipofiliškumu ir yra stipriausiai sulaikomas ant $C_{18}$ sorbento van der Waals jėgomis.
+:::
+::::
+
+::::exercise
+
+### 10 Užduotis: IP-RPLC – Organinių rūgščių sulaikymas naudojant TEAA
+Naudojant $C_{18}$ kolonėlę ir eluentą su trietilamonio acetatu (TEAA, $\text{pH} = 7.0$), skiriamos trys medžiagos:
+1. **Metanolis** (neutralus nejoninis junginys)
+2. **Acto rūgštis** (vienakrūvis anijonas $\text{CH}_3\text{COO}^-$)
+3. **Gintaro rūgštis** (dvikrūvis anijonas, turintis dvi $-\text{COO}^-$ grupes)
+
+Nustatykite eliuavimo tvarką ir paaiškinkite poravimo reagento įtaką.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Metanolis $\rightarrow$ Acto rūgštis $\rightarrow$ Gintaro rūgštis.
+2. **Mechanizmo paaiškinimas:**
+   * **Metanolis** nesudaro jonų porų su TEAA ir išeliuoja greičiausiai.
+   * **Acto rūgštis** sudaro vieną jonų porą su $\text{TEA}^+$, todėl jos lipofiliškumas padidėja ir sulaikymas sustiprėja.
+   * **Gintaro rūgštis** turi du anijoninius centrus, sudaro jonų porų kompleksą su dviejomis $\text{TEA}^+$ molekulėmis, todėl jos lipofilinis kontaktinis plotas tampa didžiausias ir ji išeliuoja paskutinė.
+:::
+::::
+
+::::exercise
+
+### 11 Užduotis: SEC – Baltymų monomerų, dimerų ir mažaetapių baltymų išskyrimas
+Baltymų mėginys analizuojamas SEC kolonėlėje (porų dydis pritaikytas 10–300 kDa masių rėžiui):
+1. **IgG antikūno agregatas (Dimeras)** (masė $\approx 300\text{ kDa}$)
+2. **IgG Monomeras** (masė $\approx 150\text{ kDa}$)
+3. **Mioglobinas** (mažas baltymas, masė $\approx 17\text{ kDa}$)
+
+Nustatykite eliuavimo seką ir paaiškinkite fizikinį mechanizmą.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** IgG Dimeras $\rightarrow$ IgG Monomeras $\rightarrow$ Mioglobinas.
+2. **Mechanizmo paaiškinimas:**
+   * SEC sistemoje atskyrimas vyksta pagal molekulių hidrodinaminį tūrį (dydį).
+   * **IgG Dimeras** turi didžiausią tūrį, negali patekti į sorbento poras ($K_{sec} = 0$) ir išeliuoja pirmas ties laisvuoju kolonėlės tūriu ($V_0$).
+   * **IgG Monomeras** yra mažesnis, gali patekti į dalį didesnių porų, todėl užtrunka ilgiau.
+   * **Mioglobinas** yra mažiausia molekulė, laisvai difunduoja į daugumą porų, praleidžia ilgiausią laiką stacionariajame tūryje ir išeliuoja paskutinis.
+:::
+::::
+
+::::exercise
+
+### 12 Užduotis: SEC – Molekulinės masės atskyrimo ribos ($K_{sec}$)
+SEC kolonėlės atskyrimo ribos yra nuo 5 kDa iki 100 kDa. Mėginyje yra trys molekulės:
+1. **Mėlynasis dekstranas** (masė $2000\text{ kDa}$)
+2. **Ovalbuminas** (masė $44\text{ kDa}$)
+3. **Vitamino B12 molekulė** (masė $1.35\text{ kDa}$)
+
+Aprašykite kiekvienos molekulės eliuavimo elgseną ($K_{sec}$ reikšmes) ir nustatykite eliuavimo tvarką.
+
+:::solution
+#### Sprendimas:
+1. **Eliuavimo seka:** Mėlynasis dekstranas $\rightarrow$ Ovalbuminas $\rightarrow$ Vitamino B12 molekulė.
+2. **Mechanizmo paaiškinimas:**
+   * **Mėlynasis dekstranas** ($2000\text{ kDa} > 100\text{ kDa}$) yra visiškai atskiriamas nuo porų ($K_{sec} = 0$), išeliuoja ties laisvuoju tūriu $V_0$.
+   * **Ovalbuminas** ($44\text{ kDa}$) patenka į kolonėlės atskyrimo langą ($0 < K_{sec} < 1$), dalinai įsiskverbia į poras ir išeliuoja viduryje.
+   * **Vitamino B12 molekulė** ($1.35\text{ kDa} < 5\text{ kDa}$) yra mažesnė už apatinę porų ribą ($K_{sec} = 1$), laisvai patenka į visas poras ir išeliuoja paskutinė ties bendruoju kolonėlės tūriu $V_t$.
+:::
+::::
