@@ -304,3 +304,232 @@ Norint atskirti izomerus ir nustatyti tikslią cheminę struktūrą, būtina pan
 
 *(Pastaba: Norint pasiekti aukščiausią **MSI 1 lygį – Confirmed compound**, būtina eksperimentiškai išmatuoti gryną autentišką standartą toje pačioje laboratorijoje, patvirtinant atitiktį pagal du nepriklausomus parametrus: $RT$ ir MS2 spektrą).*
 
+## Tikslinė (Targeted metabolomika)
+
+**Tikslinė metabolomika (Targeted Metabolomics)** – tai bioanalitinės chemijos šaka, skirta apibrėžto, biologinėje sistemoje žinomo metabolitų rinkinio atsekamam kiekybiniam įvertinimui. Metodologija grindžiama fiziniu-cheminiu analičių atskyrimu ir masių spektrometriniu registravimu, siekiant maksimalaus jautrumo, selektyvumo, tiesiškumo ir metrologinio atsekamumo.
+
+
+### Instrumentinė Dalis ir Duomenų Surinkimo Fizika
+
+####  Duomenų deterministiškumas kaip kiekybinės analizės sąlyga
+
+Kiekybinės masių spektrometrijos analitinis signalas – analitės adukto (MS1 lygmenyje) arba būdingo fragmento jono (MS2 lygmenyje) **ekstrahuotos jonų chromatogramos (EIC / XIC)** plotas $A$, gautas integruojant signalo intensyvumą $I(t)$ chromatografinės zonos plotyje $[t_1, t_2]$:
+
+$$A = \int_{t_1}^{t_2} I(t) \, dt \approx \sum_{k=1}^{M} I(t_k) \cdot \Delta t_k$$
+
+Kad skaitmeninio integralo suma $\hat{A}$ atitiktų tikrąjį integralą $A$ be sisteminių ir atsitiktinių paklaidų, pirminiai masių spektrometrijos duomenys privalo tenkinti griežtą **duomenų surinkimo deterministiškumo** sąlygą:
+
+1. **Pastovus matavimo laiko žingsnis (Deterministic Time Sampling):** Imčių ėmimo intervalas $\Delta t_k = t_k - t_{k-1}$ privalo būti fiksuotas arba tolygiai kintantis žinomoje laiko funkcijoje. Stochastiniai duomenų surinkimo režimai (pavyzdžiui, DDA), kuriuose MS1 ar MS2 nuskaitymai aktyvuojami atsitiktinai priklausomai nuo matricos intensyvumo, pažeidžia $\Delta t$ pastovumą, sukelia neapibrėžtą integravimo paklaidą ir yra netinkami kiekybinei analizei.
+2. **Nekintanti m/z koordinatė ir izoliacijos langas:** Kiekvienas duomenų taškas $I(t_k)$ privalo būti užregistruotas tiksliai tame pačiame prekursoriaus bei produkto jono masės ir krūvio santykio ($m/z$) filtre.
+
+Pagal Nyquist-Shannon atrankos teoremą ir chromatografinių smailių integravimo praktiką, patikimam smailės ploto ir viršūnės ($RT_{\text{viršūnė}}$) apskaičiavimui būtina užtikrinti **ne mažiau kaip 10–12 duomenų taškų ($M \ge 10\text{–}12$)** per chromatografinę smailę (matuojant smailės plotyje $W_{\text{peak}}$ ties $3.5\%$ smailės aukščio, t. y. $6\sigma$). Jei $M < 8$, smailės ploto integracijos variacijos koeficientas ($RSD$) negrįžtamai išauga.
+
+#### Deterministiniai skenavimo režimai
+
+Nurodytus kiekybinius reikalavimus užtikrina tik tie masių spektrometro darbo režimai, kuriuose perėjimų ir skenų seka vykdoma pagal deterministinį tvarkaraštį.
+
+```mermaid
+flowchart LR
+    A[Deterministiniai Skenavimo Režimai Kiekybinei Analizei] --> B[Žemos Skyros Analizatoriai QqQ / QTRAP]
+    A --> C[Aukštos Skyros Analizatoriai HRAM Q-TOF / Q-Orbitrap]
+
+    B --> B1[SRM / MRM Režimas: Q1 prekursoriaus filtras -> Q2 CID -> Q3 fragmento filtras]
+    B --> B2[Scheduled / Dynamic MRM: Perėjimų skenavimas tik aktyviame ΔtR lange]
+
+    C --> C1[PRM Režimas: Prekursoriaus izoliacija -> CID/HCD -> HRAM visų fragmentų spektras]
+    C --> C2[Targeted SIM / Full-Scan: Pilnas MS1 skenas su siauru ±5 ppm EIC langu]
+    C --> C3[DIA / SWATH-MS: Deterministinis visų m/z langų skenavimas]
+```
+
+##### A. Žemos skiriamosios gebos analizatoriai (Trigubi Kvadrupeliai – QqQ, QTRAP)
+* **Atsirinktų / Daugialypių Reakcijų Stebėsena (SRM):**
+  * **Q1 (pirmasis kvadrupolis):** Veikia kaip siauras masių filtras (paprastai $\Delta m/z \approx 0.7\text{ Da}$, vienetinė skyra), praleidžiantis tik analitės prekursoriaus joną ($m/z_{\text{prec}}$).
+  * **Q2 (susidūrimų kamera):** Pagreitinti prekursoriaus jonai sudraskomi susidūrimuose su inertinių dujų molekulėmis (CID – *Collision-Induced Dissociation*).
+  * **Q3 (trečiasis kvadrupolis):** Filtruoja ir praleidžia tik vieną būdingą produkto (fragmento) joną ($m/z_{\text{prod}}$).
+  * *Rezultatas:* Dviguba masių atranka ($m/z_{\text{prec}} \to m/z_{\text{prod}}$) eliminuoja cheminį foną ir užtikrina platų tiesinį dinaminį diapazoną ($10^4\text{–}10^5$).
+* **Dinaminis / Tvarkaraštinis MRM (Dynamic SRM / Scheduled SRM – dSRM / sSRM):**
+  * Kiekviena SRM reakcija skenuojama ne visą analizės laiką, o tik apibrėžtame laiko lange ($\Delta t_R$, pavyzdžiui, $1.0\text{ min}$) aplink žinomą metabolito sulaikymo trukmę. Tai užtikrina aukštą buvimo laiką (*dwell time*) net analizuojant šimtus analičių vienu matavimu.
+
+##### B. Aukštos skiriamosios gebos analizatoriai (HRAM – Q-TOF, Q-Orbitrap)
+* **Lygiagrečioji Reakcijų Stebėsena (PRM – Parallel Reaction Monitoring):**
+  * Kvadrupolis (ar kitas tinkamas masių analizatorius) izoliuoja prekursorių, HCD/CID kameroje sugeneruojami fragmentai, o aukštos skyros masių analizatorius užregistruoja **visą produkto jonų spektrą** vienu metu su didele skiriamąja geba ($R \ge 17\,500\text{–}70\,000$) ir tikslios masės paklaida ($< 5\text{ ppm}$).
+* **Targeted HRAM SIM / Full-Scan:**
+  * Užregistruojami pilni MS1 spektrai. Kiekybinė EIC chromatograma iškerpama taikant itin siaurą masės tolerancijos langą (pavyzdžiui, $\pm 5\text{ ppm}$). Aukšta masių skyra atskiria analitės signalą nuo izobarinių matricos trukdžių be MS2 fragmentacijos.
+
+
+#### Ciklo laikas (Duty Cycle / Cycle Time) ir Poisson triukšmo matematika
+
+Kiekybinio matavimo ciklo laikas ($T_{\text{cycle}}$) – tai laiko tarpas, per kurį spektrometras atlieka vieną pilną aktyvių perėjimų seką:
+
+$$T_{\text{cycle}} = \sum_{i=1}^{N} \left( t_{\text{dwell}, i} + t_{\text{interscan}} \right)$$
+
+kur $N$ – tuo pačiu laiko momentu stebimų reakcijų skaičius, $t_{\text{dwell}}$ – jono signalo integravimo laikas detektoriuje (*dwell time*), o $t_{\text{interscan}}$ – vidinis masių analizatorių įtampos ir elektronikos persijungimo laikas ($1\text{–}5\text{ ms}$).
+
+#### Optimalaus buvimo laiko ($t_{\text{dwell}}$) fizikinė kompromiso lygtis
+Jono detekcija masių spektrometre paklūsta **Poisson skirsiniui**. Užregistruoto signalo $I$ (užregistruotų jonų skaičiaus, *counts*) santykinis standartinis nuokrypis (triukšmo lygis) yra atvirkščiai proporcingas užregistruotų jonų skaičiaus kvadratinei šakniai:
+
+$$\frac{\sigma_I}{I} = \frac{1}{\sqrt{I_{\text{jonų}}}} = \frac{1}{\sqrt{J_{\text{jonų}} \cdot t_{\text{dwell}}}}$$
+
+kur $J_{\text{jonų}}$ – jonų srauto intensyvumas ($\text{jonai/s}$).
+
+1. **Jei $t_{\text{dwell}}$ per trumpas ($< 2\text{–}5\text{ ms}$):** Registruojamas jonų skaičius $I_{\text{jonų}}$ yra mažas, todėl Poisson triukšmas $\frac{\sigma_I}{I}$ drastiškai padidėja, o signalo ir triukšmo santykis krenta ($\frac{S}{N} \propto \sqrt{t_{\text{dwell}}}$).
+2. **Jei $t_{\text{dwell}}$ per ilgas:** Ciklo laikas $T_{\text{cycle}}$ viršija leistiną ribą, todėl taškų skaičius per smailę $M = \frac{W_{\text{peak}}}{T_{\text{cycle}}}$ nukrenta žemiau 10 taškų, deformuodamas smailės integravimo kontūrą.
+
+*Išvada:* Ciklo laikas kontroliuojamas taikant dinaminį langų skirstymą (dMRM) ir adaptyvųjį buvimo laiką (*adaptive dwell time*), išlaikant $M \ge 12$ bei $t_{\text{dwell}} \ge 10\text{ ms}$.
+
+
+### Diagnostinių Jonų Chemija ir Spektrinis Identifikavimas
+
+#### Diagnostinio jono sąvoka ir informacinė vertė
+
+**Diagnostinis jonas** – tai specifinis MS1 (prekursorius, aduktas, izotopologas) arba MS2 (produkto fragmentas, neutralus netekimas) jonas, pasižymintis aukštu masių spektriniu selektyvumu ir tiesiogine struktūrine priklausomybe nuo analitės cheminės formulės bei fragmentacijos mechanizmo.
+
+Diagnostinio jono atranka remiasi dviem kriterijais:
+1. **Struktūrinis specifiškumas:** Fragmentas atspindi būdingą cheminį karkasą (pavyzdžiui, aminorūgštims būdingą karboksi grupės netekimą ar fosfolipidų cholino fragmentą $m/z \ 184.074$).
+2. **Spektrinis selektyvumas ($S/N$):** Jonas neturi sutapti su matricos fono fragmentais.
+
+
+#### Diagnostiniai jonai daugiamatėje erdvėje ir Kosinuso Panašumo Rodiklis
+
+Kai atliekama analizė PRM arba Full-Scan HRMS režimais, analitės spektrinė tapatybė vertinama lyginant eksperimentinį fragmentacijos spektrą su etaloninės duomenų bazės spektru, arba laboratorijoje gautu etaloninės medžiagos spektru.
+
+Eksperimentinis ir etaloninis spektrai išreiškiami kaip $N$-mačiai intensyvumų vektoriai diagnostinių jonų $m/z$ erdvėje:
+
+$$\mathbf{I}_{\text{exp}} = \begin{pmatrix} i_{1, \text{exp}} \\ i_{2, \text{exp}} \\ \vdots \\ i_{N, \text{exp}} \end{pmatrix}, \quad \mathbf{I}_{\text{ref}} = \begin{pmatrix} i_{1, \text{ref}} \\ i_{2, \text{ref}} \\ \vdots \\ i_{N, \text{ref}} \end{pmatrix}$$
+
+**Kosinuso panašumo rodiklis ($S_{\text{cosine}}$)** apskaičiuojamas kaip kampo $\theta$ kosinusas tarp šių dviejų vektorių:
+
+$$S_{\text{cosine}} = \cos(\theta) = \frac{\mathbf{I}_{\text{exp}} \cdot \mathbf{I}_{\text{ref}}}{\|\mathbf{I}_{\text{exp}}\| \|\mathbf{I}_{\text{ref}}\|} = \frac{\sum_{k=1}^{N} i_{k, \text{exp}} \cdot i_{k, \text{ref}}}{\sqrt{\sum_{k=1}^{N} i_{k, \text{exp}}^2} \cdot \sqrt{\sum_{k=1}^{N} i_{k, \text{ref}}^2}}$$
+
+```mermaid
+flowchart TD
+    A[Diagnostiniai Jonai: m/z_1, m/z_2, ..., m/z_N] --> B[Vektorių Sudarymas: I_exp ir I_ref]
+    B --> C[Kampo θ Kosinuso Skaičiavimas: S_cosine]
+    C --> D{S_cosine >= 0.85 ir RT nuokrypis <= ±1.5%?}
+    D -- Taip --> E[Aukštas Spektrinis Identifikavimo Patikimumas]
+    D -- Ne --> G[Atmetimas / Matricos Trukdžiai]
+```
+
+
+1. **$N = 1$ jonas (1D erdvė):**
+   * Vektoriai yra vienamatėje erdvėje. Kampas $\theta$ neegzistuoja ($S_{\text{cosine}} \equiv 1$). Spektrinis kosinuso panašumas **negali būti taikomas**. Vieno jono matavimas nesuteikia jokio spektrinio patvirtinimo, nes bet koks izobarinis matricos triukšmas tuo pačiu $m/z$ duos $100\%$ atitiktį.
+2. **$N = 2$ jonai (2D erdvė: Kiekybinis *Quantifier* + 1 Kokybinis *Qualifier*):**
+   * Vektoriai apibrėžiami plokštumoje. Kosinuso panašumo balas tapatus dviejų jonų intensyvumų santykiui $R = \frac{i_2}{i_1}$:
+     $$S_{\text{cosine}} = \frac{1 + R_{\text{exp}} \cdot R_{\text{ref}}}{\sqrt{1 + R_{\text{exp}}^2} \cdot \sqrt{1 + R_{\text{ref}}^2}}$$
+   * Šis matavimas atitinka klasikinį **jonų santykio (Ion Ratio)** tikrinimą.
+3. **$N \ge 3$ jonai ($N$-matė erdvė: *Quantifier* + 2+ *Qualifiers*):**
+   * Vektoriai egzistuoja daugiamatėje erdvėje. Kosinuso rodiklis atspindi unikalų spektrinį „piršto atspaudą“. Net jei vienas izobarinis fragmentas matricoje padidėja dėl fono, kiti fragmentai išlaiko savo proporcijas, todėl $S_{\text{cosine}}$ matematiniu būdu įvertina bendrą spektrinį nuokrypį.
+
+
+#### Diagnostinių jonų transformacija į Identifikavimo Taškus (IP)
+
+Metrologiniam ir teisiniam bioanalitinių matavimų patikimumui užtikrinti (remiantis ES reglamentu **(EU) 2021/808** ir SANTE/11312/2021 gairėmis), diagnostinių jonų skaičius transformuojamas į **Identifikavimo Taškus (IP – Identification Points)**. Toks sprendimas priimtas siekiant išvengti sudėtingos matematikos ir padaryti gaires pasiekiamas visose laboratorijose.
+
+#### Identifikavimo taškų skaičiavimo taisyklės:
+* **Žemos skiriamosios gebos MS (QqQ / QTRAP):**
+  * Prekursoriaus jonas (MS1): **1.0 IP** (tiesiogiai nestebimas)
+  * Kiekvienas produkto jonas (MS2 fragmentas): **1.5 IP**
+* **Aukštos skiriamosios gebos HRMS (Q-TOF / Orbitrap, $\Delta m/z < 5\text{ ppm}$):**
+  * Tikslios masės prekursoriaus jonas (HR-MS1): **2.0 IP** (reikalingas atskiras skenas)
+  * Kiekvienas tikslios masės produkto jonas (HR-MS2 fragmentas): **2.5 IP**
+
+#### Identifikavimo patikimumo augimo hierarchija:
+
+| Diagnostinių Jonų Konfigūracija | Instrumentinis Režimas | IP Suma | Tautologinis Patikimumas ir Dydžio Vertinimas |
+| :--- | :--- | :---: | :--- |
+| **1 Jonas** ($m/z_{\text{prec}}$) | MS1 SIM / Full-Scan | **1.0 IP** | **Nepakankamas.** Didelė klaidingai teigiamų rezultatų rizika dėl matricoje esančių izobarinių junginių. |
+| **2 Jonai** ($m/z_{\text{prec}} \to m/z_{\text{prod1}}$) | QqQ SRM (1 perėjimas) | **2.5 IP** | **Nepakankamas.** Nepasiekiamas teisinis $\ge 4.0\text{ IP}$ slenkstis. |
+| **3 Jonai** ($1 \ m/z_{\text{prec}} \to 2 \ m/z_{\text{prod}}$) | QqQ SRM (2 perėjimai: *Quant + Qual*) | **4.0 IP** | **Minimalus Pilnas Identifikavimas (MSI 1 Lygis).** Būtina patikrinti $\text{Ion Ratio} \le \pm 20\%$. |
+| **3 Jonai (HRMS)** ($1 \ m/z_{\text{prec}} \to 2 \ m/z_{\text{prod}}$) | HRMS PRM su tikslia mase | **6.0-7.0 IP** | **Aukštas Patikimumas.** Viršija IP slenkstį + skaičiuojamas $S_{\text{cosine}} \ge 0.85$. |
+
+### Analitės koncentracijos vertinimas
+
+#### Jonizacijos slopinimas ir jo įtaka kiekio nustatymui
+
+Elektropurškiamoje jonizacijoje (ESI) analitės jonizacijos efektyvumas priklauso nuo skysčio lašelio paviršinio krūvio ir išgaravimo greičio (Kebarle ir Tang lašelio modelis).
+
+Kai kartu su analite eliuuojasi didelės koncentracijos matricos komponentai (pavyzdžiui, šlapimo rūgštis, druskos arba kraujo plazmos fosfolipidai, pvz., glicerofosfocholinai) galimi sekantys efektai:
+1. **Paviršiaus konkurencija:** Matricos junginiai užima vietą ESI lašelio paviršiuje, nustumdami analitę į lašelio vidų ir apribodami jos desorbciją į dujų fazę.
+2. **Protonų konkurencija:** Jei matricos komponentai turi didesnį giminingumą protonui (*proton affinity*), jie prisijungia $H^+$, palikdami analitę neutralioje formoje.
+
+Matricos efektas yra pamatuojamas dydis ir gali būti išreiškiamas ($ME, \%$) išreiškiamas:
+
+$$ME (\%) = \frac{A_{\text{matrica}}}{A_{\text{tirpiklis}}} \times 100\%$$
+
+kai $ME < 80\%$, stebimas **jonų slopinimas (ion suppression)**.
+
+
+Eksperimentiškai įrodyta, kad vienintelis metodas, galintis $100\%$ kompensuoti tiek mėginio paruošimo nuostolius, tiek kintantį matricos slopinimo koeficientą $f_{ME}(t)$, yra **stabiliais izotopais žymėti vidiniai standartai (SIL-IS, stable izotope labeled internal standards)** ($^{13}\text{C}$, $^{15}\text{N}$). Tai sintetinės medžiagos, kurios negali būti natūraliai sutinkamos mėginyje. Analizės eigoje, žinomas (pastovus) šių medžiagų kiekis pridedamas į mėginį pasirinktoje fazėje (mėginio paruošimo pradžia, ekstraktas, ar injekcijos tirpalas) ir toliau analiz4 vykdoma stebint natyvias bei izotopais žymėtas medžiagas.
+
+![13C ir 15N žymėtas lizino hidrochloridas](/content/img/lecture5/labeled-lysine.jpg)
+
+Analitės signalo koreciją SIL-IS matematiškai galime aprašyti ir įrodyti:
+
+Tegul analitės $A$ ir vidinio standarto $IS$ matuojami EIC smailės plotai yra $Y_A$ ir $Y_{IS}$. Bendra bioanalitinė lygtis aprašoma taip:
+
+$$Y_A = \eta_A \cdot f_{ME}(t) \cdot R_{\text{rec}} \cdot C_A$$
+
+$$Y_{IS} = \eta_{IS} \cdot f_{ME}(t) \cdot R_{\text{rec}} \cdot C_{IS}$$
+
+kur:
+* $\eta_A, \eta_{IS}$ – prietaiso detekcijos ir jonizacijos atsako faktoriai tirpiklyje,
+* $f_{ME}(t)$ – laike kintanti matricos jonizacijos slopinimo funkcija ($0 < f_{ME}(t) \le 1$),
+* $R_{\text{rec}}$ – mėginio ekstrahavimo išeiga ($0 < R_{\text{rec}} \le 1$),
+* $C_A, C_{IS}$ – analitės ir SIL-IS molekulinės koncentracijos mėginyje.
+
+Apskaičiavus matuojamą Atsako Santykį (*Response Ratio – RR*):
+
+$$RR = \frac{Y_A}{Y_{IS}} = \frac{\eta_A \cdot f_{ME}(t) \cdot R_{\text{rec}} \cdot C_A}{\eta_{IS} \cdot f_{ME}(t) \cdot R_{\text{rec}} \cdot C_{IS}} = \left( \frac{\eta_A}{\eta_{IS} \cdot C_{IS}} \right) \cdot C_A = K \cdot C_A$$
+
+Kadangi SIL-IS pasižymi **identiška chemine struktūra ir identišku sulaikymo laiku ($RT_A \equiv RT_{IS}$)**, funkcijos $f_{ME}(t)$ ir $R_{\text{rec}}$ skaitiklyje ir vardiklyje yra **absoliučiai vienodos ir sutrumpėja**. Gautas atsako santykis $RR$ yra griežtai tiesiogiai proporcingas koncentracijai $C_A$ ir visiškai nepriklauso nuo matricos slopinimo ar mėginio paruošimo nuostolių.
+
+Deuteruoti standartai ($^{2}\text{H} / \text{D}$) pasižymi mažesniu lipofiiliškumu nei natūralūs junginiai. Dėl to deuteruotas standartas iš chromatografinės kolonėlės (RP sąlygomis) išsieliuoja šiek tiek ankščiau ($\Delta RT = 0.02\text{–}0.05\text{ min}$). Jei matricos slopinimo funkcija $f_{ME}(t)$ chromatofrafinėje zonoje kinta, $f_{ME}(t_A) \neq f_{ME}(t_{IS})$, todėl kompensavimas tampa nevisiškas. Todėl $^{13}\text{C}$ ir $^{15}\text{N}$ žymėti standartai yra metrologiškai pranašesni.
+
+
+### Metrologiniai Kalibravimo Modeliai
+
+Metrologiniam koncentracijos matavimo siečiai užtikrinti taikomi trys pagrindiniai kalibravimo modeliai:
+
+```mermaid
+flowchart TD
+    A[Kalibravimo Modelio Pasirinkimas] --> B{Ar yra tuščia matrica?}
+    B -- Taip --> C[Išorinis Kalibravimas Matricoje: Y_A/Y_IS = b1*C + b0]
+    B -- Ne --> D{Ar tyrimo matrica unikali/brangi?}
+    D -- Ne --> E[Standartinio Priedo Metodas SAM: C_x = b0/b1]
+    D -- Taip --> F[Vidinis Kalibravimas Mėginyje In-Sample Calibration]
+    F --> F1[Vieno Taško Kalibravimas su SIL-IS: C_x = Y_A/Y_IS * C_IS/RF]
+    F --> F2[Izotopinio Rašto Dekonvolucija IPD: S_obs = M_teor * C]
+    F --> F3[Daugialypis Izotopologų Stebėjimas MIRM]
+```
+
+#### Išorinis kalibravimas matricoje (Matrix-Matched External Calibration)
+* **Taikymas:** Kai prieinama biologinė matrica be analitės (pavyzdžiui, kraujo plazma, išvalyta aktyvuota anglimi).
+* **Matematinis modelis:** Sudaroma tiesinės regresijos lygtis pagal matricos standartus:
+  $$\frac{Y_A}{Y_{IS}} = b_1 \cdot C_A + b_0$$
+  Nežinoma koncentracija $C_x$ apskaičiuojama:
+  $$C_x = \frac{\left( \frac{Y_{A, x}}{Y_{IS, x}} \right) - b_0}{b_1}$$
+
+
+#### Standartinio priedo metodas (Standard Addition Method – SAM)
+* **Taikymas:** Kai neįmanoma gauti tuščios matricos, o matricos efektai stipriai kinta tarp skirtingų mėginių.
+* **Matematinis modelis:** Mėginio alikvotas papildomos žinomais standartų kiekiais ($0, C_1, C_2, C_3$). Apskaičiuojama tiesės susikirtimo su X ašimi vertė ties $Y = 0$:
+  $$C_x = \frac{b_0}{b_1}$$
+
+
+#### Vidinis kalibravimas mėginyje (In-Sample Calibration – IsC)
+
+##### Vieno taško vidinis kalibravimas
+Į mėginį pridedama tiksli žinoma SIL-IS koncentracija $C_{IS}$. Iš anksto nustačius prietaiso atsako veiksnį $RF = \frac{\eta_A}{\eta_{IS}}$, analitės koncentracija $C_x$ randama tiesiogiai iš vieno įšvirkštimo:
+
+$$C_x = \frac{Y_A}{Y_{IS}} \cdot \frac{C_{IS}}{RF}$$
+
+##### Izotopinio rašto dekonvolucija (Isotopic Pattern Deconvolution – IPD)
+Kai analitė ir SIL-IS turi dalinį izotopinį persidengimą, matuojama izotopinių smailių ($M+0, M+1, M+2$) (pvz. estradiolis, ir estradiolis-D2)  pasiskirstymo sumaišymo matrica $\mathbf{S}_{\text{obs}}$.
+Taikant tiesinę matricų algebrą:
+
+$$\mathbf{S}_{\text{obs}} = \mathbf{M}_{\text{teor}} \cdot \mathbf{C}$$
+
+išsprendžiama tiesinių lygčių sistema ir išskiriamos natūralios analitės bei SIL-IS molinės dalys, užtikrinant absoliutų matavimo tikslumą. Raeikalinga specifinė programinė įranga.
+
+#####  Daugialypis izotopologų reakcijų stebėjimas (MIRM)
+Į mėginį įterpiama viena SIL-IS koncentracija, tačiau stebimos kelios SIL-IS izotopologų reakcijos ($^{13}\text{C}_1, ^{13}\text{C}_2, ^{13}\text{C}_3$), kurių teoriniai gausumai žinomi. Taip iš vieno įšvirkštimo gaunama 5–8 taškų kalibravimo kreivė pačiame biologiniame mėginyje.
