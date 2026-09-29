@@ -519,9 +519,11 @@ flowchart TD
 #### Vidinis kalibravimas mėginyje (In-Sample Calibration – IsC)
 
 ##### Vieno taško vidinis kalibravimas
-Į mėginį pridedama tiksli žinoma SIL-IS koncentracija $C_{IS}$. Iš anksto nustačius prietaiso atsako veiksnį $RF = \frac{\eta_A}{\eta_{IS}}$, analitės koncentracija $C_x$ randama tiesiogiai iš vieno įšvirkštimo:
+Į mėginį pridedama tiksli žinoma SIL-IS koncentracija $C_{IS}$. Iš anksto nustačius prietaiso atsako faktorių $RF = \frac{\eta_A}{\eta_{IS}}$, analitės koncentracija $C_x$ randama tiesiogiai iš vieno įšvirkštimo:
 
 $$C_x = \frac{Y_A}{Y_{IS}} \cdot \frac{C_{IS}}{RF}$$
+
+Dažniaisiai prietaiso atsako fakttorius nustatomas analizuojant analitės bei SIL-IS mišinį be matricos kai $C_A = C_IS$
 
 ##### Izotopinio rašto dekonvolucija (Isotopic Pattern Deconvolution – IPD)
 Kai analitė ir SIL-IS turi dalinį izotopinį persidengimą, matuojama izotopinių smailių ($M+0, M+1, M+2$) (pvz. estradiolis, ir estradiolis-D2)  pasiskirstymo sumaišymo matrica $\mathbf{S}_{\text{obs}}$.
@@ -533,3 +535,354 @@ išsprendžiama tiesinių lygčių sistema ir išskiriamos natūralios analitės
 
 #####  Daugialypis izotopologų reakcijų stebėjimas (MIRM)
 Į mėginį įterpiama viena SIL-IS koncentracija, tačiau stebimos kelios SIL-IS izotopologų reakcijos ($^{13}\text{C}_1, ^{13}\text{C}_2, ^{13}\text{C}_3$), kurių teoriniai gausumai žinomi. Taip iš vieno įšvirkštimo gaunama 5–8 taškų kalibravimo kreivė pačiame biologiniame mėginyje.
+
+
+## Pratimai ir užduotys
+
+
+::::exercise
+### 1. Užduotis: Ciklo laiko ir taškų skaičiaus per smailę skaičiavimas
+
+**Sąlyga:**
+Tikslinėje metabolitų analizėje SRM režimu vienu metu stebima $N = 40$ reakcijų. Jono buvimo laikas (*dwell time*) nustatytas $t_{\text{dwell}} = 15  \text{ ms}$, o persijungimo laikas tarp skenų $t_{\text{interscan}} = 5\text{ ms}$. Chromatografinės smailės plotis prie pagrindo yra $W_{\text{peak}} = 12\text{ s}$.
+
+1. Apskaičiuokite vieno skenavimo ciklo laiką $T_{\text{cycle}}$ (sekundėmis).
+2. Apskaičiuokite surenkamų duomenų taškų skaičių $M$ per vieną chromatografinę smailę.
+3. Įvertinkite, ar gauti duomenys tinkami kiekybinei smailės ploto integracijai ($M \ge 10\text{–}12$). Jei perėjimų skaičius išaugtų iki $N = 120$, paaiškinkite, kaip situaciją ištaisytų dinaminis MRM (dMRM).
+
+:::solution
+#### Sprendimas
+
+1. **Ciklo laiko skaičiavimas:**
+   $$T_{\text{cycle}} = N \cdot (t_{\text{dwell}} + t_{\text{interscan}}) = 40 \cdot (15\text{ ms} + 5\text{ ms}) = 40 \cdot 20\text{ ms} = 800\text{ ms} = 0.8\text{ s}$$
+
+2. **Taškų skaičiaus per smailę skaičiavimas:**
+   $$M = \frac{W_{\text{peak}}}{T_{\text{cycle}}} = \frac{12\text{ s}}{0.8\text{ s}} = 15\text{ taškų}$$
+
+3. **Duomenų tinkamumo vertinimas ir dMRM optimizavimas:**
+   * Kadangi $M = 15 \ge 12$, sugeneruoti duomenys yra pilnai tinkami tiksliai smailės ploto integracijai.
+   * Jei perėjimų skaičius padidėtų iki $N = 120$, nepakitus parametrams ciklo laikas išaugtų iki $T_{\text{cycle}} = 120 \cdot 20\text{ ms} = 2.4\text{ s}$, todėl per smailę būtų užregistruoti tik $M = \frac{12}{2.4} = 5\text{ taškai}$ (nepakankama kiekybinei analizei).
+   * **dMRM taikymas:** Įdiegus dinaminį MRM (dMRM), perėjimai skenuojami tik aktyviame sulaikymo laiko lange ($\Delta t_R$, pvz., $1.0\text{ min}$). Todėl bet kuriuo laiko momentu stebimų perėjimų skaičius sumažėja nuo 120 iki $\le 30$, išlaikant $T_{\text{cycle}} \le 0.6\text{ s}$ ir $M \ge 20$ taškų.
+:::
+::::
+
+
+::::exercise
+### 2. Užduotis: Identifikavimo Taškų (IP) skaičiavimas
+
+**Sąlyga:**
+Siekiant pilnai patvirtinti metabolito tapatybę kraujo plazmoje (MSI 1 lygis), lyginamos dvi masių spektrometrijos konfigūracijos:
+* **Metodas A:** Trigubas kvadrupelis (QqQ) SRM režimu, matuojant 1 prekursoriaus joną ir 2 produkto (fragmento) jonus ($1\text{ prec} 	o 2\text{ prod}$).
+* **Metodas B:** Aukštos skiriamosios gebos masių spektrometrijas (HRMS, Q-TOF) PRM režimu su tikslios masės matavimu ($\Delta m/z < 5\text{ ppm}$), matuojant 1 prekursoriaus joną ir 2 produkto jonus.
+
+1. Apskaičiuokite surinktų Identifikavimo Taškų (IP) sumą Metodui A ir Metodui B.
+2. Kuris metodas viršija teisinį $IP \ge 4.0$ slenkstį, būtiną pilnam tapatybės patvirtinimui?
+
+:::solution
+#### Sprendimas
+
+1. **IP sumos skaičiavimas:**
+   * **Metodas A (Žema skiriamoji geba, QqQ):**
+     * Prekursoriaus jonas (MS1): $1.0\text{ IP}$
+     * 2 produkto jonai (MS2): $2 	imes 1.5\text{ IP} = 3.0\text{ IP}$
+     * **Suma A = $1.0 + 3.0 = 4.0\text{ IP}$**
+   * **Metodas B (Aukšta skyra, HRMS PRM):**
+     * Prekursoriaus jonas (HR-MS1): $1.0\text{ IP}$. **Sudarant PRM metodą prekursorius tiesiogiai nematuojamas, jis izoliuojamas žemos skiriamosios gebos masių analizatoriumi)**.
+     * 2 tikslios masės produkto jonai (HR-MS2): $2 \times 2.5\text{ IP} = 5.0\text{ IP}$
+     * **Suma B = $1.0 + 5.0 = 7.0\text{ IP}$**
+
+2. **Vertinimas:**
+   * **Abu metodai** pasiekia ir viršija teisinį $IP \ge 4.0$ slenkstį. Metodas A garantuoja minimalią reikalaujamą $4.0\text{ IP}$ ribą, o Metodas B sugeneruoja $7.0\text{ IP}$, užtikrindamas itin aukštą spektrinį patikimumą.
+:::
+::::
+
+::::exercise
+### 3. Užduotis: Jonų santykio (Ion Ratio) patikra ir leistino nuokrypio vertinimas
+
+**Sąlyga:**
+Tikslinėje LC-MS/MS analizėje stebimi du metabolito perėjimai: kiekybinis jonas ($m/z_{\text{quant}}$) ir kokybinis jonas ($m/z_{\text{qual}}$). 
+* Gryno etaloninio standarto smailės plotas: $I_{\text{quant, ref}} = 200\,000$, $I_{\text{qual, ref}} = 60\,000$.
+* Biologiniame mėginyje užregistruotas plotas: $I_{\text{quant, exp}} = 120\,000$, $I_{\text{qual, exp}} = 45\,600$.
+
+1. Apskaičiuokite jonų santykį ($R = I_{\text{qual}} / I_{\text{quant}}$) etaloniniam standartui ($R_{\text{ref}}$) ir biologiniam mėginiui ($R_{\text{exp}}$).
+2. Apskaičiuokite mėginio jonų santykio nuokrypį nuo standarto procentais ($\Delta R, \%$).
+3. Įvertinkite, ar mėginys atitinka ES reglamente nustatytą $\le \pm 20\%$ leistiną nuokrypio ribą.
+
+:::solution
+#### Sprendimas
+
+1. **Jonų santykių skaičiavimas:**
+   $$R_{\text{ref}} = \frac{I_{\text{qual, ref}}}{I_{\text{quant, ref}}} = \frac{60\,000}{200\,000} = 0.300 \quad (30.0\%)$$
+   $$R_{\text{exp}} = \frac{I_{\text{qual, exp}}}{I_{\text{quant, exp}}} = \frac{45\,600}{120\,000} = 0.380 \quad (38.0\%)$$
+
+2. **Santykinio nuokrypio skaičiavimas:**
+   $$\Delta R (\%) = \frac{|R_{\text{exp}} - R_{\text{ref}}|}{R_{\text{ref}}} \times 100\% = \frac{|0.380 - 0.300|}{0.300} \times 100\% = \frac{0.080}{0.300} 	\times 100\% = 26.67\%$$
+
+3. **Vertinimas:**
+   * Kadangi gautas nuokrypis $\Delta R = 26.67\%$ viršija leistiną $\pm 20.0\%$ ribą, mėginio tapatumo patvirtinimas yra **atmetamas**. Padidėjęs kokybinio jono signalas rodos, kad po smailės apvalkalu eliuuojasi pašalinis matricos izobarinis trukdis.
+:::
+::::
+
+::::exercise
+### 4. Užduotis: Kosinuso panašumo rodiklio ($S_{\text{cosine}}$) skaičiavimas 3D fragmentų erdvėje
+
+**Sąlyga:**
+PRM režimu sugeneruoti trys diagnostiniai fragmentų jonai $m/z_1, m/z_2, m/z_3$. 
+* Etaloninis spektras (vektorius $\mathbf{I}_{\text{ref}}$): $(100, 50, 20)$.
+* Mėginio spektras (vektorius $\mathbf{I}_{\text{exp}}$): $(80, 45, 10)$.
+
+Apskaičiuokite kosinuso panašumo rodiklį $S_{\text{cosine}}$ ir įvertinkite, ar spektrinė atitiktis tenkina $S_{\text{cosine}} \ge 0.85$ kriterijų.
+
+:::solution
+#### Sprendimas
+
+1. **Skalarinė vektorių sandauga:**
+   $$\mathbf{I}_{\text{exp}} \cdot \mathbf{I}_{\text{ref}} = (80 \cdot 100) + (45 \cdot 50) + (10 \cdot 20) = 8000 + 2250 + 200 = 10\,450$$
+
+2. **Vektorių normų (ilgių) skaičiavimas:**
+   $$\|\mathbf{I}_{\text{ref}}\| = \sqrt{100^2 + 50^2 + 20^2} = \sqrt{10000 + 2500 + 400} = \sqrt{12900} \approx 113.578$$
+   $$\|\mathbf{I}_{\text{exp}}\| = \sqrt{80^2 + 45^2 + 10^2} = \sqrt{6400 + 2025 + 100} = \sqrt{8525} \approx 92.331$$
+
+3. **Kosinuso rodiklio skaičiavimas:**
+   $$S_{\text{cosine}} = \frac{\mathbf{I}_{\text{exp}} \cdot \mathbf{I}_{\text{ref}}}{\|\mathbf{I}_{\text{exp}}\| \|\mathbf{I}_{\text{ref}}\|} = \frac{10\,450}{113.578 \cdot 92.331} = \frac{10\,450}{10\,486.76} \approx 0.9965$$
+
+4. **Vertinimas:**
+   * Kadangi $S_{\text{cosine}} = 0.9965 \ge 0.85$, spektrinė atitiktis yra itin aukšta ($99.65\%$), patvirtinanti tikslią metabolito tapatybę.
+:::
+::::
+
+
+::::exercise
+### 5. Užduotis: EIC masės tolerancijos lango skaičiavimas ppm ir m/z rėžiai
+
+**Sąlyga:**
+Netikslinėje HRMS analizėje tiriamas metabolitas L-triptofanas, kurio teorinis pronizuotas jonas $[M+H]^+$ yra $m/z = 205.0972\text{ Da}$. Duomenų apdorojimo sistemoje nustatytas EIC ekstrahavimo langas $\pm 5\text{ ppm}$.
+
+1. Apskaičiuokite masės toleranciją $\Delta m/z$ daltonais (Da).
+2. Nustatykite minimalią ($m/z_{\text{min}}$) ir maksimalią ($m/z_{\text{max}}$) EIC ekstrahavimo ribas.
+
+:::solution
+#### Sprendimas
+
+1. **Masės tolerancijos skaičiavimas:**
+   $$\Delta m/z = m/z  \times \frac{\text{ppm}}{10^6} = 205.0972  \times \frac{5}{10^6} = 0.0010255\text{ Da} \approx 0.00103\text{ Da}$$
+
+2. **EIC ribų skaičiavimas:**
+   $$m/z_{\text{min}} = 205.0972 - 0.0010255 = 205.09617\text{ Da}$$
+   $$m/z_{\text{max}} = 205.0972 + 0.0010255 = 205.09823\text{ Da}$$
+   * EIC chromatograma bus iškerpama tiksliai $[205.09617\text{–}205.09823]\text{ m/z}$ diapazone.
+:::
+::::
+
+
+::::exercise
+### 6. Užduotis: Savybių anotacija pagal masių atstumus ($\Delta m/z$)
+
+**Sąlyga:**
+LC-HRMS duomenyse ties tuo pačiu sulaikymo laiku $RT = 3.20\text{ min}$ užregistruotos trys chromatografinės smailės:
+* Smailė A: $m/z = 181.0707$ (intensyviausia smailė)
+* Smailė B: $m/z = 182.0740$
+* Smailė C: $m/z = 203.0527$
+
+Žinoma, kad $^{13}\text{C}-^{12}\text{C}$ masės skirtumas $\Delta m = 1.0033\text{ Da}$, $\text{Na}^+ - \text{H}^+$ masės skirtumas $\Delta m = 21.9820\text{ Da}$, o protono masė $m_{\text{H}^+} = 1.0073\text{ Da}$.
+
+1. Identifikuokite Smailės B ir C jono tipus pagal masių skirtumus nuo Smailės A.
+2. Nustatykite neutralią motininės molekulės masę $M$ (Da).
+
+:::solution
+#### Sprendimas
+
+1. **Masių skirtumų skaičiavimas ir jono tipas:**
+   * Smailė B vs A: $\Delta m/z = 182.0740 - 181.0707 = 1.0033\text{ Da}$. Tai atitinka **$[M+1+H]^+$ izotopinį joną** ($^{13}\text{C}_{1}$ izopologas).
+   * Smailė C vs A: $\Delta m/z = 203.0527 - 181.0707 = 21.9820\text{ Da}$. Tai atitinka **$[M+Na]^+$ natrio aduktą**.
+
+2. **Neutralios masės $M$ skaičiavimas:**
+   * Kadangi Smailė A yra monoisotopinis jonas $[M+H]^+ = 181.0707\text{ Da}$:
+     $$M = 181.0707 - 1.0073 = 180.0634\text{ Da}$$
+   * (Pastaba: Ši masė atitinka hexose angliavandenį $\text{C}_6\text{H}_{12}\text{O}_6$, pvz., gliukozę. Visos 3 savybės priskiriamos vienai molekulei).
+:::
+::::
+
+::::exercise
+### 7. Užduotis: Matricos efekto ($ME, \%$) skaičiavimas ir ESI reiškinio vertinimas
+
+**Sąlyga:**
+Tiriant metabolito jonizaciją kraujo plazmoje, analitės smailės plotas grynajame tirpiklyje yra $A_{\text{tirpiklis}} = 500\,000$, o plazmos ekstrakte – $A_{\text{matrica}} = 350\,000$.
+
+1. Apskaičiuokite matricos efektą $ME(\%)$.
+2. Nustatykite, ar stebimas jonų slopinimas, ar sustiprinimas, ir paaiškinkite fizikinę to priežastį ESI šaltinyje.
+
+:::solution
+#### Sprendimas
+
+1. **Matricos efekto skaičiavimas:**
+   $$ME (\%) = \frac{A_{\text{matrica}}}{A_{\text{tirpiklis}}} \times 100\% = \frac{350\,000}{500\,000} \times 100\% = 70.0\%$$
+
+2. **Reiškinio vertinimas ir fizikinė priežastis:**
+   * Kadangi $ME = 70.0\% < 80.0\%$, stebimas **jonų slopinimas (Ion Suppression)** – analitės signalas sumažėjo $30.0\%$.
+   * **Fizikinė priežastis:** ESI lašelio paviršiuje kartu eliuuojantys matricos komponentai (pvz., fosfolipidai, druskos) konkuruoja su analite dėl protonų ($H^+$) bei išgaravimo ploto, nustumdami analitę į lašelio vidų ir neleisdami jai pereiti į dujų fazę.
+:::
+::::
+
+
+::::exercise
+### 8. Užduotis: Vieno taško vidinis kalibravimas pagal SIL-IS
+
+**Sąlyga:**
+Tiriamas fenilalaninas kraujo serume. Į mėginį įterpiama $[^{13}\text{C}_9]$-fenilalanino (SIL-IS) koncentracija $C_{\text{IS}} = 50.0\ \mu\text{mol/L}$. Matavimo metu gauti smailės plotai: analitės $Y_A = 240\,000$, vidinio standarto $Y_{\text{IS}} = 300\,000$. Prietaiso atsako faktorius $RF = 1.00$.
+
+1. Apskaičiuokite Atsako Santykį ($RR = Y_A / Y_{\text{IS}}$).
+2. Apskaičiuokite absoliučią fenilalanino koncentraciją mėginyje $C_x$ ($\mu\text{mol/L}$).
+
+:::solution
+### Sprendimas
+
+1. **Atsako Santykio skaičiavimas:**
+   $$RR = \frac{Y_A}{Y_{\text{IS}}} = \frac{240\,000}{300\,000} = 0.800$$
+
+2. **Koncentracijos skaičiavimas:**
+   $$C_x = RR \cdot \frac{C_{\text{IS}}}{RF} = 0.800 \cdot \frac{50.0\ \mu\text{mol/L}}{1.00} = 40.0\ \mu\text{mol/L}$$
+:::
+::::
+
+### 10. (Atvejo Analizė I): Kokybės Kontrolės Programos Parengimas Plataus Spekto (Netikslinei) Lipidų Analizei Plazmoje
+
+**Sąlyga:**
+Netikslinėje lipidomikoje (Untargeted Lipidomics), taikant LC-HRMS (DDA/DIA režimu), matuojama tūkstančiai nežinomų savybių ($m/z \text{–}RT$ porų). Tradiciniai tikslinės analizės kalibratoriai čia netinka. Parengkite sisteminę kokybės kontrolės ir duomenų valymo (*Data Curation*) programą, leidžiančią užtikrinti aukštą biologinį patikimumą ir signalo dreifo korekciją.
+
+Sudaromas dokumentas turi apimti šiuos 4 privalomus skyrius:
+1. **Jungtinio kokybės kontrolės mėginio (Pooled QC) paruošimas ir įterpimo dažnis.**
+2. **Duomenų valymo protokolas (Data Curation Pipeline): tuščio mėginio korekcija, %RSD filtravimas ir signalo dreifo korekcija (QC-RLSC).**
+3. **LSI (Lipidomics Standards Initiative) standartų ir anotacijos lygmenų taikymas.**
+4. **Mėginių sekos sudarymas ir priimtinumo kriterijai.**
+
+:::solution
+#### Sprendimas: Kokybės Kontrolės Programa Netikslinei Lipidų Analizei
+
+```mermaid
+flowchart TD
+    A[Žali LC-HRMS Duomenys] --> B[1. Reagentų Blankų Atėmimas: Mėginys / Blankas >= 5]
+    B --> C[2. Signalų Dreifo Korekcija: QC-RLSC pagal Pooled QC]
+    C --> D[3. Glaudumo Filtravimas: Pooled QC %RSD <= 20%]
+    D --> E[4. Minimalaus Aptikimo Filtravimas: Aptikta >= 80% grupės mėginių]
+    E --> F[Švari Savybių Lentelė Statistinei Analizei ir LSI Anotacijai]
+```
+
+##### 1. Jungtinio Kokybės Kontrolės Mėginio (Pooled QC) Paruošimas
+* **Gamyba:** Paimama tiksliai vienodas kiekis ($10\ \mu \text{L}$) iš **kiekvieno** tyrime dalyvaujančio biologinio plazmos mėginio. Visi mėginiai sumaišomi į vieną reprezentatyvų **Pooled QC** indą ir išskirstomi į vienkartines alikvotas.
+* **Informacinė vertė:** Pooled QC atspindi vidutinę visų tyrime esančių lipidų matricos sudėtį ir vidutines koncentracijas.
+* **Įterpimo dažnis:**
+  * **Kondicionavimas:** Sekos pradžioje įleidžiama **5–10 Pooled QC mėginių**, kad stabilizuotųsi chromatografinės kolonėlės pasyvavimas ir ESI šaltinio pusiausvyra.
+  * **Sekos metu:** Pooled QC įterpiamas **kas 5–8 biologinius mėginius** per visą analizės laiką.
+
+##### 2. Duomenų Valymo Protokolas (Data Curation Pipeline)
+Sugeneravus pirminę savybių lentelę (EIC pjaustymas ir smailių integracija), taikomas 4 etapų filtravimo algoritmas:
+
+1. **Reagentų blankų atėmimas (Blank Subtraction):**
+   * Apskaičiuojamas smailės ploto vidurkis biologiniuose mėginiuose ($A_{\text{bio}}$) ir reagentų blankuose ($A_{\text{blank}}$).
+   * **Taisyklė:** Pašalinamos visos savybės, kurioms $\frac{A_{\text{bio}}}{A_{\text{blank}}} < 5.0$. Tai eliminuoja plastikų minkštiklius, tirpiklių šiukšles ir sistemos triukšmą.
+
+2. **Signalo dreifo korekcija (QC-RLSC – Quality Control-Robust LOESS Signal Correction):**
+   * Dėl LC-MS detektoriaus jautrumo kritimo per ilgą seką smailės plotai gali sistemingai mažėti.
+   * Naudojant Pooled QC taškus laiko ašyje, kiekvienai savybei suskaičiuojama LOESS glotninimo kreivė ir biologinių mėginių plotai sunormalizuojami,  laik dreyfą.
+
+3. **Glaudumo filtravimas (%RSD filter Pooled QC mėginiuose):**
+   * Po dreifo korekcijos apskaičiuojamas kiekvienos savybės ploto variacijos koeficientas ($RSD, \%$) **tik Pooled QC mėginiuose**:
+     $$RSD (\%) = \frac{\sigma_{ \text{QC}}}{\mu_{\text{QC}}} 	\times 100\%$$
+   * **Taisyklė:** Pašalinamos visos savybės, kurių $RSD > 20\%$ (arba $> 30\%$ mažo intensyvumo lipidams). Jei savybė labai varijuoja pačiame identiškame QC mėginyje, ji yra techninis triukšmas.
+
+4. **80% Taisyklė (Minimalus aptikimo dažnis):**
+   * Savybė išlaikoma tik tada, jei ji be N/A verčių aptinkama bent $\ge 80\%$ mėginių mažiausiai vienoje eksperimentinėje grupėje (pvz., kontrolinėje arba ligos grupėje).
+
+##### 3. LSI (Lipidomics Standards Initiative) Standartai ir Anotacija
+Gautoms savybėms priskiriami tarptautiniai LSI kokybės lygmenys:
+* **Mėginio praturtinimas su vidiniais standartais:** Į visus mėginius prieš ekstrahavimą įterpiamas egzogeninių lipidų mišinys (pvz., *SPLASH Lipidomix*, turintis po vieną neendogeninį / deuteruotą lipidą kiekvienai pagrindinei klasei: PC, PE, TAG, DAG, SM, Cer).
+* **LSI Anotacijos Lygmenys:**
+  * **LSI Level 1 (Absoliuti struktūra):** Nustatyta riebalų rūgščių sudėtis, dvigubųjų jungčių padėtis ir $sn$-pozicija (taikant MS/MS fragmentaciją ir izotopų anotaciją).
+  * **LSI Level 2 (Lipido klasė ir anglių/jungčių skaičius):** Identifikuota lipidų klasė bei bendras anglių ir dvigubųjų jungčių skaičius (pvz., $\text{PC 34:1}$).
+  * **LSI Level 3 (Tiksli masė MS1):** Žinoma tik tiksli masė $m/z$ be MS2 fragmentacijos.
+
+##### 4. Mėginių Sekos Sudarymas ir Priėmimo Kriterijai
+* **Sekos struktūra:** Reagentų blankai (3x) $ \to$ Pooled QC kondicionavimas (6x) $ \to$ Kalibravimo / LSI standartai $\to$ [Atsitiktine tvarka išdėsstyti biologiniai mėginiai (5x) $\to$ Pooled QC (1x)] $\to$ Pooled QC (2x) $\to$ Reagentų blankas.
+* **Priėmimo kriterijus:**
+  * Po duomenų valymo išlaikytų savybių skaičius Pooled QC mėginiuose turi sudaryti $\ge 70\%$ visų pirminių savybių.
+  * Vidinio standarto (SPLASH) sulaikymo laiko nuokrypis visoje sekoje neturi viršyti $\Delta RT \le \pm 0.1\text{ min}$.
+:::
+::::
+
+::::exercise
+### 10. (Atvejo Analizė II): Kokybės Kontrolės (QC) Programos Parengimas Tikslinei Aminorūgščių Analizei Kraujo Plazmoje
+
+**Sąlyga:**
+Jums pavesta parengti pilną, praktiškai įgyvendinamą kokybės kontrolės (QC) programą klinikinei tikslinei 20 aminorūgščių analizei kraujo plazmoje, taikant LC-MS/MS (SRM režimu) su stabiliais izotopais žymėtais vidiniais standartais (SIL-IS). Programa turi atitikti tarptautines bioanalitines gaires (FDA/EMA/SANTE).
+
+Sudaromas dokumentas turi apimti šiuos 5 privalomus skyrius:
+1. **Mėginių sekos (Analytical Run Sequence) struktūra.**
+2. **Sisteminio tinkamumo patikra (System Suitability Test – SST).**
+3. **Kalibrantų ir QC pavyzdžių priėmimo / atmetimo kriterijai.**
+4. **Sulaikymo trukmės (RT) ir Jonų santykio ($ \text{Quantifier}/	\text{Qualifier}$) stebėsena.**
+5. **Reagavimo veiksmai ir trikčių šalinimo protokolas (Troubleshooting).**
+
+:::solution
+#### Sprendimas: Kokybės Kontrolės (QC) Programa Tikslinei Aminorūgščių Analizei
+
+```mermaid
+flowchart TD
+    A[Mėginių Sekos Startas] --> B[1. Reagentų Blankas + System Suitability SST]
+    B --> C{SST kriterijai tenkinami?<br/>S/N >= 10, RT drift <= 1%}
+    C -- Ne --> D[Sustabdyti seką / Valyti prietaisą]
+    C -- Taip --> E[2. Kalibravimo Kreivė: 5 Lygiai su SIL-IS]
+    E --> F[3. QC Pavyzdžiai: LOQ, Low, Med, High]
+    F --> G[4. Biologiniai Mėginiai<br/>QC Med įterpiamas kas 10 mėginių]
+    G --> H[5. Galutinis QC Med + Blankas sekos pabaigoje]
+```
+
+##### 1. Mėginių Sekos (Analytical Run Sequence) Struktūra
+Seka privalo būti sudaryta griežtai tokia tvarka:
+1. **Reagentų blankas (Double Blank):** Tirpiklis be analičių ir be SIL-IS (sistemos švarumui ir kryžminei taršai tikrinti).
+2. **Nulinis mėginys (Zero Blank):** Tirpiklis su įterptu SIL-IS (SIL-IS izotopinimui ir grynumui patikrinti).
+3. **Sisteminio tinkamumo mėginys (SST):** Vidurinės koncentracijos standartas (3 pakartotiniai įšvirkštimai).
+4. **Kalibravimo standartai (Matrix-Matched Calibration):** 5 koncentracijos lygiai (padengiantys $0.5	ext{–}500\ \mu \text{mol/L}$), įterpiant pastovų SIL-IS kiekį.
+5. **QC pavyzdžiai (Quality Control Samples):**
+   * **QC LOQ:** Žemiausia kiekybinio įvertinimo riba.
+   * **QC Low (QCL):** $\sim 3 \times LOQ$.
+   * **QC Medium (QCM):** Diapazono viduryje.
+   * **QC High (QCH):** $\sim 75\%$ viršutinės kalibravimo ribos
+6. **Tiriamieji biologiniai mėginiai:** Išdėstyti atsitiktine tvarka mėginiai. Kas 10–12 biologinių mėginių **privalomai įterpiamas QCM pavyzdys** (prijungtas prie Westgard taisyklių).
+7. **Sekos pabaiga:** QCM pavyzdys + Reagentų blankas.
+
+##### 2. Sisteminio Tinkamumo Patikra (System Suitability Test – SST)
+Prieš pradedant analizuoti biologinius mėginius, SST privalo patvirtinti instrumentinės įrangos parengtį:
+* **Jautrumas:** LOQ standarto signalo ir triukšmo santykis $S/N \ge 10$.
+* **Sulaikymo laiko atkuriamumas:** 3 SST įšvirkštimų $RT$ variacijos koeficientas $RSD \le 1.0\%$ (arba $\Delta RT \le \pm 0.05 \text{ min}$).
+* **Smailės asimetrija:** Asimetrijos faktorius $A_s$ (ties $10\%$ smailės aukščio) turi būti $0.8 \le A_s \le 1.5$.
+* **Slėgio stabilumas:** HPLC slėgio svyravimai chromatografinio važiavimo metu $< 2\%$.
+
+
+##### 3. Kalibrantų ir QC Mėginių Priimtinumo Kriterijai (FDA/EMA)
+* **Kalibravimo kreivė:**
+  * Koreliacijos koeficiento kvadratas $R^2 \ge 0.990$ (taikant pasvertąją tiesinę regresiją $1/x$ arba $1/x^2$).
+  * Kiekvieno kalibravimo taško apskaičiuotos koncentracijos tikslumas (*Accuracy / Bias*) turi būti $\pm 15\%$ nuo nominalios vertės (išskyrus LOQ, kur leidžiama $\pm 20\%$).
+  * Bent $75\%$ kalibravimo taškų (mažiausiai 2 iš 5) privalo tenkinti šiuos kriterijus.
+* **QC pavyzdžiai:**
+  * Kiekvieno QC lygio (QCL, QCM, QCH) vidutinis tikslumas turi būti $\pm 15\%$ nuo nominalios vertės.
+  * Glaudumas (Pakartojamumas) (*Precision (Repeatability)*)  %RSD tarp QC pakartojimų turi būti $\le 15\%$ (LOQ lygmenyje $\le 20\%$).
+  * Mažiausiai $67\%$ (2/3) visų QC pavyzdžių ir bent $50\%$ kiekvieno konkretaus QC lygio pavyzdžių privalo tenkinti tikslumo reikalavimus.
+
+##### 4. Sulaikymo trukmės (RT) ir Jonų Santykio Stebėsena
+Kiekvienam biologiniam mėginiui automatiškai tikrinami du patikimumo parametrai:
+* **$\Delta RT$ stebėsena:** Analitės sulaikymo laikas mėginyje neturi skirtis nuo tą dieną išmatuoto kalibranto vidurkio daugiau kaip $\Delta RT = \pm 1.0\%$ (arba $\pm 0.05\text{ min}$).
+* **Jonų santykio ($\text{Quantifier}/\text{Qualifier}$) stebėsena:**
+  * Apskaičiuojamas santykis $R = I_{\text{qual}} / I_{\text{quant}}$.
+  * Mėginio $R_{\text{exp}}$ nuokrypis nuo kalibranto vidurkio $R_{\text{ref}}$ neturi viršyti leistinos $\pm 20\%$ ribos. Jei $R_{\text{exp}}$ iškrenta iš šių ribų, mėginio rezultatas anuliuojamas dėl matricos izobarinio trukdžio.
+
+##### 5. Reagavimo Veiksmai ir Trikčių Šalinimas (Troubleshooting)
+Jei sekos metu priimami QC pavyzdžiai nepatenkina kriterijų (taikant Westgard $1_{3s}$ arba $2_{2s}$ taisykles):
+1. **Atmetimo identifikavimas:** Jei vienas QCM pavyzdys viršija $\pm 15\%$ ribą, visi po paskutinio „gero“ QCM išanalizuoti biologiniai mėginiai laikomi nepatikimais.
+2. **Priežasčių analizė:**
+   * Jei pasislinko visų analičių $RT \implies$ Tikrinamas HPLC eliuento pratekėjimo greitis, kolonėlės termostatas arba mobilioji fazė.
+   * Jei nukrito visų analičių signalas $S/N \implies$ Valomas ESI jonų šaltinio įvado kapiliaras (skimmer / ion transfer tube).
+   * Jei pakito tik vienos aminorūgšties $RR \implies$ Tikrinamas SIL-IS įterpimo tikslumas arba vidinio standarto degradacija.
+3. **Korekciniai veiksmai:** Išvalius sistemą ir atlikus naują SST patikrą, nepatikimi biologiniai mėginiai perleidžiami iš naujo kartu su nauja kalibravimo kreive ir QC pavyzdžiais.
+:::
+::::
