@@ -651,7 +651,7 @@ Klasikinėje peptidų žemėlapio analizėje baltymas yra redukuojamas (pvz., su
 * **Scrambling problema:** Šarminėje terpėje (pH 7.5–8.5 – kas yra idealios sąlygos tripsinui) esant bent kelioms laisvoms tiolio ($-SH$) grupėms, įvyksta nukleofilinė ataka ir disulfidiniai tilteliai spontaniškai persitvarko. Taip susidaro artefaktinės (ne-gimtosios) jungtys, iškreipiančios rezultatus.
 * **Sprendimas 1 (pH valdymas):** Mėginio paruošimas ir fermentinis virškinimas atliekami rūgštinėje arba griežtai neutralioje terpėje:
   * **Pepsinas:** Veikia itin rūgštinėje terpėje (pH 1.2–2.0), kur $S-S$ persitvarkymas visiškai slopinamas.
-  * **Mokslinė hidrolizė (MAAH):** Rūgštinė hidrolizė be fermentų.
+  * **Hidrolizė mikrobangomis (MAAH):** Rūgštinė hidrolizė be fermentų.
   * **Tripsinas / Glu-C neutraliame pH:** Taikomas optimizuotas virškinimas prie pH 6.5–7.0.
 * **Sprendimas 2 (Laisvų tiolių blokavimas):** Laisvos Cys tiolio grupės užblokuojamos alkilinančiu reagentu **N-etilmaleimidu (NEM)** arba **jodoacetamidu (IAM)**. NEM reaguoja itin greitai ir išlaiko stabilumą rūgštiniame/neutraliame pH, apsaugodamas nuo tiolų-disulfidų mainų reakcijų.
 
